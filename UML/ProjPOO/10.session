@@ -1,0 +1,12 @@
+window_sizes 1200 641 300 894 525 64
+cleanlooks_style
+diagrams
+  active  classdiagram_ref 128010 // Environment
+    890 499 100 A4 0 0
+end
+show_stereotypes
+selected class_ref 128010 // Population
+open
+  classview_ref 128010 // Environment
+end
+end

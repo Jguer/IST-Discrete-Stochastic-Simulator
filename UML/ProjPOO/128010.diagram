@@ -1,0 +1,63 @@
+format 218
+
+classcanvas 128010 class_ref 128010 // Population
+  classdiagramsettings member_max_width 0 end
+  xyzwh 204 63 2000 113 83
+end
+classcanvas 128138 class_ref 134538 // Individual
+  classdiagramsettings member_max_width 0 end
+  xyzwh 203 176 2000 115 89
+end
+classcanvas 128266 class_ref 134666 // Point
+  classdiagramsettings hide_attributes no hide_operations no hide_getset_operations no hide_ports no show_members_full_definition yes show_members_visibility yes show_members_stereotype yes show_members_multiplicity no show_members_initialization yes show_attribute_modifiers yes member_max_width 0 show_parameter_dir yes show_parameter_name yes end
+  xyzwh 387 179 2000 115 81
+end
+classcanvas 128394 class_ref 134794 // Obstacle
+  classdiagramsettings member_max_width 0 end
+  xyzwh 389 318 2000 119 87
+end
+classcanvas 128522 class_ref 134922 // SpecialZone
+  classdiagramsettings member_max_width 0 end
+  xyzwh 562 174 2000 115 95
+end
+classcanvas 128650 class_ref 135050 // Map
+  classdiagramsettings member_max_width 0 end
+  xyzwh 563 322 2000 117 81
+end
+relationcanvas 128778 relation_ref 128010 // Pop
+  from ref 128010 z 2001 label "Pop" italic max_width 255 xyz 262 154.5 3000 to ref 128138
+  no_role_a no_role_b
+  multiplicity_a_pos 246 162 3000 no_multiplicity_b
+end
+relationcanvas 128906 relation_ref 128138 // Path
+  from ref 128138 z 2001 label "Path" italic max_width 255 xyz 341 209 3000 to ref 128266
+  no_role_a no_role_b
+  multiplicity_a_pos 372 224 3000 multiplicity_b_pos 327 224 3000
+end
+relationcanvas 129034 relation_ref 128266 // SpZones
+  from ref 128650 z 2001 label "SpZones" italic max_width 255 xyz 621.5 287.5 3000 to ref 128522
+  no_role_a no_role_b
+  multiplicity_a_pos 605 273 3000 no_multiplicity_b
+end
+relationcanvas 129802 relation_ref 128778 // Area
+  from ref 128522 z 2001 label "Area" italic max_width 255 xyz 532 209 3000 to ref 128266
+  no_role_a no_role_b
+  multiplicity_a_pos 511 224 3000 no_multiplicity_b
+end
+relationcanvas 129930 relation_ref 128906 // ObstList
+  from ref 128650 z 2001 label "ObstList" italic max_width 255 xyz 516 351 3000 to ref 128394
+  no_role_a no_role_b
+  multiplicity_a_pos 517 366 3000 no_multiplicity_b
+end
+relationcanvas 130058 relation_ref 129034 // <generalisation>
+  decenter_begin 470
+  from ref 128394 z 2001 to ref 128266
+  no_role_a no_role_b
+  no_multiplicity_a no_multiplicity_b
+end
+relationcanvas 130186 relation_ref 129162 // initFinal
+  from ref 128650 z 2001 label "initFinal" italic max_width 255 xyz 532 278 3000 to ref 128266
+  no_role_a no_role_b
+  multiplicity_a_pos 504 272 3000 no_multiplicity_b
+end
+end
