@@ -1,9 +1,11 @@
 package optProblem;
 
-
+import java.io.File;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.util.LinkedList;
 import java.util.List;
-
+import parser.OptProblemHandler;
 import pec.Pec;
 
 /**
@@ -88,25 +90,7 @@ public class StochasticOptProblem implements OptProblem{
 	//METHODS
 	
 	//talvez depois por no individual??????????????????????????????????????????????????????
-	/**
-	 * Method that will take care of updating the best individual.
-	 * In case the goal has been hit than the best is chosen by iterating over the list of individuals, only looking for the ones that have hit the goal and choosing the one with the lowest cost. 
-	 * If the goal has not been reached then we simply pick the individual with the highest comfort.
-	 */
-	public void updateBest() {
-		//if we already hit the goal at some point
-		if(hit){
-			best = new Individual(Individual.getBestIndividual(list_inds,best));
-		}
-		else {
-			for(Individual ind: list_inds) {
-				//if we don't have a best yet OR this guy is better than the last
-				if(best == null || ind.comfort>best.comfort) {
-					best = new Individual(ind);
-				}
-			}
-		}
-	}		
+		
 
 	
 	/**
@@ -146,7 +130,7 @@ public class StochasticOptProblem implements OptProblem{
 	}	
 
 	
-	public void initialize(int max_indss, double max_timee, int dmean, int mmean, int rmean, int xx, int yy, int no, int cmaxx, int kk, int num_inds_init){
+	public void initialize(int max_indss, double max_timee, int dmean, int mmean, int rmean, Map parsedMap, Point initialPoint, Point finalPoint, int kk, int num_inds_init){
 		
 		
 		actual_time = 0;
@@ -155,26 +139,21 @@ public class StochasticOptProblem implements OptProblem{
 		death_mean = dmean;
 		move_mean = mmean;
 		repr_mean = rmean;
-		map = new Map(xx,yy,no,cmaxx);
+		map = parsedMap;
 		k = kk;
 		hit = false;
 		
 		int num_ctrl = 20;
 		double ctrl_time = (double)max_time/num_ctrl;
 		
-		start = new Point(1,1);
-		goal = new Point(5,4);
-		map.obstacles[0] = new Point(2,1);  //depois pode ser uma funcao dentro do map tipo addObstacle() na interface e depois cada map sabe como é que faz
-		map.obstacles[1] = new Point(2,3);
-		map.obstacles[2] = new Point(2,4);
-		map.obstacles[3] = new Point(4,2);
-		map.specialZones.add(new SpecialZone(new Point(2,2),new Point(3,3),4));
+		start = initialPoint;
+		goal = finalPoint;
 		
 
 		for(int i=0; i<num_inds_init; i++) { //creates the first individuals at the starting point
 			this.createFirstInds(); 
 		}
-		this.updateBest(); //updates the best one so far
+		this.best = Individual.updateBest(list_inds, best, hit); //updates the best one so far
 		
 		for(int j=1;j<=num_ctrl;j++) { //adding the Control Print events to the PEC
 			pec.addElement(new EvControlPrint(ctrl_time*j), ec);
@@ -200,7 +179,7 @@ public class StochasticOptProblem implements OptProblem{
 			
 			if(ev.individual!= null) { //if it was an event with an individual associated
 				ev.individual.updateComfort(this.goal, this.map.cmax,  this.map.mapDimensions.x,  this.map.mapDimensions.y, this.k);
-				this.updateBest(); //update the best individual since we might have reached the goal or have a new best comfort
+				this.best = Individual.updateBest(list_inds, best, hit); //updates the best one so far
 			
 				if(this.alive_inds>this.max_inds) {//launch an epidemic - it will have time = current time so we will execute it right away
 					this.pec.addElement(new EvEpidemic(this), ec);
@@ -229,20 +208,36 @@ public class StochasticOptProblem implements OptProblem{
 		
 	}
 	
-	public static void main(String[] args) {
+	public void runOptimizationProblem(String filename) {
 		
 		//max_indss, max_timee,  dmean,  mmean,  rmean, x,  y, no, cmaxx, k, initial nº individuals){
-		OptProblem op = new StochasticOptProblem();
-		op.initialize(50, 100, 10, 1, 1, 5, 4, 4, 4, 3, 10);
 		
-		op.simulate();
+		try {
+	    	 SAXParserFactory factory = SAXParserFactory.newInstance();
+	         SAXParser saxParser = factory.newSAXParser();
+	         OptProblemHandler myhandler = new OptProblemHandler();
+	         File inputFile = new File(filename);
+	         saxParser.parse(inputFile, myhandler);     
+	         
+	         System.out.println(myhandler.getMaxpop() +" "+myhandler.getFinalinst()+" "+myhandler.getInitpop()+" "+myhandler.getComfortsens());
+	         System.out.println(myhandler.getMap());
+	         System.out.println(myhandler.getDmean() + " " + myhandler.getRmean() + " " + myhandler.getMmean());
+	    
+	 		 this.initialize(myhandler.getMaxpop(), myhandler.getFinalinst(), myhandler.getDmean(), myhandler.getMmean(),  myhandler.getRmean(),
+	 				 myhandler.getMap(),myhandler.getInitialPoint(),myhandler.getFinalPoint(), myhandler.getComfortsens(), myhandler.getInitpop());
+	 		
+	 		 this.simulate();
+	         
+	         
+	      } catch (Exception e) {
+	         e.printStackTrace();
+	      }       
+		
 		
 	}
 	
 }
 	
-	
-	// ------------------------------------ MAIN METHOD --------------------------------------------------------
 	/**
 	 * Main method to run an optimization problem.
 	 * The flow is the following:
@@ -252,75 +247,3 @@ public class StochasticOptProblem implements OptProblem{
 	 * 4) The cycle ends when there are no more alive individuals or the simulation time is over.
 	 * @param args are the arguments passed to the main function when executing the program.
 	 */
-/*	public static void main(String[] args) {
-		
-		//INITIALIZATION =========================
-		//max_indss, max_timee,  dmean,  mmean,  rmean, x,  y, no, cmaxx, k){
-		OptProblem op = new OptProblem(50, 100, 10, 1, 1, 5, 4, 4, 4, 3);
-		
-		int num_inds_init = 10;
-		int num_ctrl = 20;
-		double ctrl_time = (double)op.max_time/num_ctrl;
-		Event ev;
-		
-		op.start = new Point(1,1);
-		op.goal = new Point(5,4);
-		op.obstacles[0] = new Point(2,1);
-		op.obstacles[1] = new Point(2,3);
-		op.obstacles[2] = new Point(2,4);
-		op.obstacles[3] = new Point(4,2);
-		op.specialZones.add(new SpecialZone(new Point(2,2),new Point(3,3),4));
-		
-
-		for(int i=0; i<num_inds_init; i++) { //creates the first individuals at the starting point
-			op.createFirstInds(); 
-		}
-		op.updateBest(); //updates the best one so far
-		
-		for(int j=1;j<=num_ctrl;j++) { //adding the Control Print events to the PEC
-			op.pec.addElement(new EvControlPrint(ctrl_time*j), ec);
-		}
-		
-		//System.out.println(op.pec.toString());
-						
-		// ================= SIMULATING =============================
-		while(op.alive_inds > 0 && op.actual_time < op.max_time) {
-
-			
-			ev = op.pec.getFirstElement(); //get next event from PEC
-			//System.out.println("ev: " +ev);
-			op.actual_time = ev.time; //fast forward until its time to execute it
-			op.num_events++;
-			ev.ExecEvent(op);
-			
-			if(ev.individual!= null) { //if it was an event with an individual associated
-				ev.individual.updateComfort(op.goal, op.cmax,  op.mapDimensions.x,  op.mapDimensions.y, op.k);
-				op.updateBest(); //update the best individual since we might have reached the goal or have a new best comfort
-			
-				if(op.alive_inds>op.max_inds) {//launch an epidemic - it will have time = current time so we will execute it right away
-					op.pec.addElement(new EvEpidemic(op), ec);
-				}
-			}
-		}
-		
-		// ======================= WE'RE OUT OF THE SIMULATION!!! ===============================
-		System.out.println("\n\n");
-		if(op.actual_time>=op.max_time)
-			System.out.println("Simulation ended because of the TIME LIMIT.");
-		else if(op.alive_inds <= 0)
-			System.out.println("Simulation ended because WE HAD NO MORE INDIVIDUALS");
-		
-		System.out.println("Total nº Events: " + op.num_events);
-		System.out.println("Total nº Repr: " + op.num_reprs);
-		System.out.println("Total nº Move: " + op.num_moves);
-		System.out.println("Total nº Death: " + op.num_deaths);
-		System.out.println("Total nº Epidemics: " + op.num_epidemics);
-		
-		System.out.println("Hit the goal? " + op.hit);
-		System.out.println("Path of the best fit individual: " +  op.best.history.toString());
-		System.out.println("Cost: " + op.best.cost);
-		System.out.println("Comfort: " + op.best.comfort);
-		
-		
-	}
-}*/

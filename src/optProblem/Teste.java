@@ -3,12 +3,16 @@ package optProblem;
 public class Teste {
 
 	
-public static void main(String[] args) {
+	public static void main(String[] args) {
+		
+		if(args.length != 1) {
+			System.out.println("Error - You must give the name of the file and place it in the directory!");
+			System.exit(-1);
+		}
+		String filename = args[0];
 		
 		OptProblem op = new StochasticOptProblem();
-		op.initialize(50, 100, 10, 1, 1, 5, 4, 4, 4, 3, 10); //max_indss, max_timee,  dmean,  mmean,  rmean, x,  y, no, cmaxx, k, initial nº individuals)
 		
-		op.simulate();
-		
+		op.runOptimizationProblem(filename);
 	}
 }

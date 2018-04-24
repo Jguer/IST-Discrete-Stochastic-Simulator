@@ -12,7 +12,6 @@ import java.util.List;
  */
 public class Individual {
 	
-	
 	//ATTRIBUTES
 	int identifier;
 	double death_time;
@@ -51,6 +50,30 @@ public class Individual {
 		history = new ArrayList<Point>(clone.history);
 		costs = new ArrayList<Integer>(clone.costs);
 	}
+	
+	
+	/**
+	 * Method that will take care of updating the best individual.
+	 * In case the goal has been hit than the best is chosen by iterating over the list of individuals, only looking for the ones that have hit the goal and choosing the one with the lowest cost. 
+	 * If the goal has not been reached then we simply pick the individual with the highest comfort.
+	 */
+	public static Individual updateBest(List<Individual> list_inds, Individual best, boolean hit) {
+		//if we already hit the goal at some point
+		if(hit){
+			best = new Individual(Individual.getBestIndividual(list_inds,best));
+		}
+		else {
+			for(Individual ind: list_inds) {
+				//if we don't have a best yet OR this guy is better than the last
+				if(best == null || ind.comfort>best.comfort) {
+					best = new Individual(ind);
+				}
+			}
+		}
+		
+		return best;
+	}	
+	
 	
 				
 	//METHODS

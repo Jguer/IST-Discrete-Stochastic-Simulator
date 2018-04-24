@@ -24,6 +24,12 @@ public class SpecialZone {
 		p2 = p22;
 		cost = cc;
 	}
+
+
+	@Override
+	public String toString() {
+		return "SpecialZone [p1=" + p1 + ", p2=" + p2 + ", cost=" + cost + "]";
+	}
 	
 
 	//METHODS

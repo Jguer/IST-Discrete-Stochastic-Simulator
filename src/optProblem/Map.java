@@ -15,8 +15,15 @@ public class Map implements IMap {
 	Point mapDimensions;
 	Point[] obstacles;
 	List<SpecialZone> specialZones;
+	int total_obst;
+	int number_zones;
+	
 	
 	//CONTRUCTORS
+	public Map(Point p) {
+		mapDimensions = p;
+	}
+	
 	public Map(int xx, int yy, int no, int cmaxx) {
 		cmax=cmaxx;
 		obstacles = new Point[no];
@@ -55,6 +62,26 @@ public class Map implements IMap {
 	}
 	
 	
+	public void addObstacle(Point p) {
+		obstacles[total_obst] = p;
+		total_obst++;
+	}
+	
+	
+	public void addObstacles(Point[] obsts) {
+		obstacles = obsts;
+		total_obst = obstacles.length;
+	}
+	
+	
+	public void addSpecialZones(List<SpecialZone> specials) {
+		specialZones = specials;
+		number_zones = specialZones.size();
+	}
+	
+	public void addMaxCost(int c) {
+		cmax = c;
+	}
 	
 	
 	/**
@@ -88,4 +115,16 @@ public class Map implements IMap {
 		}	
 		return 1;
 	}
+
+	@Override
+	public String toString() {
+		return "Map [cmax=" + cmax + ", mapDimensions=" + mapDimensions + ", obstacles=" + Arrays.toString(obstacles)
+				+ ", specialZones=" + specialZones + ", total_obst=" + total_obst + ", number_zones=" + number_zones
+				+ "]";
+	}
+	
+	
+
+	
+
 }
