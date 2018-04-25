@@ -40,9 +40,6 @@ format 218
 
   mark_for_import
   
-  package_ref 134538 // Point
-
   package_ref 128010 // Environment
 
-  package_ref 134666 // Agents
 end
