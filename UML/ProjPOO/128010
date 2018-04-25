@@ -26,7 +26,7 @@ format 218
   activitydiagramsettings
    end
   
-  classview 128010 "Environment"
+  classview 128010 "EnvironmentView"
     
     classdiagramsettings member_max_width 0 end
     
@@ -42,224 +42,6 @@ format 218
     
     activitydiagramsettings
      end
-    classdiagram 128010 "Environment"
-      classdiagramsettings draw_all_relations no member_max_width 0 end
-      size A4
-    end
-
-    class 128010 "Population"
-      visibility package 
-      cpp_decl ""
-      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      classrelation 128010 // (Pop)
-	relation 128010 ---> name "Pop"
-	  a role_name "" multiplicity "*" package
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
-"
-	    classrelation_ref 128010 // (Pop)
-	  b parent class_ref 134538 // Individual
-      end
-
-      attribute 129162 "v"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "Current number of individuals in the population"
-      end
-
-      attribute 129290 "vmax"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "maximum number of individuals in the population"
-      end
-    end
-
-    class 134538 "Individual"
-      visibility package 
-      cpp_decl ""
-      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      classrelation 128138 // (Path)
-	relation 128138 *--- name "Path"
-	  a role_name "" multiplicity "*" package
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
-"
-	    classrelation_ref 128138 // (Path)
-	  b role_name "" multiplicity "1" private
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	    classrelation_ref 128266 // (Path)
-      end
-
-      attribute 128394 "id"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 128522 "comfort"
-	package explicit_type "float"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 128778 "cost"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "cost of the path of the individual"
-      end
-
-      attribute 128906 "length"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "length of the path of the individual (hops)"
-      end
-
-      attribute 129034 "dist"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-	comment "Distance between the present position of the individual and the final position of the map"
-      end
-    end
-
-    class 134666 "Point"
-      visibility package 
-      cpp_decl ""
-      java_decl "${comment}${@}${visibility}${static}${final}${abstract}class ${name}${extends}${implements} {
-${members}}
-"
-      php_decl ""
-      python_2_2 python_decl ""
-      idl_decl ""
-      explicit_switch_type ""
-      mysql_decl ""
-      
-      classrelation 128266 // (Path)
-	relation_ref 128138 // Path
-      end
-
-      classrelation 128522 // <unidirectional association>
-	relation 128394 --->
-	  a role_name "" private
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	    classrelation_ref 128522 // <unidirectional association>
-	  b parent class_ref 134922 // SpecialZone
-      end
-
-      classrelation 128650 // <unidirectional association>
-	relation 128522 --->
-	  a role_name "" private
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	    classrelation_ref 128650 // <unidirectional association>
-	  b parent class_ref 134922 // SpecialZone
-      end
-
-      classrelation 128778 // <unidirectional association>
-	relation 128650 --->
-	  a role_name "" private
-	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	    classrelation_ref 128778 // <unidirectional association>
-	  b parent class_ref 134922 // SpecialZone
-      end
-
-      attribute 128010 "x"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-
-      attribute 128138 "y"
-	package explicit_type "int"
-	multiplicity "1"
-	cpp_decl ""
-	java_decl "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
-"
-	php_decl ""
-	python_decl ""
-	idl_decl ""
-	mysql_decl ""
-	MysqlColumn
-      end
-    end
-
     class 134794 "Obstacle"
       visibility package 
       cpp_decl ""
@@ -272,13 +54,33 @@ ${members}}
       explicit_switch_type ""
       mysql_decl ""
       
-      classrelation 129162 // <generalisation>
-	relation 129034 ---|>
+      operation 128266 "Obstacle"
+	package explicit_return_type ""
+	nparams 2
+	  param in name "x" explicit_type "int"
+	  param in name "y" explicit_type "int"
+	
+	java_def "  ${comment}${@}${visibility}${final}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}${)}${throws} {
+  ${body}}
+"
+	
+	
+	
+	comment "Constructor"
+      end
+
+      classrelation 130058 // <generalisation>
+	relation 129674 ---|>
 	  a public
 	    java "${type}"
-	    classrelation_ref 129162 // <generalisation>
+	    classrelation_ref 130058 // <generalisation>
 	  b parent class_ref 134666 // Point
       end
+    end
+
+    classdiagram 128010 "Environment"
+      classdiagramsettings draw_all_relations no member_max_width 0 show_parameter_dir no end
+      size A4
     end
 
     class 134922 "SpecialZone"
@@ -313,6 +115,30 @@ ${members}}
 	idl_decl ""
 	mysql_decl ""
 	MysqlColumn
+      end
+
+      operation 128010 "SpecialZone"
+	package explicit_return_type ""
+	nparams 1
+	  param in name "cost" explicit_type "int"
+	
+	java_def "  ${comment}${@}${visibility}${final}${synchronized}${name}${(}${t0} ${p0}${)}${throws} {
+  ${body}}
+"
+	
+	
+	
+	comment "Constructor
+"
+      end
+
+      classrelation 129930 // 2 (Area)
+	relation 129546 ---> name "Area"
+	  a role_name "2" public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type} ${name}${value};
+"
+	    classrelation_ref 129930 // 2 (Area)
+	  b parent class_ref 134666 // Point
       end
     end
 
@@ -410,6 +236,49 @@ ${members}}
 	mysql_decl ""
 	MysqlColumn
 	comment "number of obstacles in the grid"
+      end
+
+      operation 128394 "Map"
+	package explicit_return_type ""
+	nparams 4
+	  param in name "cmax" explicit_type "int"
+	  param in name "dimN" explicit_type "int"
+	  param in name "dimM" explicit_type "int"
+	  param in name "nObst" explicit_type "int"
+	
+	java_def "  ${comment}${@}${visibility}${final}${synchronized}${name}${(}${t0} ${p0}, ${t1} ${p1}, ${t2} ${p2}, ${t3} ${p3}${)}${throws} {
+  ${body}}
+"
+	
+	
+	
+	comment "Constructor"
+      end
+
+      classrelation 130186 // (ObstList)
+	relation 129802 ---> name "ObstList"
+	  a role_name "" multiplicity "*" public
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${stereotype}<${type}> ${name}${value};
+"
+	    classrelation_ref 130186 // (ObstList)
+	  b parent class_ref 134794 // Obstacle
+      end
+
+      classrelation 130314 // <generalisation>
+	relation 129930 ---|>
+	  a public
+	    java "${type}"
+	    classrelation_ref 130314 // <generalisation>
+	  b parent class_ref 134666 // Point
+      end
+
+      classrelation 130442 // (initFinal)
+	relation 130058 ---> name "initFinal"
+	  a role_name "" multiplicity "2" package
+	    java "  ${comment}${@}${visibility}${static}${final}${transient}${volatile}${type}${multiplicity} ${name}${value};
+"
+	    classrelation_ref 130442 // (initFinal)
+	  b parent class_ref 134666 // Point
       end
     end
   end
