@@ -1,7 +1,9 @@
 package optProblem;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * @author antonio
@@ -34,7 +36,9 @@ public class EvEpidemic extends Event{
 	 * In this particular case we have to keep the 5 individuals with best comfort and decide whether or not to kill the others using a random variable and the individual's comfort.
 	 * If an individual is killed in an epidemic then all the events in the PEC associated to the individual must be removed.
 	 */
-	public void ExecEvent(StochasticOptProblem op){
+	public void ExecEvent(OptProblem opp){
+		
+		StochasticOptProblem op = (StochasticOptProblem) opp;
 		
 		op.num_epidemics++;
 		
@@ -52,7 +56,7 @@ public class EvEpidemic extends Event{
 			r = Event.r.nextDouble();
 			if(r>ind.comfort) { //sorry but you will die, says the programmer to the individual
 				
-				List<Event> pecevents = op.pec.getElementList();
+				Collection<Event> pecevents = (Queue<Event>) op.pec.getElementList();
 				List<Event> found = new ArrayList<Event>();
 				
 				//remove all events in the pec that are related to the individual we are killing

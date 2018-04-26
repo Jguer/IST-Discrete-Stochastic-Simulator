@@ -27,7 +27,9 @@ public class EvControlPrint extends Event {
 	 * @see optProblem.Event#ExecEvent(optProblem.OptProblem) for the default documentation.
 	 * In this particular case we have to print the control information requested in the project paper.
 	 */
-	public void ExecEvent(StochasticOptProblem op){
+	public void ExecEvent(OptProblem opp){
+		
+		StochasticOptProblem op = (StochasticOptProblem) opp;
 			
 		int num = op.num_ControlPrint;
 		op.num_ControlPrint++;

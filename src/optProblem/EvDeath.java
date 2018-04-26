@@ -28,11 +28,14 @@ public class EvDeath extends Event{
 	 * @see optProblem.Event#ExecEvent(optProblem.OptProblem) for the default documentation.
 	 * In this particular case we kill the individual in the event. By killing we mean removing it from the list of individuals and decreasing the number of alive individuals by 1.
 	 */
-	public void ExecEvent(StochasticOptProblem op){
-			op.num_deaths++;
+	public void ExecEvent(OptProblem opp){
 		
-			op.alive_inds --;
-			op.list_inds.remove(this.individual);	
+		StochasticOptProblem op = (StochasticOptProblem) opp;
+		
+		op.num_deaths++;
+	
+		op.alive_inds --;
+		op.list_inds.remove(this.individual);	
 	}
 	
 	

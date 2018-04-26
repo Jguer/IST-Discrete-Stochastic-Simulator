@@ -15,8 +15,8 @@ public abstract class  Event implements IEvent{
 	Individual individual;
 	double time;
 	
-	static Random r = new Random();
-	static EventComparator ec = new EventComparator();
+	public static Random r = new Random();
+	public static EventComparator ec = new EventComparator();
 
 	//CONTRUCTORS
 	/**
@@ -35,7 +35,7 @@ public abstract class  Event implements IEvent{
 	 * Abstract method of the event execution. Each event type should redefine this method to do what it should do.
 	 * @param op is the Optimization Problem that this event belongs to.
 	 */
-	public abstract void ExecEvent(StochasticOptProblem op);
+	public abstract void ExecEvent(OptProblem op);
 	
 	
 	/**

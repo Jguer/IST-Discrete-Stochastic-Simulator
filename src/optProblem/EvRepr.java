@@ -32,7 +32,9 @@ public class EvRepr extends Event {
 	 * For the parent we create a new reproduction and add it to the PEC if the time is lower than the death time of the individual.
 	 * For the son we create the history based on the father's and then update its comfort and add the Death, Reproduction and Move events to the PEC.
 	 */
-	public void ExecEvent(StochasticOptProblem op){
+	public void ExecEvent(OptProblem opp){
+		
+		StochasticOptProblem op = (StochasticOptProblem) opp;
 		
 		op.num_reprs++;
 		

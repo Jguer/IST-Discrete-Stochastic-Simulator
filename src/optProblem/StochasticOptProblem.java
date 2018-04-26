@@ -6,7 +6,8 @@ import javax.xml.parsers.SAXParserFactory;
 import java.util.LinkedList;
 import java.util.List;
 import parser.OptProblemHandler;
-import pec.Pec;
+import pec.IPec;
+import pec.PriorityQueuePec;
 
 /**
  * @author antonio
@@ -40,7 +41,7 @@ public class StochasticOptProblem implements OptProblem{
 	int death_mean;
 	int move_mean;
 	int repr_mean;
-	Pec<Event> pec;
+	IPec<Event> pec;
 	
 	//map related fields
 	Map map;
@@ -48,15 +49,14 @@ public class StochasticOptProblem implements OptProblem{
 	Point goal;
 	boolean hit;
 	
-	
-	static EventComparator ec = new EventComparator();
+
 	
 	//CONTRUCTORS
 	/**
 	 * Constructor with no arguments for the Optimization Problem. All it does is create the empty lists that will be used.
 	 */
 	public StochasticOptProblem() {
-		pec = new Pec<Event>();
+		pec = new PriorityQueuePec<Event>(Event.ec);
 		list_inds = new LinkedList<Individual>();
 	}
 	
@@ -109,18 +109,18 @@ public class StochasticOptProblem implements OptProblem{
 		
 		ind.updateComfort(goal,map.cmax, map.mapDimensions.x, map.mapDimensions.y, k);
 		ind.death_time = actual_time + Event.expRandom(ind.getValueForExpMean()*death_mean);
-		pec.addElement(new EvDeath(ind.death_time, ind), ec);
+		pec.addElement(new EvDeath(ind.death_time, ind), Event.ec);
 		
 		// create move and only add if happens before death
 		double randTime = actual_time + Event.expRandom(ind.getValueForExpMean()*move_mean);
 		if(randTime<ind.death_time) {
-			pec.addElement(new EvMove(randTime, ind), ec);
+			pec.addElement(new EvMove(randTime, ind), Event.ec);
 		}
 		
 		//create reproduction and only add if happens before death
 		randTime = actual_time + Event.expRandom(ind.getValueForExpMean()*repr_mean);
 		if(randTime<ind.death_time) {
-			pec.addElement(new EvRepr(randTime, ind), ec);
+			pec.addElement(new EvRepr(randTime, ind), Event.ec);
 		}
 		
 	}	
@@ -152,7 +152,7 @@ public class StochasticOptProblem implements OptProblem{
 		this.best = Individual.updateBest(list_inds, best, hit); //updates the best one so far
 		
 		for(int j=1;j<=num_ctrl;j++) { //adding the Control Print events to the PEC
-			pec.addElement(new EvControlPrint(ctrl_time*j), ec);
+			pec.addElement(new EvControlPrint(ctrl_time*j), Event.ec);
 		}
 		
 		//System.out.println(op.pec.toString());
@@ -162,6 +162,9 @@ public class StochasticOptProblem implements OptProblem{
 	public void simulate(){
 		
 		Event ev;
+		
+		
+		System.out.println("Pec: " + this.pec.toStringOrdered());
 						
 		// ================= SIMULATING =============================
 		while(this.alive_inds > 0 && this.actual_time < this.max_time) {
@@ -178,7 +181,7 @@ public class StochasticOptProblem implements OptProblem{
 				this.best = Individual.updateBest(list_inds, best, hit); //updates the best one so far
 			
 				if(this.alive_inds>this.max_inds) {//launch an epidemic - it will have time = current time so we will execute it right away
-					this.pec.addElement(new EvEpidemic(this), ec);
+					this.pec.addElement(new EvEpidemic(this), Event.ec);
 				}
 			}
 		}
@@ -215,9 +218,9 @@ public class StochasticOptProblem implements OptProblem{
 	         File inputFile = new File(filename);
 	         saxParser.parse(inputFile, myhandler);     
 	         
-	         System.out.println(myhandler.getMaxpop() +" "+myhandler.getFinalinst()+" "+myhandler.getInitpop()+" "+myhandler.getComfortsens());
+	         /*System.out.println(myhandler.getMaxpop() +" "+myhandler.getFinalinst()+" "+myhandler.getInitpop()+" "+myhandler.getComfortsens());
 	         System.out.println(myhandler.getMap());
-	         System.out.println(myhandler.getDmean() + " " + myhandler.getRmean() + " " + myhandler.getMmean());
+	         System.out.println(myhandler.getDmean() + " " + myhandler.getRmean() + " " + myhandler.getMmean());*/
 	    
 	 		 this.initialize(myhandler.getMaxpop(), myhandler.getFinalinst(), myhandler.getDmean(), myhandler.getMmean(),  myhandler.getRmean(),
 	 				 myhandler.getMap(),myhandler.getInitialPoint(),myhandler.getFinalPoint(), myhandler.getComfortsens(), myhandler.getInitpop());

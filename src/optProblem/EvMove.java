@@ -33,7 +33,9 @@ public class EvMove extends Event{
 	 * We need to check for cycles. If we detect one then the path between the last time this point was added to the history and this point will be deleted.
 	 * If the goal point was in that portion of the history then the hit boolean is set to zero.
 	 */
-	public void ExecEvent(StochasticOptProblem op) {
+	public void ExecEvent(OptProblem opp) {
+		
+		StochasticOptProblem op = (StochasticOptProblem) opp;
 		
 		op.num_moves++;
 		
