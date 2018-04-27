@@ -3,14 +3,15 @@ package pec;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import optProblem.IEvent;
 
 /**
- * @author antonio Generic Type PEC. Being generic we can store any kind of values in the PEC. The
- *     PEC will always be ordered so we need to provide the comparator when adding elements. The To
- *     String method was overridden.
+ * @author antonio Generic Type PEC. Being generic of upperbound IEvent we can store any kind of
+ *     classes that implement the Event interface in the PEC. The PEC will always be ordered so we
+ *     need to provide the comparator when adding elements. The To String method was overridden.
  * @param <T> is the type that we want to use in the parameterized type
  */
-public class Pec<T> {
+public class LinkedListPec<T extends IEvent> implements IPec<T> {
 
     // ATTRIBUTES
     List<T> element_list;
@@ -18,7 +19,7 @@ public class Pec<T> {
 
     // CONTRUCTORS
     /** Constructor for the PEC. It gets no arguments and will only initialize the array list. */
-    public Pec() {
+    public LinkedListPec() {
         element_list = new LinkedList<T>();
     }
 
@@ -92,5 +93,10 @@ public class Pec<T> {
     /** To String method that overrides the one with the same name in the Object superclass. */
     public String toString() {
         return "Pec: [" + element_list + ", numEl=" + num_elements + "]";
+    }
+
+    @Override
+    public String toStringOrdered() {
+        return this.toString();
     }
 }

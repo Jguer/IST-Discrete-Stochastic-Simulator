@@ -3,23 +3,27 @@ package pec;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.PriorityQueue;
+import java.util.Queue;
+import optProblem.Event;
+import optProblem.IEvent;
 
 /**
- * @author antonio Generic Type PEC. Being generic we can store any kind of values in the PEC. The
- *     PEC will always be ordered so we need to provide the comparator when adding elements. The To
- *     String method was overridden.
+ * @author antonio Generic Type PEC. Being generic of upperbound IEvent we can store any kind of
+ *     classes that implement the Event interface in the PEC. The PEC will always be ordered so we
+ *     need to provide the comparator when adding elements. The To String method was overridden.
  * @param <T> is the type that we want to use in the parameterized type
  */
-public class Pec<T> {
+public class PriorityQueuePec<T extends IEvent> implements IPec<T> {
 
     // ATTRIBUTES
-    List<T> element_list;
+    Queue<T> element_queue;
     int num_elements;
 
     // CONTRUCTORS
     /** Constructor for the PEC. It gets no arguments and will only initialize the array list. */
-    public Pec() {
-        element_list = new LinkedList<T>();
+    public PriorityQueuePec(Comparator<T> c) {
+        element_queue = new PriorityQueue<T>(c);
     }
 
     // METHODS
@@ -43,8 +47,7 @@ public class Pec<T> {
      *     ERRORS/EXCEPTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
      */
     public boolean addElement(T element, Comparator<T> c) {
-        element_list.add(element);
-        element_list.sort(c);
+        element_queue.add(element);
         num_elements++;
         return true;
     }
@@ -56,28 +59,7 @@ public class Pec<T> {
      * @return is the first element in the PEC that invokes the method.
      */
     public T getFirstElement() {
-        if (num_elements > 0) {
-            num_elements--;
-            return (element_list.remove(0));
-        }
-        System.exit(-1);
-        return (element_list.remove(
-                0)); // so it doesn't give a compile time error for not returning
-    }
-
-    /**
-     * Getter method for any element in the PEC. This method does not remove the said element from
-     * the PEC.
-     *
-     * @param i is the index of the element we want to retrieve.
-     * @return is the element that was inside the said index of the list.
-     */
-    public T getElementByIndex(int i) {
-
-        if (i < 0 || i > element_list.size() - 1) // if its an impossible index
-        System.exit(-1);
-
-        return (element_list.get(i));
+        return element_queue.poll();
     }
 
     /**
@@ -85,12 +67,18 @@ public class Pec<T> {
      *
      * @return is the element list inside the PEC.
      */
-    public List<T> getElementList() {
-        return element_list;
+    public Queue<T> getElementList() {
+        return element_queue;
     }
 
     /** To String method that overrides the one with the same name in the Object superclass. */
     public String toString() {
-        return "Pec: [" + element_list + ", numEl=" + num_elements + "]";
+        return "Pec: [" + element_queue + ", numEl=" + num_elements + "]";
+    }
+
+    public String toStringOrdered() {
+        List<Event> els = new LinkedList<Event>((Queue<Event>) element_queue);
+        els.sort(Event.ec);
+        return ("Pec: [" + els + ", numEl=" + num_elements + "]");
     }
 }
