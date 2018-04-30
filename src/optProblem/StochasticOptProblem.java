@@ -10,10 +10,12 @@ import pec.IPec;
 import pec.PriorityQueuePec;
 
 /**
- * @author antonio Class of the Optimization Problem. We have 4 kinds of attributes that are non
+ *  Class of the Optimization Problem. We have 4 kinds of attributes that are non
  *     static: time related, individual related, event related and map related. There is a static
- *     field containing the EventCompartor. This can be the same for all instances of Optimization
- *     Problems.
+ *     field containing the <code>EventCompartor</code>. This can be the same for all instances of Optimization
+ *     problems.
+ *     @version 1.0
+ *     @since   2018-04-30 
  */
 public class StochasticOptProblem implements OptProblem {
 
@@ -137,6 +139,9 @@ public class StochasticOptProblem implements OptProblem {
         }
     }
 
+    /* (non-Javadoc)
+     * @see optProblem.OptProblem#initialize(int, double, int, int, int, optProblem.Map, optProblem.Point, optProblem.Point, int, int)
+     */
     public void initialize(
             int max_indss,
             double max_timee,
@@ -180,6 +185,9 @@ public class StochasticOptProblem implements OptProblem {
 
     }
 
+    /* (non-Javadoc)
+     * @see optProblem.OptProblem#simulate()
+     */
     public void simulate() {
 
         Event ev;
@@ -233,6 +241,9 @@ public class StochasticOptProblem implements OptProblem {
         System.out.println("Comfort: " + this.best.comfort);
     }
 
+    /* (non-Javadoc)
+     * @see optProblem.OptProblem#runOptimizationProblem(java.lang.String)
+     */
     public void runOptimizationProblem(String filename) {
 
         // max_indss, max_timee,  dmean,  mmean,  rmean, x,  y, no, cmaxx, k, initial nº

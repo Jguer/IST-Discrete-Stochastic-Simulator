@@ -4,9 +4,11 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author antonio This subclass is an extension of the abstract Event class and will handle the
- *     Move events. It has no fields on its own but inherits time and individual from the
- *     superclass. It needs to specify the Execute Event and toString methods.
+ * @author grupo2
+ * 
+ *  This subclass is an extension of the abstract Event class and will handle the
+ *  Move events. It has no fields on its own but inherits time and individual from the
+ *  superclass. It needs to specify the Execute Event and toString methods.
  */
 public class EvMove extends Event {
 

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author antonio This subclass is an extension of the abstract Event class and will handle the
- *     Reproduction events. It has no fields on its own but inherits time and individual from the
- *     superclass. It needs to specify the Execute Event and toString methods.
+ * @author grupo2
+ * 
+ * This subclass is an extension of the abstract Event class and will handle the
+ * Reproduction events. It has no fields on its own but inherits time and individual from the
+ * superclass. It needs to specify the Execute Event and toString methods.
  */
 public class EvRepr extends Event {
 
@@ -76,10 +78,7 @@ public class EvRepr extends Event {
             // newhist.size());
 
             int cycle_cost = 0;
-            // check if i = 1 is correct!!! HERE WE MAY HAVE TO TAKE AWAY A COST BECAUSE OF THE
-            // FIRST
-            // POINT BEING THE START BUT I AM NOT
-            // SURE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
             for (int i = 1; i < newcosts.size(); i++) {
                 cycle_cost += newcosts.get(i);
             }
