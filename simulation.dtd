@@ -1,0 +1,70 @@
+<?xml encoding="utf-8"?>
+
+<!ELEMENT simulation (grid,initialpoint,finalpoint,specialcostzones,obstacles,events)>
+<!ATTLIST simulation
+    xmlns CDATA #FIXED ''
+    comfortsens CDATA #REQUIRED
+    finalinst CDATA #REQUIRED
+    initpop CDATA #REQUIRED
+    maxpop CDATA #REQUIRED>
+
+<!ELEMENT grid EMPTY>
+<!ATTLIST grid
+    xmlns CDATA #FIXED ''
+    colsnb CDATA #REQUIRED
+    rowsnb CDATA #REQUIRED>
+
+<!ELEMENT initialpoint EMPTY>
+<!ATTLIST initialpoint
+    xmlns CDATA #FIXED ''
+    xinicial CDATA #REQUIRED
+    yinicial CDATA #REQUIRED>
+
+<!ELEMENT finalpoint EMPTY>
+<!ATTLIST finalpoint
+    xmlns CDATA #FIXED ''
+    xfinal CDATA #REQUIRED
+    yfinal CDATA #REQUIRED>
+
+<!ELEMENT specialcostzones (zone)+>
+<!ATTLIST specialcostzones
+    xmlns CDATA #FIXED ''>
+
+<!ELEMENT obstacles (obstacle)+>
+<!ATTLIST obstacles
+    xmlns CDATA #FIXED ''
+    num CDATA #REQUIRED>
+
+<!ELEMENT events (death,reproduction,move)>
+<!ATTLIST events
+    xmlns CDATA #FIXED ''>
+
+<!ELEMENT zone (#PCDATA)>
+<!ATTLIST zone
+    xmlns CDATA #FIXED ''
+    xfinal CDATA #REQUIRED
+    xinicial CDATA #REQUIRED
+    yfinal CDATA #REQUIRED
+    yinicial CDATA #REQUIRED>
+
+<!ELEMENT obstacle EMPTY>
+<!ATTLIST obstacle
+    xmlns CDATA #FIXED ''
+    xpos CDATA #REQUIRED
+    ypos CDATA #REQUIRED>
+
+<!ELEMENT death EMPTY>
+<!ATTLIST death
+    xmlns CDATA #FIXED ''
+    param CDATA #REQUIRED>
+
+<!ELEMENT reproduction EMPTY>
+<!ATTLIST reproduction
+    xmlns CDATA #FIXED ''
+    param CDATA #REQUIRED>
+
+<!ELEMENT move EMPTY>
+<!ATTLIST move
+    xmlns CDATA #FIXED ''
+    param CDATA #REQUIRED>
+

@@ -1,9 +1,10 @@
-package optProblem;
+package main;
 
-public class Teste {
+import optProblem.*;
+
+public class Main {
 
     public static void main(String[] args) {
-
         if (args.length != 1) {
             System.out.println(
                     "Error - You must give the name of the file and place it in the directory!");
@@ -15,4 +16,5 @@ public class Teste {
 
         op.runOptimizationProblem(filename);
     }
+
 }
