@@ -9,8 +9,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * @author jguer OptProblem Handler extends the default hander for
- * use in the current problem using SAX
+ * @author jguer OptProblemHandler extends the default hander for
+ * use in the current problem using SAX.
  */
 public class OptProblemHandler extends DefaultHandler {
 
