@@ -76,6 +76,7 @@ public class PriorityQueuePec<T extends IEvent> implements IPec<T> {
         return "Pec: [" + element_queue + ", numEl=" + num_elements + "]";
     }
 
+    
     public String toStringOrdered() {
         List<Event> els = new LinkedList<Event>((Queue<Event>) element_queue);
         els.sort(Event.ec);

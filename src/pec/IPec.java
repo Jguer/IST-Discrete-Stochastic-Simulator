@@ -3,6 +3,14 @@ package pec;
 import java.util.Collection;
 import java.util.Comparator;
 
+/** 
+ * Interface relative to the PEC. If there is a need to use a PEC with a different implementation
+ *(for example using a HashSet or something similar) one can do so by implementing this interface
+ *
+ * @author antonio
+ *
+ * @param <T> is the generic type for the elements in the PEC.
+ */
 public interface IPec<T> {
 
     // METHODS
@@ -15,13 +23,12 @@ public interface IPec<T> {
     public int getNumElements();
 
     /**
-     * Method to add a new element to the PEC. The element will be added and then the list will be
-     * sorted.
+     * Method to add a new element to the PEC. There is also the need to provide a comparator that makes
+     * explicit the way we want to sort the elements.
      *
      * @param element is the element we wish to add to the PEC.
      * @param c is the comparator that we wish to use to sort our PEC.
-     * @return is always true MIGHT NEED TO BE CHANGED DEPENDING ON
-     *     ERRORS/EXCEPTIONS!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+     * @return is true in case of success and false otherwise
      */
     public boolean addElement(T element, Comparator<T> c);
 
@@ -43,5 +50,6 @@ public interface IPec<T> {
     /** To String method that overrides the one with the same name in the Object superclass. */
     public String toString();
 
+    /**  Method to print the Pec according to the order of the element. */
     public String toStringOrdered();
 }

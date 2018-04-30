@@ -3,9 +3,11 @@ package optProblem;
 import java.util.Comparator;
 
 /**
- * @author antonio Class that is just used to compare Events based on their time. When used with the
- *     list.sort(Comparator) method it will sort a List of Events by lowest time first. It
- *     implements the Comparator interface by overriding the compare method.
+ * @author grupo2
+ * 
+ * Class that is just used to compare Events based on their time. When used with the
+ * list.sort(Comparator) method it will sort a List of Events by lowest time first. It
+ * implements the Comparator interface by overriding the compare method.
  */
 public class EventComparator implements Comparator<Event> {
 
