@@ -4,10 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author antonio This is the class for Individuals. Each individual should have its own identifier
- *     . Equals, Hashcode and toString were overridden. There is an aditional "equals" that can
- *     compare ony the identifier. There are also methods for Individual cloning and Individual List
- *     cloning.
+ * This is the class for Individuals. Each individual should have its own identifier, a death_time,
+ * it's current comfort, the total cost of it's path so far and a boolean hit indicating if the individual
+ * has reached the goal.
+ * An agent keeps two lists:
+ *  - A history list to keep track of the path it has covered so far;
+ *  - A costs list, to be able to go back in the cost in case a loop is detected;
+ * Equals, Hashcode and toString methods were overridden. There is an aditional "equals" that can
+ * compare only the identifier of the indivifual. There are also methods for Individual cloning and 
+ * Individual List cloning.
+ * 
+ * @author grupo2    
  */
 public class Individual {
 
@@ -25,7 +32,7 @@ public class Individual {
      * Constructor of the Individual object. It forces the user to provide an identifier. The lists
      * are initialized and the hit boolean is set to false.
      *
-     * @param ident is the identifier of the current individual. This value should be unique inside
+     * @param ident: identifier of the new individual. This value should be unique inside
      *     the same simulation.
      */
     public Individual(int ident) {
@@ -36,13 +43,13 @@ public class Individual {
         costs = new ArrayList<Integer>();
     }
 
-    // constructor para fazer clone
     /**
-     * Constructor used to clone an Individual object. We are left with 2 equal individuals but
-     * different in memory. This way we can keep changing the one in the simulation while keeping
-     * the best saved. This method relies on the individual calling it being correctly initialized.
-     *
-     * @param clone is the individual we want to clone.
+     * Constructor used to clone an Individual object. 
+     * We are left with 2 equal individuals but different in memory. This way we can keep changing
+     * the one in the simulation while keeping the best saved. This method relies on the individual
+     * calling it being correctly initialized.
+     * 
+     * @param clone: individual we want to clone.
      */
     public Individual(Individual clone) {
         this(clone.identifier);
@@ -56,9 +63,14 @@ public class Individual {
 
     /**
      * Method that will take care of updating the best individual. In case the goal has been hit
-     * than the best is chosen by iterating over the list of individuals, only looking for the ones
+     * then the best is chosen by iterating over the list of individuals, only looking for the ones
      * that have hit the goal and choosing the one with the lowest cost. If the goal has not been
      * reached then we simply pick the individual with the highest comfort.
+     * 
+     * @param list_inds: a list of individuals containing all the individuals currently alive in the simulation.
+     * @param best: the best individual found so far during the simulation.
+     * @param hit: a boolean indicating if any individual has found the goal during the current or not.
+     * @return Returns the individual with the best path cost in list_inds.
      */
     public static Individual updateBest(List<Individual> list_inds, Individual best, boolean hit) {
         // if we already hit the goal at some point
@@ -76,9 +88,7 @@ public class Individual {
         return best;
     }
 
-    // METHODS
-
-    // find individual with best path
+    
     /**
      * Method to find the individual with best path. This function should only be invoked after the
      * goal has been hit in the Optimization Problem. We will iterate over all the individuals we
@@ -86,9 +96,9 @@ public class Individual {
      * best if needed. In the end we will return the new best. In case there was no better
      * individual the same that we received will be sent.
      *
-     * @param inds is the list of alive individuals.
-     * @param best is the current best individual.
-     * @return is the new best individual that can be the same as we got or a new one.
+     * @param inds: list of alive individuals.
+     * @param best: individual that has found the goal with lowest cost so far in the simulation.
+     * @return Returns the new best individual that can be the same as we got or a new one.
      */
     public static Individual getBestIndividual(List<Individual> inds, Individual best) {
         for (Individual ind : inds) {
@@ -100,11 +110,11 @@ public class Individual {
     }
 
     /**
-     * Method using to clone a list of Individuals. This method relies on the cloning constructor
+     * Method used to clone a list of Individuals. This method relies on the cloning constructor
      * being available.
      *
-     * @param list is a list of Individuals that we want cloned.
-     * @return is the new list that contains Individuals with the same values of the original ones
+     * @param list: a list of Individuals that we want cloned.
+     * @return Returns a list of Individuals that have same values of the original ones
      *     but are different objects in memory.
      */
     public static List<Individual> cloneIndividualList(List<Individual> list) {
@@ -113,14 +123,14 @@ public class Individual {
         return clone;
     }
 
-    // returns the index of that same point in the array or -1 if it isn't there
+    
     /**
-     * Method that looks for the Individual passed as argument in the List also passed as argument.
+     * Method that looks for the Individual passed as argument in a list of Individuals.
      * This method is static meaning that it will have to be invoked from the class itself.
      *
-     * @param inds is the list of individuals we want to perform the search in.
-     * @param ind is the individual we wish to find in the said list.
-     * @return is the index of that same point in the array or -1 if it isn't there.
+     * @param inds is the list of individuals where we want to perform the search.
+     * @param ind is the individual we wish to find in the list.
+     * @return Returns the index of the individual in the list -1 if it isn't found.
      */
     public static int findSameIndividual(List<Individual> inds, Individual ind) {
         for (int i = 0; i < inds.size(); i++) {
@@ -131,16 +141,16 @@ public class Individual {
         return -1;
     }
 
-    // method to update the individual's comfort
+ 
     /**
      * Method that updates an individual's comfort. It should only be invoked by individuals that
      * have been initialized.
      *
-     * @param goal is the final point that we want to reach in the simulation.
-     * @param cmax is the maximum cost of a Special Zone.
-     * @param n is the number of columns in the map.
-     * @param m is the number of rows in the map.
-     * @param k is the sensitivity parameter.
+     * @param goal: point of the map that we want to reach in the simulation.
+     * @param cmax: maximum cost of a Special Zone.
+     * @param n: number of columns in the map.
+     * @param m: number of rows in the map.
+     * @param k: sensitivity parameter.
      */
     public void updateComfort(Point goal, int cmax, int n, int m, int k) {
 
@@ -159,7 +169,7 @@ public class Individual {
      * This value depends on the comfort of the individual and will need to be multiplied by the
      * event mean.
      *
-     * @return is the value of to be used in the exponential pdf.
+     * @return Returns the value to be used in the exponential pdf.
      */
     public double getValueForExpMean() {
         return (1 - Math.log(1.0 - comfort));
@@ -170,7 +180,7 @@ public class Individual {
      * identifier. It can be used to compare individuals that might have been cloned and can no
      * longer have the same history or cost.
      *
-     * @param obj should be the individual we want to compare with the one inkoving the method.
+     * @param obj: the individual we want to compare with the one inkoving the method.
      * @return is true if they have the same identifier and false otherwise.
      */
     public boolean sameIdentifier(Object obj) {
