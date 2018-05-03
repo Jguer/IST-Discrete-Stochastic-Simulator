@@ -225,6 +225,8 @@ public class StochasticOptProblem implements OptProblem {
         // ======================= WE'RE OUT OF THE SIMULATION!!! ===============================
         System.out.println("Path of the best fit individual: " + this.best.history.toString());
     }
+    
+    
 
     /* (non-Javadoc)
      * @see optProblem.OptProblem#runOptimizationProblem(java.lang.String)
@@ -240,10 +242,6 @@ public class StochasticOptProblem implements OptProblem {
             OptProblemHandler myhandler = new OptProblemHandler();
             File inputFile = new File(filename);
             saxParser.parse(inputFile, myhandler);
-
-            /*System.out.println(myhandler.getMaxpop() +" "+myhandler.getFinalinst()+" "+myhandler.getInitpop()+" "+myhandler.getComfortsens());
-            System.out.println(myhandler.getMap());
-            System.out.println(myhandler.getDmean() + " " + myhandler.getRmean() + " " + myhandler.getMmean());*/
 
             this.initialize(
                     myhandler.getMaxpop(),

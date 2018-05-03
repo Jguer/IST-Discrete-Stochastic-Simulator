@@ -41,6 +41,7 @@ public class EvControlPrint extends Event {
         String format2 = "%-35s %5s\n";
         String format3 = "%-35s %40s\n";
         String format4 = "%-35s %11f\n";
+        String format5 = "%-35s %d/%f\n";
 
         System.out.println("Observation " + num + ":");
         System.out.print("\t\t");
@@ -66,13 +67,8 @@ public class EvControlPrint extends Event {
         System.out.print("\t\t");
         System.out.printf(format3, "Path of the best fit individual: ", op.best.history.toString());
 
-        if (op.hit) {
-            System.out.print("\t\t");
-            System.out.printf(format, "Cost: ", op.best.cost);
-        } else {
-            System.out.print("\t\t");
-            System.out.printf(format4, "Comfort: ", op.best.comfort);
-        }
+        System.out.print("\t\t");
+        System.out.printf(format5, "Cost/Comfort ", op.best.cost,op.best.comfort);
 
         System.out.println();
         System.out.println();
