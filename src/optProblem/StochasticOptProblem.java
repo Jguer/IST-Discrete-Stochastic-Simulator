@@ -223,22 +223,7 @@ public class StochasticOptProblem implements OptProblem {
         }
 
         // ======================= WE'RE OUT OF THE SIMULATION!!! ===============================
-        System.out.println("\n\n");
-        if (this.actual_time >= this.max_time)
-            System.out.println("Simulation ended because of the TIME LIMIT.");
-        else if (this.alive_inds <= 0)
-            System.out.println("Simulation ended because WE HAD NO MORE INDIVIDUALS");
-
-        System.out.println("Total nº Events: " + this.num_events);
-        System.out.println("Total nº Repr: " + this.num_reprs);
-        System.out.println("Total nº Move: " + this.num_moves);
-        System.out.println("Total nº Death: " + this.num_deaths);
-        System.out.println("Total nº Epidemics: " + this.num_epidemics);
-
-        System.out.println("Hit the goal? " + this.hit);
         System.out.println("Path of the best fit individual: " + this.best.history.toString());
-        System.out.println("Cost: " + this.best.cost);
-        System.out.println("Comfort: " + this.best.comfort);
     }
 
     /* (non-Javadoc)

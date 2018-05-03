@@ -29,13 +29,15 @@ public class OptProblemHandler extends DefaultHandler {
     Point finalPoint;
 
     int no;
+    int nz;
     int obst;
+    int zone;
     int cmax;
 
     boolean flagzone = false;
 
     Point[] obstacles;
-    List<SpecialZone> specialZones;
+    SpecialZone[] specialZones;
     Point sz_p1;
     Point sz_p2;
     int max_cost = -1;
@@ -96,7 +98,7 @@ public class OptProblemHandler extends DefaultHandler {
         return obstacles;
     }
 
-    public List<SpecialZone> getSpecialZones() {
+    public SpecialZone[] getSpecialZones() {
         return specialZones;
     }
 
@@ -131,7 +133,9 @@ public class OptProblemHandler extends DefaultHandler {
                             Integer.parseInt(attributes.getValue(1)));
 
         } else if (tag.equalsIgnoreCase("specialcostzones")) {
-            specialZones = new LinkedList<SpecialZone>();
+        	nz = Integer.parseInt(attributes.getValue(0));
+            specialZones = new SpecialZone[nz];
+            zone = 0;
 
         } else if (tag.equalsIgnoreCase("zone")) {
             sz_p1 =
@@ -190,8 +194,9 @@ public class OptProblemHandler extends DefaultHandler {
                 map.addMaxCost(cost);
                 max_cost = cost;
             }
-            specialZones.add(new SpecialZone(sz_p1, sz_p2, cost));
+            specialZones[zone] = (new SpecialZone(sz_p1, sz_p2, cost));
             flagzone = false;
+            zone++;
         }
     }
 }

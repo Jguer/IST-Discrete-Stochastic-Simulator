@@ -11,7 +11,7 @@ public class Map implements IMap {
     int cmax;
     Point mapDimensions;
     Point[] obstacles;
-    List<SpecialZone> specialZones;
+    SpecialZone[] specialZones;
     int total_obst;
     int number_zones;
 
@@ -24,7 +24,6 @@ public class Map implements IMap {
         cmax = cmaxx;
         obstacles = new Point[no];
         mapDimensions = new Point(xx, yy);
-        specialZones = new LinkedList<SpecialZone>();
     }
 
     // METHODS
@@ -71,9 +70,9 @@ public class Map implements IMap {
         total_obst = obstacles.length;
     }
 
-    public void addSpecialZones(List<SpecialZone> specials) {
+    public void addSpecialZones(SpecialZone[] specials) {
         specialZones = specials;
-        number_zones = specialZones.size();
+        number_zones = specialZones.length;
     }
 
     public void addMaxCost(int c) {
@@ -89,7 +88,7 @@ public class Map implements IMap {
      * @param specialZones is the List of parts of the map with special cost.
      * @return is an integer with the cost of transversing the from actPoint to newPoint
      */
-    public int getCost(Point actPoint, Point newPoint, List<SpecialZone> specialZones) {
+    public int getCost(Point actPoint, Point newPoint, SpecialZone[] specialZones) {
 
         int x1, x2, y1, y2;
         int nx = newPoint.x;

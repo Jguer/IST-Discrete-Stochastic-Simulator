@@ -17,8 +17,8 @@
 <!ELEMENT initialpoint EMPTY>
 <!ATTLIST initialpoint
     xmlns CDATA #FIXED ''
-    xinicial CDATA #REQUIRED
-    yinicial CDATA #REQUIRED>
+    xinitial CDATA #REQUIRED
+    yinitial CDATA #REQUIRED>
 
 <!ELEMENT finalpoint EMPTY>
 <!ATTLIST finalpoint
@@ -28,7 +28,8 @@
 
 <!ELEMENT specialcostzones (zone)+>
 <!ATTLIST specialcostzones
-    xmlns CDATA #FIXED ''>
+    xmlns CDATA #FIXED ''
+    num CDATA #REQUIRED>
 
 <!ELEMENT obstacles (obstacle)+>
 <!ATTLIST obstacles
@@ -43,9 +44,9 @@
 <!ATTLIST zone
     xmlns CDATA #FIXED ''
     xfinal CDATA #REQUIRED
-    xinicial CDATA #REQUIRED
+    xinitial CDATA #REQUIRED
     yfinal CDATA #REQUIRED
-    yinicial CDATA #REQUIRED>
+    yinitial CDATA #REQUIRED>
 
 <!ELEMENT obstacle EMPTY>
 <!ATTLIST obstacle
@@ -67,4 +68,3 @@
 <!ATTLIST move
     xmlns CDATA #FIXED ''
     param CDATA #REQUIRED>
-
