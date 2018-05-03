@@ -27,7 +27,7 @@ public class Main {
         String filename = args[0];
         // Creating a new optimization problem
         OptProblem op = new StochasticOptProblem();
-        // Running the said optimization problem. The parsing, initilizating and running will all be done inside this function.
+        // Running the said optimization problem. The parsing, initializing and running will all be done inside this function.
         op.runOptimizationProblem(filename);
     }
 }
