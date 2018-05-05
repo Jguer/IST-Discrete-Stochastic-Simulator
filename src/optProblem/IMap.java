@@ -1,7 +1,5 @@
 package optProblem;
 
-import java.util.List;
-
 public interface IMap {
 
     public boolean nonValidMove(Point actPoint, int index, Point[] obstacles);

@@ -1,8 +1,6 @@
 package optProblem;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
 
 /** @author antonio This class is for the Map. */
 public class Map implements IMap {

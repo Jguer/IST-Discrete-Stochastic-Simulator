@@ -1,6 +1,7 @@
 package main;
 
-import optProblem.*;
+import optProblem.OptProblem;
+import optProblem.StochasticOptProblem;
 
 /**
  * Main class used to test the program

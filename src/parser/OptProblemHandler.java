@@ -1,12 +1,14 @@
 package parser;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-import optProblem.*;
+
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import optProblem.Map;
+import optProblem.Point;
+import optProblem.SpecialZone;
 
 /**
  * @author jguer OptProblemHandler extends the default hander for
