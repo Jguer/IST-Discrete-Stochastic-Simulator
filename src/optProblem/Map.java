@@ -59,6 +59,10 @@ public class Map implements IMap {
 
         return false;
     }
+    
+    public Point getDimensions() {
+    	return this.mapDimensions;
+    }
 
     public void addObstacle(Point p) {
         obstacles[total_obst] = p;

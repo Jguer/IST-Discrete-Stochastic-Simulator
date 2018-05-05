@@ -121,16 +121,39 @@ public class OptProblemHandler extends DefaultHandler {
                                     Integer.parseInt(attributes.getValue(1))));
 
         } else if (tag.equalsIgnoreCase("initialpoint")) {
-            initialPoint =
-                    new Point(
-                            Integer.parseInt(attributes.getValue(0)),
-                            Integer.parseInt(attributes.getValue(1)));
+            
+        	int a = Integer.parseInt(attributes.getValue(0));
+        	int b = Integer.parseInt(attributes.getValue(1));
+        	
+        	Point mapDim = map.getDimensions();
+        	
+        	if(a>mapDim.getX() || a<1) {
+        		a=1; //default value for the initial point in case it is not valid
+        		System.out.println("Changing A INIT to "+a);
+        	}
+        	if(b>mapDim.getY() || b<1) {
+        		b=1; //default value for the initial point in case it is not valid
+        		System.out.println("Changing B INIT to "+b);
+        	}
+        	initialPoint = new Point(a,b);
 
         } else if (tag.equalsIgnoreCase("finalpoint")) {
-            finalPoint =
-                    new Point(
-                            Integer.parseInt(attributes.getValue(0)),
-                            Integer.parseInt(attributes.getValue(1)));
+            
+        	int a = Integer.parseInt(attributes.getValue(0));
+        	int b = Integer.parseInt(attributes.getValue(1));
+        	
+        	Point mapDim = map.getDimensions();
+        	
+        	if(a>mapDim.getX() || a<1) {
+           		a=mapDim.getX(); //default value for the final point in case it is not valid
+        		System.out.println("Changing A FINAL to "+a);
+        	}
+        	if(b>mapDim.getY() || b<1) {
+        		b=mapDim.getY(); //default value for the final point in case it is not valid
+        		System.out.println("Changing B FINAL to "+b);
+        	}
+        	
+        	finalPoint = new Point(a,b);
 
         } else if (tag.equalsIgnoreCase("specialcostzones")) {
         	nz = Integer.parseInt(attributes.getValue(0));

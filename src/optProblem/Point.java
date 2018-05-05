@@ -85,6 +85,14 @@ public class Point {
         }
         return -1;
     }
+    
+    public int getX() {
+    	return this.x;
+    }
+    
+    public int getY() {
+    	return this.y;
+    }
 
     /**
      * Method to clone an Array List of Points. The clone relies on the Constructor and is done in a
