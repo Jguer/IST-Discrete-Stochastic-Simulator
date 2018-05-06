@@ -1,5 +1,7 @@
 package main;
 
+import java.io.File;
+
 import optProblem.OptProblem;
 import optProblem.StochasticOptProblem;
 
@@ -25,10 +27,16 @@ public class Main {
                     "Error - You must give the name of the file and place it in the directory!");
             System.exit(-1);
         }
-        String filename = args[0];
+
+        File f = new File(args[0]);
+        if (!f.isFile()) {
+            System.out.println("File does not exist");
+            System.exit(-1);
+        }
+
         // Creating a new optimization problem
         OptProblem op = new StochasticOptProblem();
         // Running the said optimization problem. The parsing, initializing and running will all be done inside this function.
-        op.runOptimizationProblem(filename);
+        op.runOptimizationProblem(f.toString());
     }
 }
