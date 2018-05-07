@@ -124,7 +124,7 @@ public class StochasticOptProblem implements OptProblem {
         ind.cost = 0;
         ind.costs.add(1);
 
-        ind.updateComfort(goal, map.cmax, map.mapDimensions.x, map.mapDimensions.y, k);
+        ind.updateComfort(goal, map, k);
         ind.death_time = actual_time + Event.expRandom(ind.getValueForExpMean() * death_mean);
         pec.addElement(new EvDeath(ind.death_time, ind), Event.ec);
 
@@ -208,9 +208,7 @@ public class StochasticOptProblem implements OptProblem {
             if (ev.individual != null) { // if it was an event with an individual associated
                 ev.individual.updateComfort(
                         this.goal,
-                        this.map.cmax,
-                        this.map.mapDimensions.x,
-                        this.map.mapDimensions.y,
+                        this.map,
                         this.k);
                 this.best =
                         Individual.updateBest(list_inds, best, hit); // updates the best one so far

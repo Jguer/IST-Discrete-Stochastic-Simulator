@@ -59,20 +59,29 @@ public class Map implements IMap {
     public boolean nonValidMove(Point actPoint, int index, Point[] obstacles) {
 
         // check if its outside map boundaries
-        if (actPoint.x == mapDimensions.x && index == 1) return true;
-        if (actPoint.x == 1 && index == 3) return true;
-        if (actPoint.y == 1 && index == 2) return true;
-        if (actPoint.y == mapDimensions.y && index == 0) return true;
+        if (actPoint.getX() == mapDimensions.getX() && index == 1) return true;
+        if (actPoint.getX() == 1 && index == 3) return true;
+        if (actPoint.getY() == 1 && index == 2) return true;
+        if (actPoint.getY() == mapDimensions.getY() && index == 0) return true;
 
         // check if its in obstacles list
         if (obstacles == null) return false;
-        if (index == 0 && Arrays.asList(obstacles).contains(new Point(actPoint.x, actPoint.y + 1)))
-            return true;
-        if (index == 1 && Arrays.asList(obstacles).contains(new Point(actPoint.x + 1, actPoint.y)))
-            return true;
-        if (index == 2 && Arrays.asList(obstacles).contains(new Point(actPoint.x, actPoint.y - 1)))
-            return true;
-        if (index == 3 && Arrays.asList(obstacles).contains(new Point(actPoint.x - 1, actPoint.y)))
+        Point toCompare = null;
+        switch ( index ) {
+        case 0:
+			toCompare = new Point(actPoint.getX(), actPoint.getY() + 1);
+        	break;
+        case 1:
+			toCompare = new Point(actPoint.getX() + 1, actPoint.getY());
+        	break;
+        case 2:
+			toCompare = new Point(actPoint.getX(), actPoint.getY() - 1);
+        	break;
+        case 3:
+			toCompare = new Point(actPoint.getX() -1, actPoint.getY());
+        	break;
+        }
+        if (Arrays.asList(obstacles).contains(toCompare))
             return true;
 
         return false;
@@ -113,29 +122,25 @@ public class Map implements IMap {
     public int getCost(Point actPoint, Point newPoint, SpecialZone[] specialZones) {
 
         int x1, x2, y1, y2;
-        int nx = newPoint.x;
-        int ny = newPoint.y;
-        int ax = actPoint.x;
-        int ay = actPoint.y;
+        int nx = newPoint.getX();
+        int ny = newPoint.getY();
+        int ax = actPoint.getX();
+        int ay = actPoint.getY();
 
         for (SpecialZone ed : specialZones) {
-            x1 = ed.p1.x;
-            x2 = ed.p2.x;
-            y1 = ed.p1.y;
-            y2 = ed.p2.y;
+            x1 = ed.p1.getX();
+            y1 = ed.p1.getY();
+            x2 = ed.p2.getX();
+            y2 = ed.p2.getY();
             // if we are coming from inside the zone to another point inside the zone we want to
             // count the
             // limits
             if ((ax >= x1 && ax <= x2)
                     && (ay >= y1 && ay <= y2)
                     && (nx >= x1 && nx <= x2)
-                    && (ny >= y1 && ny <= y2)) {
-                return ed.cost;
-            }
-            // if we are coming from OUTSIDE the zone to a point inside the zone we DONT want to
-            // count the
-            // limits
-            else if ((nx > x1 && nx < x2) && (ny > y1 && ny < y2)) {
+                    && (ny >= y1 && ny <= y2)
+                    || ( (nx > x1 && nx < x2)
+                    && (ny > y1 && ny < y2) )) {
                 return ed.cost;
             }
         }

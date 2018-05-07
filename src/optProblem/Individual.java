@@ -152,19 +152,17 @@ public class Individual {
      * have been initialized.
      *
      * @param goal: point of the map that we want to reach in the simulation.
-     * @param cmax: maximum cost of a Special Zone.
-     * @param n: number of columns in the map.
-     * @param m: number of rows in the map.
+     * @param map: Map used in simulation.
      * @param k: sensitivity parameter.
      */
-    public void updateComfort(Point goal, int cmax, int n, int m, int k) {
+    public void updateComfort(Point goal, Map map, int k) {
 
         Point current = history.get(history.size() - 1);
 
         double comf1 =
-                (1.0 - (cost - history.size() + 2.0) / ((cmax - 1.0) * history.size() + 3.0));
-        int dist = Math.abs(current.x - goal.x) + Math.abs(current.y - goal.y);
-        double comf2 = 1.0 - ((dist) / (n + m + 1.0));
+                (1.0 - (cost - history.size() + 2.0) / ((map.cmax - 1.0) * history.size() + 3.0));
+        int dist = Math.abs(current.getX() - goal.getX()) + Math.abs(current.getY() - goal.getY());
+        double comf2 = 1.0 - ((dist) / (map.mapDimensions.getX() + map.mapDimensions.getY() + 1.0));
 
         comfort = Math.pow(comf1, k) * Math.pow(comf2, k);
     }

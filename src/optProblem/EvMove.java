@@ -61,31 +61,23 @@ public class EvMove extends Event {
             // to get a good index so yeah
         }
 
-        Point newPoint = null;
-        switch (index) {
-            case (0):
-                {
-                    newPoint = new Point(actPoint.x, actPoint.y + 1);
-                    break;
-                }
-            case (1):
-                {
-                    newPoint = new Point(actPoint.x + 1, actPoint.y);
-                    break;
-                }
-            case (2):
-                {
-                    newPoint = new Point(actPoint.x, actPoint.y - 1);
-                    break;
-                }
-            case (3):
-                {
-                    newPoint = new Point(actPoint.x - 1, actPoint.y);
-                    break;
-                }
+        Point toCompare = null;
+        switch ( index ) {
+        case 0:
+			toCompare = new Point(actPoint.getX(), actPoint.getY() + 1);
+        	break;
+        case 1:
+			toCompare = new Point(actPoint.getX() + 1, actPoint.getY());
+        	break;
+        case 2:
+			toCompare = new Point(actPoint.getX(), actPoint.getY() - 1);
+        	break;
+        case 3:
+			toCompare = new Point(actPoint.getX() -1, actPoint.getY());
+        	break;
         }
 
-        index = Point.findSamePoint(ind.history, newPoint);
+        index = Point.findSamePoint(ind.history, toCompare);
         if (index
                 != -1) { // if this point closes a cycle --> delete the cycle and remove those costs
             List<Integer> subCosts = ind.costs.subList(index + 1, ind.costs.size());
@@ -107,12 +99,12 @@ public class EvMove extends Event {
 
         } else { // in case this point didnt close a cycle then we want to add it normally
 
-            ind.history.add(newPoint);
-            int current_cost = op.map.getCost(actPoint, newPoint, op.map.specialZones);
+            ind.history.add(toCompare);
+            int current_cost = op.map.getCost(actPoint, toCompare, op.map.specialZones);
             ind.cost += current_cost;
             ind.costs.add(current_cost);
 
-            if (newPoint.equals(op.goal)) {
+            if (toCompare.equals(op.goal)) {
                 ind.hit = true;
                 op.hit = true;
             }

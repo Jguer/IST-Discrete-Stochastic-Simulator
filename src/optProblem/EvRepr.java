@@ -97,7 +97,7 @@ public class EvRepr extends Event {
         }
 
         ind.updateComfort(
-                op.goal, op.map.cmax, op.map.mapDimensions.x, op.map.mapDimensions.y, op.k);
+                op.goal, op.map, op.k);
         ind.death_time = op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.death_mean);
         op.pec.addElement(new EvDeath(ind.death_time, ind), ec);
 
