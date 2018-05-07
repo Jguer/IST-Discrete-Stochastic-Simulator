@@ -33,35 +33,35 @@ public class EvControlPrint extends Event {
 
         StochasticOptProblem op = (StochasticOptProblem) opp;
 
-        int num = op.num_ControlPrint;
-        op.num_ControlPrint++;
+        int num = op.getNumControlPrint();
+        op.setNumControlPrint(op.getNumControlPrint() + 1);
 
-        String format = "%-35s %5d\n";
-        String format2 = "%-35s %5s\n";
-        String format3 = "%-35s %40s\n";
-        String format4 = "%-35s %11f\n";
+        String format = "%-35s %-17d\n";
+        String format2 = "%-35s %-26s\n";
+        String format3 = "%-35s %-33s\n";
+        String format4 = "%-35s %-16f\n";
         String format5 = "%-35s %d/%f\n";
 
         System.out.println("Observation " + num + ":");
         System.out.print("\t\t");
-        System.out.printf(format4, "Present instant: ", op.actual_time);
+        System.out.printf(format4, "Present instant: ", op.getActual_time());
         System.out.print("\t\t");
-        System.out.printf(format, "Number of realised events: ", op.num_events);
+        System.out.printf(format, "Number of realised events: ", op.getNum_events());
         System.out.print("\t\t");
-        System.out.printf(format, "Population Size: ", op.alive_inds);
-        if (op.hit) {
+        System.out.printf(format, "Population Size: ", op.getAliveIndividuals());
+        if (op.isHit()) {
             System.out.print("\t\t");
-            System.out.printf(format2, "Final point has been hit: ", "Yes");
+            System.out.printf(format2, "Final point has been hit: ", "yes");
         } else {
             System.out.print("\t\t");
-            System.out.printf(format2, "Final point has been hit: ", "No");
+            System.out.printf(format2, "Final point has been hit: ", "no");
         }
 
         System.out.print("\t\t");
-        System.out.printf(format3, "Path of the best fit individual: ", op.best.history.toString());
+        System.out.printf(format3, "Path of the best fit individual: ", op.getBestIndividual().getHistory().toString());
 
         System.out.print("\t\t");
-        System.out.printf(format5, "Cost/Comfort ", op.best.getCost(), op.best.getComfort());
+        System.out.printf(format5, "Cost/Comfort ", op.getBestIndividual().getCost(), op.getBestIndividual().getComfort());
 
         System.out.println();
         System.out.println();

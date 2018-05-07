@@ -34,10 +34,10 @@ public class EvDeath extends Event {
 
         StochasticOptProblem op = (StochasticOptProblem) opp;
 
-        op.num_deaths++;
+        op.setNum_deaths(op.getNum_deaths() + 1);
 
-        op.alive_inds--;
-        op.list_inds.remove(this.getIndividual());
+        op.setAliveIndividuals(op.getAliveIndividuals() - 1);
+        op.getIndividualsList().remove(this.getIndividual());
     }
 
     /**

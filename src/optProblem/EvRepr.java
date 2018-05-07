@@ -40,12 +40,13 @@ public class EvRepr extends Event {
 
         StochasticOptProblem op = (StochasticOptProblem) opp;
 
-        op.num_reprs++;
+        op.setNum_reprs(op.getNum_reprs() + 1);
 
         // create "son" individual
-        Individual ind = new Individual(op.total_inds++);
-        op.alive_inds++;
-        op.list_inds.add(ind);
+        Individual ind = new Individual(op.getTotalIndividuals());
+        op.setTotalIndividuals(op.getTotalIndividuals() + 1);
+        op.setAliveIndividuals(op.getAliveIndividuals() + 1);
+        op.getIndividualsList().add(ind);
 
         // System.out.println("REPRODUCTION!!");
         // System.out.println(op.actual_time);
@@ -53,24 +54,24 @@ public class EvRepr extends Event {
 
         // create new reproduction for the father - only add if happens before its death
         double randTime =
-                op.actual_time + Event.expRandom(father.getValueForExpMean() * op.repr_mean);
+                op.getActual_time() + Event.expRandom(father.getValueForExpMean() * op.getRepr_mean());
         if (randTime < father.getDeathTime()) {
-            op.pec.addElement(new EvRepr(randTime, father), ec);
+            op.getPec().addElement(new EvRepr(randTime, father), ec);
         }
 
-        if (father.history.size()
+        if (father.getHistory().size()
                 > 2) { // CHANGE THE VALUES IN THE PREFIX SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            int father_hist_size = father.history.size();
+            int father_hist_size = father.getHistory().size();
             int prefix_size = (int) Math.floor(father_hist_size * (0.6 + 0.4 * father.getComfort()));
-            List<Point> newhist = Point.clonePointList(father.history);
+            List<Point> newhist = Point.clonePointList(father.getHistory());
             List<Integer> newcosts = new ArrayList<Integer>();
-            newcosts.addAll(father.costs);
+            newcosts.addAll(father.getCosts());
 
             newhist.subList(prefix_size + 1, newhist.size()).clear();
             newcosts.subList(prefix_size + 1, newcosts.size()).clear();
-            ind.history = newhist;
-            ind.costs = newcosts;
+            ind.getHistory().addAll(newhist);
+            ind.getCosts().addAll(newcosts);
 
             // System.out.println("pre " + prefix_size + " histFather " + father_hist_size + "
             // newhist " +
@@ -83,32 +84,32 @@ public class EvRepr extends Event {
             }
             ind.setCost(cycle_cost);
 
-            if (Point.findSamePoint(newhist, op.goal) != -1) ind.setHit(true);
+            if (Point.findSamePoint(newhist, op.getGoal()) != -1) ind.setHit(true);
             else ind.setHit(false);
 
         } else { // if size is 1 or 2 then we can do nothing but accept the starting point only i
             // guess
             // <---- CHECK!!!!!!!!!!!
-            ind.history.add(op.start);
+            ind.getHistory().add(op.getStart());
             ind.setCost(0);
-            ind.costs.add(1);
+            ind.getCosts().add(1);
             ind.setHit(false);
         }
 
-        ind.updateComfort(op.goal, op.map, op.k);
-        ind.setDeathTime(op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.death_mean));
-        op.pec.addElement(new EvDeath(ind.getDeathTime(), ind), ec);
+        ind.updateComfort(op.getGoal(), op.getMap(), op.getK());
+        ind.setDeathTime(op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getDeath_mean()));
+        op.getPec().addElement(new EvDeath(ind.getDeathTime(), ind), ec);
 
         // create move and only add if happens before death
-        randTime = op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.move_mean);
+        randTime = op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getMove_mean());
         if (randTime < ind.getDeathTime()) {
-            op.pec.addElement(new EvMove(randTime, ind), ec);
+            op.getPec().addElement(new EvMove(randTime, ind), ec);
         }
 
         // create reproduction and only add if happens before death
-        randTime = op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.repr_mean);
+        randTime = op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getRepr_mean());
         if (randTime < ind.getDeathTime()) {
-            op.pec.addElement(new EvRepr(randTime, ind), ec);
+            op.getPec().addElement(new EvRepr(randTime, ind), ec);
         }
     }
 

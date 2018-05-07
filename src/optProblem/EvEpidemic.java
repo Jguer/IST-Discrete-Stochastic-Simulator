@@ -26,7 +26,7 @@ public class EvEpidemic extends Event {
      *     instant.
      */
     public EvEpidemic(StochasticOptProblem op) {
-        super(op.actual_time, null);
+        super(op.getActual_time(), null);
     }
 
     // METHODS
@@ -43,12 +43,12 @@ public class EvEpidemic extends Event {
 
         StochasticOptProblem op = (StochasticOptProblem) opp;
 
-        op.num_epidemics++;
+        op.setNum_epidemics(op.getNum_epidemics() + 1);
 
         double r;
 
         // this is done so we DON'T ever kill the best 5 in an epidemic
-        List<Individual> newinds = Individual.cloneIndividualList(op.list_inds);
+        List<Individual> newinds = Individual.cloneIndividualList(op.getIndividualsList());
         newinds.sort(Individual.ic); // System.out.println(op.alive_inds + " " +newinds.toString());
         List<Individual> subinds = newinds.subList(5, newinds.size());
 
@@ -59,7 +59,7 @@ public class EvEpidemic extends Event {
             r = Event.r.nextDouble();
             if (r > ind.getComfort()) { // sorry but you will die, says the programmer to the individual
 
-                Collection<Event> pecevents = (Queue<Event>) op.pec.getElementList();
+                Collection<Event> pecevents = (Queue<Event>) op.getPec().getElementList();
                 List<Event> found = new ArrayList<Event>();
 
                 // remove all events in the pec that are related to the individual we are killing
@@ -70,11 +70,11 @@ public class EvEpidemic extends Event {
                     }
                 }
                 pecevents.removeAll(found);
-                op.list_inds.remove(ind);
+                op.getIndividualsList().remove(ind);
             }
         }
 
-        op.alive_inds = op.list_inds.size();
+        op.setAliveIndividuals(op.getIndividualsList().size());
         // System.out.println("\nDEPOIS: " + op.pec.toString());
         // System.out.println(op.alive_inds + " " + op.list_inds.toString());
     }

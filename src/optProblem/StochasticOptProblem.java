@@ -22,34 +22,34 @@ public class StochasticOptProblem implements OptProblem {
     // ATTRIBUTES
 
     // time related fields
-    double actual_time;
-    double max_time;
+    private double actual_time;
+    private double max_time;
 
     // individual related fields
-    int alive_inds;
-    int total_inds;
-    int max_inds;
-    List<Individual> list_inds;
-    Individual best;
-    int k;
+    private int alive_inds;
+    private int total_inds;
+    private int max_inds;
+    private final List<Individual> list_inds;
+    private Individual best;
+    private int k;
 
     // event related fields
-    int num_events;
-    int num_deaths;
-    int num_moves;
-    int num_reprs;
-    int num_epidemics;
-    int num_ControlPrint = 1;
-    int death_mean;
-    int move_mean;
-    int repr_mean;
-    IPec<Event> pec;
+    private int num_events;
+    private int num_deaths;
+    private int num_moves;
+    private int num_reprs;
+    private int num_epidemics;
+    private int num_ControlPrint = 1;
+    private int death_mean;
+    private int move_mean;
+    private int repr_mean;
+    private IPec<Event> pec;
 
     // map related fields
-    Map map;
-    Point start;
-    Point goal;
-    boolean hit;
+    private Map map;
+    private Point start;
+    private Point goal;
+    private boolean hit;
 
     // CONTRUCTORS
     /**
@@ -57,7 +57,7 @@ public class StochasticOptProblem implements OptProblem {
      * lists that will be used.
      */
     public StochasticOptProblem() {
-        pec = new PriorityQueuePec<Event>(Event.ec);
+        setPec(new PriorityQueuePec<Event>(Event.ec));
         list_inds = new LinkedList<Individual>();
     }
 
@@ -90,15 +90,15 @@ public class StochasticOptProblem implements OptProblem {
             int cmaxx,
             int kk) {
         this();
-        actual_time = 0;
+        setActual_time(0);
         max_time = max_timee;
         max_inds = max_indss;
-        death_mean = dmean;
-        move_mean = mmean;
-        repr_mean = rmean;
-        map = new Map(xx, yy, no, cmaxx);
-        k = kk;
-        hit = false;
+        setDeath_mean(dmean);
+        setMove_mean(mmean);
+        setRepr_mean(rmean);
+        setMap(new Map(xx, yy, no, cmaxx));
+        setK(kk);
+        setHit(false);
     }
 
     // METHODS
@@ -115,27 +115,27 @@ public class StochasticOptProblem implements OptProblem {
 
         Individual ind = new Individual(total_inds++);
 
-        alive_inds++;
-        list_inds.add(ind);
+        setAliveIndividuals(getAliveIndividuals() + 1);
+        getIndividualsList().add(ind);
 
-        ind.history.add(start);
+        ind.getHistory().add(getStart());
         ind.setCost(0);
-        ind.costs.add(1);
+        ind.getCosts().add(1);
 
-        ind.updateComfort(goal, map, k);
-        ind.setDeathTime(actual_time + Event.expRandom(ind.getValueForExpMean() * death_mean));
-        pec.addElement(new EvDeath(ind.getDeathTime(), ind), Event.ec);
+        ind.updateComfort(getGoal(), getMap(), getK());
+        ind.setDeathTime(getActual_time() + Event.expRandom(ind.getValueForExpMean() * getDeath_mean()));
+        getPec().addElement(new EvDeath(ind.getDeathTime(), ind), Event.ec);
 
         // create move and only add if happens before death
-        double randTime = actual_time + Event.expRandom(ind.getValueForExpMean() * move_mean);
+        double randTime = getActual_time() + Event.expRandom(ind.getValueForExpMean() * getMove_mean());
         if (randTime < ind.getDeathTime()) {
-            pec.addElement(new EvMove(randTime, ind), Event.ec);
+            getPec().addElement(new EvMove(randTime, ind), Event.ec);
         }
 
         // create reproduction and only add if happens before death
-        randTime = actual_time + Event.expRandom(ind.getValueForExpMean() * repr_mean);
+        randTime = getActual_time() + Event.expRandom(ind.getValueForExpMean() * getRepr_mean());
         if (randTime < ind.getDeathTime()) {
-            pec.addElement(new EvRepr(randTime, ind), Event.ec);
+            getPec().addElement(new EvRepr(randTime, ind), Event.ec);
         }
     }
 
@@ -154,31 +154,31 @@ public class StochasticOptProblem implements OptProblem {
             int kk,
             int num_inds_init) {
 
-        actual_time = 0;
+        setActual_time(0);
         max_time = max_timee;
         max_inds = max_indss;
-        death_mean = dmean;
-        move_mean = mmean;
-        repr_mean = rmean;
-        map = parsedMap;
-        k = kk;
-        hit = false;
+        setDeath_mean(dmean);
+        setMove_mean(mmean);
+        setRepr_mean(rmean);
+        setMap(parsedMap);
+        setK(kk);
+        setHit(false);
 
         int num_ctrl = 20;
         double ctrl_time = (double) max_time / num_ctrl;
 
-        start = initialPoint;
-        goal = finalPoint;
+        setStart(initialPoint);
+        setGoal(finalPoint);
 
         for (int i = 0;
                 i < num_inds_init;
                 i++) { // creates the first individuals at the starting point
             this.createFirstInds();
         }
-        this.best = Individual.updateBest(list_inds, best, hit); // updates the best one so far
+        this.setBestIndividual(Individual.updateBest(getIndividualsList(), getBestIndividual(), isHit())); // updates the best one so far
 
         for (int j = 1; j <= num_ctrl; j++) { // adding the Control Print events to the PEC
-            pec.addElement(new EvControlPrint(ctrl_time * j), Event.ec);
+            getPec().addElement(new EvControlPrint(ctrl_time * j), Event.ec);
         }
 
         // System.out.println(op.pec.toString());
@@ -192,33 +192,32 @@ public class StochasticOptProblem implements OptProblem {
 
         Event ev;
 
-        System.out.println("Pec: " + this.pec.toStringOrdered());
+        System.out.println("Pec: " + this.getPec().toStringOrdered());
 
         // ================= SIMULATING =============================
-        while (this.alive_inds > 0 && this.actual_time < this.max_time) {
+        while (this.getAliveIndividuals() > 0 && this.getActual_time() < this.max_time) {
 
-            ev = this.pec.getFirstElement(); // get next event from PEC
+            ev = this.getPec().getFirstElement(); // get next event from PEC
             // System.out.println("ev: " +ev);
-            this.actual_time = ev.getTime(); // fast forward until its time to execute it
-            this.num_events++;
+            this.setActual_time(ev.getTime()); // fast forward until its time to execute it
+            this.setNum_events(this.getNum_events() + 1);
             ev.ExecEvent(this);
 
             if (ev.getIndividual() != null) { // if it was an event with an individual associated
-                ev.getIndividual().updateComfort(this.goal, this.map, this.k);
-                this.best =
-                        Individual.updateBest(list_inds, best, hit); // updates the best one so far
+                ev.getIndividual().updateComfort(this.getGoal(), this.getMap(), this.getK());
+                this.setBestIndividual(Individual.updateBest(getIndividualsList(), getBestIndividual(), isHit())); // updates the best one so far
 
-                if (this.alive_inds
+                if (this.getAliveIndividuals()
                         > this.max_inds) { // launch an epidemic - it will have time = current
                     // time so we will
                     // execute it right away
-                    this.pec.addElement(new EvEpidemic(this), Event.ec);
+                    this.getPec().addElement(new EvEpidemic(this), Event.ec);
                 }
             }
         }
 
         // ======================= WE'RE OUT OF THE SIMULATION!!! ===============================
-        System.out.println("Path of the best fit individual: " + this.best.history.toString());
+        System.out.println("Path of the best fit individual: " + this.getBestIndividual().getHistory().toString());
     }
 
     /* (non-Javadoc)
@@ -254,6 +253,273 @@ public class StochasticOptProblem implements OptProblem {
             e.printStackTrace();
         }
     }
+
+	/**
+	 * @return the actual_time
+	 */
+	public double getActual_time() {
+		return actual_time;
+	}
+
+	/**
+	 * @param actual_time the actual_time to set
+	 */
+	public void setActual_time(double actual_time) {
+		this.actual_time = actual_time;
+	}
+
+	/**
+	 * @return the list_inds
+	 */
+	public List<Individual> getIndividualsList() {
+		return list_inds;
+	}
+
+	/**
+	 * @return the alive_inds
+	 */
+	public int getAliveIndividuals() {
+		return alive_inds;
+	}
+
+	/**
+	 * @param alive_inds the alive_inds to set
+	 */
+	public void setAliveIndividuals(int alive_inds) {
+		this.alive_inds = alive_inds;
+	}
+
+	/**
+	 * @return the best
+	 */
+	public Individual getBestIndividual() {
+		return best;
+	}
+
+	/**
+	 * @param best the best to set
+	 */
+	public void setBestIndividual(Individual best) {
+		this.best = best;
+	}
+
+	/**
+	 * @return the k
+	 */
+	public int getK() {
+		return k;
+	}
+
+	/**
+	 * @param k the k to set
+	 */
+	public void setK(int k) {
+		this.k = k;
+	}
+
+	/**
+	 * @return the total_inds
+	 */
+	public int getTotalIndividuals() {
+		return total_inds;
+	}
+
+	/**
+	 * @param total_inds the total_inds to set
+	 */
+	public void setTotalIndividuals(int total_inds) {
+		this.total_inds = total_inds;
+	}
+
+	/**
+	 * @return the num_ControlPrint
+	 */
+	public int getNumControlPrint() {
+		return num_ControlPrint;
+	}
+
+	/**
+	 * @param num_ControlPrint the num_ControlPrint to set
+	 */
+	public void setNumControlPrint(int num_ControlPrint) {
+		this.num_ControlPrint = num_ControlPrint;
+	}
+
+	/**
+	 * @return the num_deaths
+	 */
+	public int getNum_deaths() {
+		return num_deaths;
+	}
+
+	/**
+	 * @param num_deaths the num_deaths to set
+	 */
+	public void setNum_deaths(int num_deaths) {
+		this.num_deaths = num_deaths;
+	}
+
+	/**
+	 * @return the num_epidemics
+	 */
+	public int getNum_epidemics() {
+		return num_epidemics;
+	}
+
+	/**
+	 * @param num_epidemics the num_epidemics to set
+	 */
+	public void setNum_epidemics(int num_epidemics) {
+		this.num_epidemics = num_epidemics;
+	}
+
+	/**
+	 * @return the num_moves
+	 */
+	public int getNum_moves() {
+		return num_moves;
+	}
+
+	/**
+	 * @param num_moves the num_moves to set
+	 */
+	public void setNum_moves(int num_moves) {
+		this.num_moves = num_moves;
+	}
+
+	/**
+	 * @return the move_mean
+	 */
+	public int getMove_mean() {
+		return move_mean;
+	}
+
+	/**
+	 * @param move_mean the move_mean to set
+	 */
+	public void setMove_mean(int move_mean) {
+		this.move_mean = move_mean;
+	}
+
+	/**
+	 * @return the num_reprs
+	 */
+	public int getNum_reprs() {
+		return num_reprs;
+	}
+
+	/**
+	 * @param num_reprs the num_reprs to set
+	 */
+	public void setNum_reprs(int num_reprs) {
+		this.num_reprs = num_reprs;
+	}
+
+	/**
+	 * @return the repr_mean
+	 */
+	public int getRepr_mean() {
+		return repr_mean;
+	}
+
+	/**
+	 * @param repr_mean the repr_mean to set
+	 */
+	public void setRepr_mean(int repr_mean) {
+		this.repr_mean = repr_mean;
+	}
+
+	/**
+	 * @return the death_mean
+	 */
+	public int getDeath_mean() {
+		return death_mean;
+	}
+
+	/**
+	 * @param death_mean the death_mean to set
+	 */
+	public void setDeath_mean(int death_mean) {
+		this.death_mean = death_mean;
+	}
+
+	/**
+	 * @return the num_events
+	 */
+	public int getNum_events() {
+		return num_events;
+	}
+
+	/**
+	 * @param num_events the num_events to set
+	 */
+	public void setNum_events(int num_events) {
+		this.num_events = num_events;
+	}
+
+	/**
+	 * @return the pec
+	 */
+	public IPec<Event> getPec() {
+		return pec;
+	}
+
+	/**
+	 * @param pec the pec to set
+	 */
+	public void setPec(IPec<Event> pec) {
+		this.pec = pec;
+	}
+
+	public Map getMap() {
+		return map;
+	}
+
+	public void setMap(Map map) {
+		this.map = map;
+	}
+
+	/**
+	 * @return the goal
+	 */
+	public Point getGoal() {
+		return goal;
+	}
+
+	/**
+	 * @param goal the goal to set
+	 */
+	public void setGoal(Point goal) {
+		this.goal = goal;
+	}
+
+	/**
+	 * @return the hit
+	 */
+	public boolean isHit() {
+		return hit;
+	}
+
+	/**
+	 * @param hit the hit to set
+	 */
+	public void setHit(boolean hit) {
+		this.hit = hit;
+	}
+
+	/**
+	 * @return the start
+	 */
+	public Point getStart() {
+		return start;
+	}
+
+	/**
+	 * @param start the start to set
+	 */
+	public void setStart(Point start) {
+		this.start = start;
+	}
 }
 	
 	

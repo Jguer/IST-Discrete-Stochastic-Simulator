@@ -22,8 +22,8 @@ public class Individual {
     private double comfort;
     private int cost;
     private boolean hit;
-    List<Point> history;
-    List<Integer> costs;
+    private final List<Point> history;
+    private final List<Integer> costs;
 
     public static IndividualComparator ic =
             new IndividualComparator(); // this can be used by any class that wants to compare 2
@@ -38,7 +38,6 @@ public class Individual {
      *     simulation.
      */
     public Individual(int ident) {
-
         identifier = ident;
         setHit(false);
         history = new ArrayList<Point>();
@@ -53,13 +52,14 @@ public class Individual {
      * @param clone: individual we want to clone.
      */
     public Individual(Individual clone) {
-        this(clone.getIdentifier());
+        identifier = clone.getIdentifier();
+        setHit(false);
         setComfort(clone.getComfort());
         setDeathTime(clone.getDeathTime());
         setCost(clone.getCost());
         setHit(clone.isHit());
-        history = new ArrayList<Point>(clone.history);
-        costs = new ArrayList<Integer>(clone.costs);
+        history = new ArrayList<Point>(clone.getHistory());
+        costs = new ArrayList<Integer>(clone.getCosts());
     }
 
     // METHODS
@@ -154,12 +154,12 @@ public class Individual {
      */
     public void updateComfort(Point goal, Map map, int k) {
 
-        Point current = history.get(history.size() - 1);
+        Point current = getHistory().get(getHistory().size() - 1);
 
         double comf1 =
-                (1.0 - (getCost() - history.size() + 2.0) / ((map.cmax - 1.0) * history.size() + 3.0));
+                (1.0 - (getCost() - getHistory().size() + 2.0) / ((map.getCmax() - 1.0) * getHistory().size() + 3.0));
         int dist = Math.abs(current.getX() - goal.getX()) + Math.abs(current.getY() - goal.getY());
-        double comf2 = 1.0 - ((dist) / (map.mapDimensions.getX() + map.mapDimensions.getY() + 1.0));
+        double comf2 = 1.0 - ((dist) / (map.getMapDimensions().getX() + map.getMapDimensions().getY() + 1.0));
 
         setComfort(Math.pow(comf1, k) * Math.pow(comf2, k));
     }
@@ -204,7 +204,7 @@ public class Individual {
                 + ",hit="
                 + isHit()
                 + ",hist="
-                + history
+                + getHistory()
                 + "]";
     }
 
@@ -222,10 +222,10 @@ public class Individual {
         temp = Double.doubleToLongBits(getComfort());
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + getCost();
-        result = prime * result + ((costs == null) ? 0 : costs.hashCode());
+        result = prime * result + ((getCosts() == null) ? 0 : getCosts().hashCode());
         temp = Double.doubleToLongBits(getDeathTime());
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + ((history == null) ? 0 : history.hashCode());
+        result = prime * result + ((getHistory() == null) ? 0 : getHistory().hashCode());
         result = prime * result + (isHit() ? 1231 : 1237);
         result = prime * result + getIdentifier();
         return result;
@@ -246,14 +246,14 @@ public class Individual {
         if (Double.doubleToLongBits(getComfort()) != Double.doubleToLongBits(other.getComfort()))
             return false;
         if (getCost() != other.getCost()) return false;
-        if (costs == null) {
-            if (other.costs != null) return false;
-        } else if (!costs.equals(other.costs)) return false;
+        if (getCosts() == null) {
+            if (other.getCosts() != null) return false;
+        } else if (!getCosts().equals(other.getCosts())) return false;
         if (Double.doubleToLongBits(getDeathTime()) != Double.doubleToLongBits(other.getDeathTime()))
             return false;
-        if (history == null) {
-            if (other.history != null) return false;
-        } else if (!history.equals(other.history)) return false;
+        if (getHistory() == null) {
+            if (other.getHistory() != null) return false;
+        } else if (!getHistory().equals(other.getHistory())) return false;
         if (isHit() != other.isHit()) return false;
         if (getIdentifier() != other.getIdentifier()) return false;
         return true;
@@ -321,4 +321,19 @@ public class Individual {
 	public void setHit(boolean hit) {
 		this.hit = hit;
 	}
+
+	/**
+	 * @return the history
+	 */
+	public List<Point> getHistory() {
+		return history;
+	}
+
+	/**
+	 * @return the costs
+	 */
+	public List<Integer> getCosts() {
+		return costs;
+	}
+
 }

@@ -11,12 +11,12 @@ import java.util.Arrays;
 public class Map implements IMap {
 
     // ATTRIBUTES
-    int cmax;
-    Point mapDimensions;
-    Point[] obstacles;
+    private int cmax;
+    private Point mapDimensions;
+    private Point[] obstacles;
     SpecialZone[] specialZones;
-    int total_obst;
-    int number_zones;
+    private int total_obst;
+    private int number_zones;
 
     // CONTRUCTORS
 
@@ -27,7 +27,7 @@ public class Map implements IMap {
      * @param p is the Point containing information about the map dimensions
      */
     public Map(Point p) {
-        mapDimensions = p;
+        setMapDimensions(p);
     }
 
     /**
@@ -35,14 +35,13 @@ public class Map implements IMap {
      * several fields.
      *
      * @param xx is the number of columns in the map
-     * @param yy is the number of rows in the map
-     * @param no is the number of obstacles in the map
+     * @param yy is the number of rows in the map * @param no is the number of obstacles in the map
      * @param cmaxx is the maximum cost of an edge
      */
     public Map(int xx, int yy, int no, int cmaxx) {
-        cmax = cmaxx;
-        obstacles = new Point[no];
-        mapDimensions = new Point(xx, yy);
+        setCmax(cmaxx);
+        setObstacles(new Point[no]);
+        setMapDimensions(new Point(xx, yy));
     }
 
     // METHODS
@@ -60,10 +59,10 @@ public class Map implements IMap {
     public boolean nonValidMove(Point actPoint, int index, Point[] obstacles) {
 
         // check if its outside map boundaries
-        if (actPoint.getX() == mapDimensions.getX() && index == 1) return true;
+        if (actPoint.getX() == getMapDimensions().getX() && index == 1) return true;
         if (actPoint.getX() == 1 && index == 3) return true;
         if (actPoint.getY() == 1 && index == 2) return true;
-        if (actPoint.getY() == mapDimensions.getY() && index == 0) return true;
+        if (actPoint.getY() == getMapDimensions().getY() && index == 0) return true;
 
         // check if its in obstacles list
         if (obstacles == null) return false;
@@ -88,17 +87,17 @@ public class Map implements IMap {
     }
 
     public Point getDimensions() {
-        return this.mapDimensions;
+        return this.getMapDimensions();
     }
 
     public void addObstacle(Point p) {
-        obstacles[total_obst] = p;
+        getObstacles()[total_obst] = p;
         total_obst++;
     }
 
     public void addObstacles(Point[] obsts) {
-        obstacles = obsts;
-        total_obst = obstacles.length;
+        setObstacles(obsts);
+        total_obst = getObstacles().length;
     }
 
     public void addSpecialZones(SpecialZone[] specials) {
@@ -107,7 +106,7 @@ public class Map implements IMap {
     }
 
     public void addMaxCost(int c) {
-        cmax = c;
+        setCmax(c);
     }
 
     /**
@@ -132,11 +131,11 @@ public class Map implements IMap {
     /** To String method that overrides the one with the same name in the Object superclass. */
     public String toString() {
         return "Map [cmax="
-                + cmax
+                + getCmax()
                 + ", mapDimensions="
-                + mapDimensions
+                + getMapDimensions()
                 + ", obstacles="
-                + Arrays.toString(obstacles)
+                + Arrays.toString(getObstacles())
                 + ", specialZones="
                 + specialZones
                 + ", total_obst="
@@ -145,4 +144,46 @@ public class Map implements IMap {
                 + number_zones
                 + "]";
     }
+
+	/**
+	 * @return the mapDimensions
+	 */
+	public Point getMapDimensions() {
+		return mapDimensions;
+	}
+
+	/**
+	 * @param mapDimensions the mapDimensions to set
+	 */
+	public void setMapDimensions(Point mapDimensions) {
+		this.mapDimensions = mapDimensions;
+	}
+
+	/**
+	 * @return the cmax
+	 */
+	public int getCmax() {
+		return cmax;
+	}
+
+	/**
+	 * @param cmax the cmax to set
+	 */
+	public void setCmax(int cmax) {
+		this.cmax = cmax;
+	}
+
+	/**
+	 * @return the obstacles
+	 */
+	public Point[] getObstacles() {
+		return obstacles;
+	}
+
+	/**
+	 * @param obstacles the obstacles to set
+	 */
+	public void setObstacles(Point[] obstacles) {
+		this.obstacles = obstacles;
+	}
 }

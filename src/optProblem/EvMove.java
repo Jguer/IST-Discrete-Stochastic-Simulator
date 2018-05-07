@@ -38,22 +38,22 @@ public class EvMove extends Event {
     public void ExecEvent(OptProblem opp) {
         StochasticOptProblem op = (StochasticOptProblem) opp;
 
-        op.num_moves++;
+        op.setNum_moves(op.getNum_moves() + 1);
 
         Individual ind = this.getIndividual();
 
         // create new move and only add if happens before death
-        double randTime = op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.move_mean);
+        double randTime = op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getMove_mean());
         if (randTime < ind.getDeathTime()) {
-            op.pec.addElement(new EvMove(randTime, ind), ec);
+            op.getPec().addElement(new EvMove(randTime, ind), ec);
         }
 
-        Point actPoint = ind.history.get(ind.history.size() - 1);
+        Point actPoint = ind.getHistory().get(ind.getHistory().size() - 1);
 
         Random r = new Random();
         int index = r.nextInt(4);
         // 0 --> move up, 1 --> move right, 2 --> move down, 3 --> move left
-        while (op.map.nonValidMove(actPoint, index, op.map.obstacles)) {
+        while (op.getMap().nonValidMove(actPoint, index, op.getMap().getObstacles())) {
             index = r.nextInt(4); // can be improved probably. usually is pretty fast but sometimes
             // can take a while
             // to get a good index so yeah
@@ -75,15 +75,15 @@ public class EvMove extends Event {
                 break;
         }
 
-        index = Point.findSamePoint(ind.history, toCompare);
+        index = Point.findSamePoint(ind.getHistory(), toCompare);
         if (index
                 != -1) { // if this point closes a cycle --> delete the cycle and remove those costs
-            List<Integer> subCosts = ind.costs.subList(index + 1, ind.costs.size());
-            List<Point> subPoints = ind.history.subList(index + 1, ind.history.size());
+            List<Integer> subCosts = ind.getCosts().subList(index + 1, ind.getCosts().size());
+            List<Point> subPoints = ind.getHistory().subList(index + 1, ind.getHistory().size());
 
             // if we are going to remove a cycle that contains the goal than this individual will no
             // longer have hit the goal
-            if (Point.findSamePoint(subPoints, op.goal) != -1) ind.setHit(false);
+            if (Point.findSamePoint(subPoints, op.getGoal()) != -1) ind.setHit(false);
 
             int cycle_cost = 0;
             for (int i = 0; i < subCosts.size(); i++) {
@@ -97,14 +97,14 @@ public class EvMove extends Event {
 
         } else { // in case this point didnt close a cycle then we want to add it normally
 
-            ind.history.add(toCompare);
-            int current_cost = op.map.getCost(actPoint, toCompare, op.map.specialZones);
+            ind.getHistory().add(toCompare);
+            int current_cost = op.getMap().getCost(actPoint, toCompare, op.getMap().specialZones);
             ind.setCost(ind.getCost() + current_cost);
-            ind.costs.add(current_cost);
+            ind.getCosts().add(current_cost);
 
-            if (toCompare.equals(op.goal)) {
+            if (toCompare.equals(op.getGoal())) {
                 ind.setHit(true);
-                op.hit = true;
+                op.setHit(true);
             }
         }
     }
