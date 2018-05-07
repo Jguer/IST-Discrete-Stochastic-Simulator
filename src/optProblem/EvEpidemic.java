@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.Queue;
 
 /**
- * @author grupo2
+ * @author group2
  * 
  * This subclass is an extension of the abstract Event class and will handle the
- * Epidemic events. It has a static field of its own and inherits time and individual from the
+ * Epidemic events. It inherits time and individual from the
  * superclass. Individual is set to null and time is the actual time so it happens in the next
  * iteration of the simulation. The static field is an Individual Comparator. It needs to
  * specify an implementation for the the Execute Event and toString methods.
@@ -17,8 +17,7 @@ import java.util.Queue;
 public class EvEpidemic extends Event {
 
     // ATTRIBUTES
-    public static IndividualComparator ic = new IndividualComparator(); //this can be used by any class that wants to compare 2 individuals, even outside our package
-
+    
     // CONTRUCTORS
     /**
      * This is the constructor. All it does is call the superclass' constructor with the arguments
@@ -51,7 +50,7 @@ public class EvEpidemic extends Event {
 
         // this is done so we DON'T ever kill the best 5 in an epidemic
         List<Individual> newinds = Individual.cloneIndividualList(op.list_inds);
-        newinds.sort(ic); // System.out.println(op.alive_inds + " " +newinds.toString());
+        newinds.sort(Individual.ic); // System.out.println(op.alive_inds + " " +newinds.toString());
         List<Individual> subinds = newinds.subList(5, newinds.size());
 
         // System.out.println(op.actual_time);

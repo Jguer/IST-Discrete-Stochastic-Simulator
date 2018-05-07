@@ -1,7 +1,7 @@
 package optProblem;
 
 /**
- * @author grupo2
+ * @author group2
  * 
  * This subclass is an extension of the abstract Event class and will handle the
  * Control Print events. It has no fields on its own but inherits time and individual from the
@@ -57,12 +57,6 @@ public class EvControlPrint extends Event {
             System.out.print("\t\t");
             System.out.printf(format2, "Final point has been hit: ", "No");
         }
-
-        // this part has to be removed as it is not asked by the teacher. It is merely to see roughly when we reach the goal
-        /*System.out.print("\t\t");
-        System.out.printf(format, "Best Individual: ", op.best.identifier);
-        System.out.print("\t\t");
-        System.out.printf(format, "Total Individuals: ", op.total_inds);*/
 
         System.out.print("\t\t");
         System.out.printf(format3, "Path of the best fit individual: ", op.best.history.toString());

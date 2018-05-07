@@ -1,7 +1,7 @@
 package optProblem;
 
 /**
- * @author grupo2
+ * @author group2
  * 
  * This subclass is an extension of the abstract Event class and will handle the
  * Death events. It has no fields on its own but inherits time and individual from the

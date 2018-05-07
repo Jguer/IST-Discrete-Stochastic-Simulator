@@ -7,7 +7,7 @@ import java.util.Comparator;
  * Interface relative to the PEC. If there is a need to use a PEC with a different implementation
  *(for example using a HashSet or something similar) one can do so by implementing this interface
  *
- * @author grupo2
+ * @author group2
  *
  * @param <T> is the generic type for the elements in the PEC.
  */

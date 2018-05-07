@@ -3,7 +3,7 @@ package optProblem;
 import java.util.Comparator;
 
 /**
- * @author grupo2
+ * @author group2
  * 
  * Class that is just used to compare Events based on their time. When used with the
  * list.sort(Comparator) method it will sort a List of Events by lowest time first. It

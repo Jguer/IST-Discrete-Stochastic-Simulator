@@ -3,7 +3,7 @@ package optProblem;
 import java.util.Random;
 
 /**
- * @author grupo2
+ * @author group2
  * 
  * Abstract class for Events. Has a field for the associated individual and one for
  * the time in which we should execute the event. There are 2 static fields. The first is a

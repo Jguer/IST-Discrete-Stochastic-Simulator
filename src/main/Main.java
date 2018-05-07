@@ -8,7 +8,7 @@ import optProblem.StochasticOptProblem;
 /**
  * Main class used to test the program
  * 
- * @author grupo2
+ * @author group2
  *
  */
 public class Main {
@@ -17,7 +17,7 @@ public class Main {
 	 * Main method used to test the program
 	 * There is a need for one and only one argument passed when running the code.
 	 * 
-	 * @author grupo2
+	 * @author group2
 	 *
 	 * @param name of the test file used 
 	 */

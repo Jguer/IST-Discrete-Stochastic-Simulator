@@ -2,7 +2,7 @@ package optProblem;
 
 import java.util.Arrays;
 
-/** @author antonio This class is for the Map. */
+/** @author group2 This class is for the Map. */
 public class Map implements IMap {
 
     // ATTRIBUTES - TALVES DEPOIS PASSAR PARA AQUI AS CENAS ACERCA DO MAPA??

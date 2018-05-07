@@ -14,7 +14,7 @@ import java.util.List;
  * compare only the identifier of the indivifual. There are also methods for Individual cloning and 
  * Individual List cloning.
  * 
- * @author grupo2    
+ * @author grup2    
  */
 public class Individual {
 
@@ -26,6 +26,9 @@ public class Individual {
     boolean hit;
     List<Point> history;
     List<Integer> costs;
+    
+    public static IndividualComparator ic = new IndividualComparator(); //this can be used by any class that wants to compare 2 individuals, even outside our package
+
 
     // CONTRUCTORS
     /**
