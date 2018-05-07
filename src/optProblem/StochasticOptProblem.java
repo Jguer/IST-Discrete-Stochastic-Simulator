@@ -11,8 +11,7 @@ import pec.PriorityQueuePec;
 
 /**
  * Class of the Optimization Problem. We have 4 kinds of attributes that are non static: time
- * related, individual related, event related and map related. There is a static field containing
- * the <code>EventCompartor</code>. This can be the same for all instances of Optimization problems.
+ * related, individual related, event related and map related.
  *
  * @version 1.0
  * @since 2018-04-30
