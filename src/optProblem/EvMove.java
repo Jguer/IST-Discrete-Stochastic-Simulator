@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * @author grupo2
+ * @author group2
  * 
  *  This subclass is an extension of the abstract Event class and will handle the
  *  Move events. It has no fields on its own but inherits time and individual from the
@@ -100,8 +100,7 @@ public class EvMove extends Event {
                 cycle_cost += subCosts.get(i);
             }
             // delete these lists and the points/costs in the ind.history ones that have the same
-            // place in
-            // memory
+            // place in memory
             subPoints.clear();
             subCosts.clear();
             ind.cost -= cycle_cost;

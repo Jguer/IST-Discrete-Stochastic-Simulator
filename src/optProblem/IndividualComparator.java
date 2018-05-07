@@ -3,7 +3,9 @@ package optProblem;
 import java.util.Comparator;
 
 /**
- * @author antonio Class that is just used to compare between individuals When used with the
+ * @author group2
+ * 
+ *  Class that is just used to compare between individuals When used with the
  *     list.sort(Comparator) method it will sort a List of individuals by highest comfort first. It
  *     implements the generic Comparator interface by overriding the compare method.
  */

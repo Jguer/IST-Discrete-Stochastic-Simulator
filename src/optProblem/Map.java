@@ -2,7 +2,12 @@ package optProblem;
 
 import java.util.Arrays;
 
-/** @author group2 This class is for the Map. */
+/** @author group2 
+ * 
+ * This class is for the Map. 
+ * All the attributes are map related. Apart from the methods that implement the ones in the interface
+ * there was a net to include some setters/getters because of the use of this class outside this package.
+ * */
 public class Map implements IMap {
 
     // ATTRIBUTES - TALVES DEPOIS PASSAR PARA AQUI AS CENAS ACERCA DO MAPA??
@@ -14,10 +19,25 @@ public class Map implements IMap {
     int number_zones;
 
     // CONTRUCTORS
+    
+    /**
+     * Constructor of the Map object. This is a simpler one that only receives a Point and adds it to the map dimensions field.
+     *
+     * @param p is the Point containing information about the map dimensions
+     */
     public Map(Point p) {
         mapDimensions = p;
     }
 
+    
+    /**
+     * Constructor of the Map object. This is a more advanced one that can be used to initialize several fields.
+     *
+     * @param xx is the number of columns in the map
+     * @param yy is the number of rows in the map
+     * @param no is the number of obstacles in the map
+     * @param cmaxx is the maximum cost of an edge 
+     */
     public Map(int xx, int yy, int no, int cmaxx) {
         cmax = cmaxx;
         obstacles = new Point[no];
@@ -122,7 +142,9 @@ public class Map implements IMap {
         return 1;
     }
 
-    @Override
+    /**
+     * To String method that overrides the one with the same name in the Object superclass.
+     */
     public String toString() {
         return "Map [cmax="
                 + cmax

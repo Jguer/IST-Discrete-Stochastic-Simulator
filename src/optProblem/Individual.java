@@ -14,12 +14,12 @@ import java.util.List;
  * compare only the identifier of the indivifual. There are also methods for Individual cloning and 
  * Individual List cloning.
  * 
- * @author grup2    
+ * @author group2    
  */
 public class Individual {
 
     // ATTRIBUTES
-    int identifier;
+    final int identifier;
     double death_time;
     double comfort;
     int cost;
@@ -63,6 +63,8 @@ public class Individual {
         history = new ArrayList<Point>(clone.history);
         costs = new ArrayList<Integer>(clone.costs);
     }
+    
+    //METHODS
 
     /**
      * Method that will take care of updating the best individual. In case the goal has been hit

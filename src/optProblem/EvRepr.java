@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author grupo2
+ * @author group2
  * 
  * This subclass is an extension of the abstract Event class and will handle the
  * Reproduction events. It has no fields on its own but inherits time and individual from the
