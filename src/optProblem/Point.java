@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author antonio This class will store a Point, i.e., a pair of (x,y) values. No attributes are
+ * @author group2
+ * 
+ *  This class will store a Point, i.e., a pair of (x,y) values. No attributes are
  *     static so each object will have their own. Equals, Hashcode and toString were overridden.
  */
 public class Point {

@@ -38,7 +38,16 @@ public interface OptProblem {
             int kk,
             int num_inds_init);
 
+    /**
+     * This method  is responsible for running the simulation itself.
+     */
     void simulate();
+    
+    /**
+     * This method is the whole problem in one. It should open the file specified in the arguments,
+     * parse it accordingly, initialize que optimization problem and then call the simulate method.
+     * @param filename is the name of the file containing the test 
+     */
 
     public void runOptimizationProblem(String filename);
 }
