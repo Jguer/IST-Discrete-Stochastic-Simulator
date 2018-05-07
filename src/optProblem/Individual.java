@@ -17,11 +17,11 @@ import java.util.List;
 public class Individual {
 
     // ATTRIBUTES
-    final int identifier;
-    double death_time;
-    double comfort;
-    int cost;
-    boolean hit;
+    final private int identifier;
+    private double death_time;
+    private double comfort;
+    private int cost;
+    private boolean hit;
     List<Point> history;
     List<Integer> costs;
 
@@ -40,7 +40,7 @@ public class Individual {
     public Individual(int ident) {
 
         identifier = ident;
-        hit = false;
+        setHit(false);
         history = new ArrayList<Point>();
         costs = new ArrayList<Integer>();
     }
@@ -53,11 +53,11 @@ public class Individual {
      * @param clone: individual we want to clone.
      */
     public Individual(Individual clone) {
-        this(clone.identifier);
-        comfort = clone.comfort;
-        death_time = clone.death_time;
-        cost = clone.cost;
-        hit = clone.hit;
+        this(clone.getIdentifier());
+        setComfort(clone.getComfort());
+        setDeathTime(clone.getDeathTime());
+        setCost(clone.getCost());
+        setHit(clone.isHit());
         history = new ArrayList<Point>(clone.history);
         costs = new ArrayList<Integer>(clone.costs);
     }
@@ -84,7 +84,7 @@ public class Individual {
         } else {
             for (Individual ind : list_inds) {
                 // if we don't have a best yet OR this guy is better than the last
-                if (best == null || ind.comfort > best.comfort) {
+                if (best == null || ind.getComfort() > best.getComfort()) {
                     best = new Individual(ind);
                 }
             }
@@ -106,7 +106,7 @@ public class Individual {
      */
     public static Individual getBestIndividual(List<Individual> inds, Individual best) {
         for (Individual ind : inds) {
-            if (ind.hit && (!best.hit || ind.cost < best.cost)) {
+            if (ind.isHit() && (!best.isHit() || ind.getCost() < best.getCost())) {
                 best = ind;
             }
         }
@@ -157,11 +157,11 @@ public class Individual {
         Point current = history.get(history.size() - 1);
 
         double comf1 =
-                (1.0 - (cost - history.size() + 2.0) / ((map.cmax - 1.0) * history.size() + 3.0));
+                (1.0 - (getCost() - history.size() + 2.0) / ((map.cmax - 1.0) * history.size() + 3.0));
         int dist = Math.abs(current.getX() - goal.getX()) + Math.abs(current.getY() - goal.getY());
         double comf2 = 1.0 - ((dist) / (map.mapDimensions.getX() + map.mapDimensions.getY() + 1.0));
 
-        comfort = Math.pow(comf1, k) * Math.pow(comf2, k);
+        setComfort(Math.pow(comf1, k) * Math.pow(comf2, k));
     }
 
     /**
@@ -172,7 +172,7 @@ public class Individual {
      * @return Returns the value to be used in the exponential pdf.
      */
     public double getValueForExpMean() {
-        return (1 - Math.log(1.0 - comfort));
+        return (1 - Math.log(1.0 - getComfort()));
     }
 
     /**
@@ -188,7 +188,7 @@ public class Individual {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Individual other = (Individual) obj;
-        if (identifier != other.identifier) return false;
+        if (getIdentifier() != other.getIdentifier()) return false;
         return true;
     }
 
@@ -196,13 +196,13 @@ public class Individual {
     @Override
     public String toString() {
         return "Individual[ID="
-                + identifier
+                + getIdentifier()
                 + ",com="
-                + comfort
+                + getComfort()
                 + ",cst="
-                + cost
+                + getCost()
                 + ",hit="
-                + hit
+                + isHit()
                 + ",hist="
                 + history
                 + "]";
@@ -219,15 +219,15 @@ public class Individual {
         final int prime = 31;
         int result = 1;
         long temp;
-        temp = Double.doubleToLongBits(comfort);
+        temp = Double.doubleToLongBits(getComfort());
         result = prime * result + (int) (temp ^ (temp >>> 32));
-        result = prime * result + cost;
+        result = prime * result + getCost();
         result = prime * result + ((costs == null) ? 0 : costs.hashCode());
-        temp = Double.doubleToLongBits(death_time);
+        temp = Double.doubleToLongBits(getDeathTime());
         result = prime * result + (int) (temp ^ (temp >>> 32));
         result = prime * result + ((history == null) ? 0 : history.hashCode());
-        result = prime * result + (hit ? 1231 : 1237);
-        result = prime * result + identifier;
+        result = prime * result + (isHit() ? 1231 : 1237);
+        result = prime * result + getIdentifier();
         return result;
     }
 
@@ -243,19 +243,82 @@ public class Individual {
         if (obj == null) return false;
         if (getClass() != obj.getClass()) return false;
         Individual other = (Individual) obj;
-        if (Double.doubleToLongBits(comfort) != Double.doubleToLongBits(other.comfort))
+        if (Double.doubleToLongBits(getComfort()) != Double.doubleToLongBits(other.getComfort()))
             return false;
-        if (cost != other.cost) return false;
+        if (getCost() != other.getCost()) return false;
         if (costs == null) {
             if (other.costs != null) return false;
         } else if (!costs.equals(other.costs)) return false;
-        if (Double.doubleToLongBits(death_time) != Double.doubleToLongBits(other.death_time))
+        if (Double.doubleToLongBits(getDeathTime()) != Double.doubleToLongBits(other.getDeathTime()))
             return false;
         if (history == null) {
             if (other.history != null) return false;
         } else if (!history.equals(other.history)) return false;
-        if (hit != other.hit) return false;
-        if (identifier != other.identifier) return false;
+        if (isHit() != other.isHit()) return false;
+        if (getIdentifier() != other.getIdentifier()) return false;
         return true;
     }
+
+	/**
+	 * @return the identifier
+	 */
+	public int getIdentifier() {
+		return identifier;
+	}
+
+	/**
+	 * @return the death_time
+	 */
+	public double getDeathTime() {
+		return death_time;
+	}
+
+	/**
+	 * @param death_time the death_time to set
+	 */
+	public void setDeathTime(double death_time) {
+		this.death_time = death_time;
+	}
+
+	/**
+	 * @return the comfort
+	 */
+	public double getComfort() {
+		return comfort;
+	}
+
+	/**
+	 * @param comfort the comfort to set
+	 */
+	public void setComfort(double comfort) {
+		this.comfort = comfort;
+	}
+
+	/**
+	 * @return the cost
+	 */
+	public int getCost() {
+		return cost;
+	}
+
+	/**
+	 * @param cost the cost to set
+	 */
+	public void setCost(int cost) {
+		this.cost = cost;
+	}
+
+	/**
+	 * @return the hit
+	 */
+	public boolean isHit() {
+		return hit;
+	}
+
+	/**
+	 * @param hit the hit to set
+	 */
+	public void setHit(boolean hit) {
+		this.hit = hit;
+	}
 }

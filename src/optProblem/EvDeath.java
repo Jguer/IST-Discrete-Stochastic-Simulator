@@ -46,6 +46,6 @@ public class EvDeath extends Event {
      * redefinition is mandatory.
      */
     public String toString() {
-        return ("(Type:Death,Ind ID:" + this.getIndividual().identifier + ",Time:" + this.getTime() + ")");
+        return ("(Type:Death,Ind ID:" + this.getIndividual().getIdentifier() + ",Time:" + this.getTime() + ")");
     }
 }

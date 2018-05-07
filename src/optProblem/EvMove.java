@@ -36,7 +36,6 @@ public class EvMove extends Event {
      *     that portion of the history then the hit boolean is set to zero.
      */
     public void ExecEvent(OptProblem opp) {
-
         StochasticOptProblem op = (StochasticOptProblem) opp;
 
         op.num_moves++;
@@ -45,7 +44,7 @@ public class EvMove extends Event {
 
         // create new move and only add if happens before death
         double randTime = op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.move_mean);
-        if (randTime < ind.death_time) {
+        if (randTime < ind.getDeathTime()) {
             op.pec.addElement(new EvMove(randTime, ind), ec);
         }
 
@@ -84,7 +83,7 @@ public class EvMove extends Event {
 
             // if we are going to remove a cycle that contains the goal than this individual will no
             // longer have hit the goal
-            if (Point.findSamePoint(subPoints, op.goal) != -1) ind.hit = false;
+            if (Point.findSamePoint(subPoints, op.goal) != -1) ind.setHit(false);
 
             int cycle_cost = 0;
             for (int i = 0; i < subCosts.size(); i++) {
@@ -94,17 +93,17 @@ public class EvMove extends Event {
             // place in memory
             subPoints.clear();
             subCosts.clear();
-            ind.cost -= cycle_cost;
+            ind.setCost(ind.getCost() - cycle_cost);
 
         } else { // in case this point didnt close a cycle then we want to add it normally
 
             ind.history.add(toCompare);
             int current_cost = op.map.getCost(actPoint, toCompare, op.map.specialZones);
-            ind.cost += current_cost;
+            ind.setCost(ind.getCost() + current_cost);
             ind.costs.add(current_cost);
 
             if (toCompare.equals(op.goal)) {
-                ind.hit = true;
+                ind.setHit(true);
                 op.hit = true;
             }
         }
@@ -116,6 +115,6 @@ public class EvMove extends Event {
      * redefinition is mandatory.
      */
     public String toString() {
-        return ("(Type:Move,Ind ID:" + this.getIndividual().identifier + ",Time:" + this.getTime() + ")");
+        return ("(Type:Move,Ind ID:" + this.getIndividual().getIdentifier() + ",Time:" + this.getTime() + ")");
     }
 }

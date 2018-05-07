@@ -22,8 +22,8 @@ public class IndividualComparator implements Comparator<Individual> {
      */
     public int compare(Individual i1, Individual i2) {
 
-        double c1 = i1.comfort;
-        double c2 = i2.comfort;
+        double c1 = i1.getComfort();
+        double c2 = i2.getComfort();
 
         return c1 > c2 ? -1 : c1 < c2 ? +1 : 0;
     }
