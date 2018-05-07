@@ -123,11 +123,13 @@ public class StochasticOptProblem implements OptProblem {
         ind.getCosts().add(1);
 
         ind.updateComfort(getGoal(), getMap(), getK());
-        ind.setDeathTime(getActual_time() + Event.expRandom(ind.getValueForExpMean() * getDeath_mean()));
+        ind.setDeathTime(
+                getActual_time() + Event.expRandom(ind.getValueForExpMean() * getDeath_mean()));
         getPec().addElement(new EvDeath(ind.getDeathTime(), ind), Event.ec);
 
         // create move and only add if happens before death
-        double randTime = getActual_time() + Event.expRandom(ind.getValueForExpMean() * getMove_mean());
+        double randTime =
+                getActual_time() + Event.expRandom(ind.getValueForExpMean() * getMove_mean());
         if (randTime < ind.getDeathTime()) {
             getPec().addElement(new EvMove(randTime, ind), Event.ec);
         }
@@ -175,7 +177,11 @@ public class StochasticOptProblem implements OptProblem {
                 i++) { // creates the first individuals at the starting point
             this.createFirstInds();
         }
-        this.setBestIndividual(Individual.updateBest(getIndividualsList(), getBestIndividual(), isHit())); // updates the best one so far
+        this.setBestIndividual(
+                Individual.updateBest(
+                        getIndividualsList(),
+                        getBestIndividual(),
+                        isHit())); // updates the best one so far
 
         for (int j = 1; j <= num_ctrl; j++) { // adding the Control Print events to the PEC
             getPec().addElement(new EvControlPrint(ctrl_time * j), Event.ec);
@@ -205,7 +211,11 @@ public class StochasticOptProblem implements OptProblem {
 
             if (ev.getIndividual() != null) { // if it was an event with an individual associated
                 ev.getIndividual().updateComfort(this.getGoal(), this.getMap(), this.getK());
-                this.setBestIndividual(Individual.updateBest(getIndividualsList(), getBestIndividual(), isHit())); // updates the best one so far
+                this.setBestIndividual(
+                        Individual.updateBest(
+                                getIndividualsList(),
+                                getBestIndividual(),
+                                isHit())); // updates the best one so far
 
                 if (this.getAliveIndividuals()
                         > this.max_inds) { // launch an epidemic - it will have time = current
@@ -217,7 +227,9 @@ public class StochasticOptProblem implements OptProblem {
         }
 
         // ======================= WE'RE OUT OF THE SIMULATION!!! ===============================
-        System.out.println("Path of the best fit individual: " + this.getBestIndividual().getHistory().toString());
+        System.out.println(
+                "Path of the best fit individual: "
+                        + this.getBestIndividual().getHistory().toString());
     }
 
     /* (non-Javadoc)
@@ -254,272 +266,198 @@ public class StochasticOptProblem implements OptProblem {
         }
     }
 
-	/**
-	 * @return the actual_time
-	 */
-	public double getActual_time() {
-		return actual_time;
-	}
+    /** @return the actual_time */
+    public double getActual_time() {
+        return actual_time;
+    }
 
-	/**
-	 * @param actual_time the actual_time to set
-	 */
-	public void setActual_time(double actual_time) {
-		this.actual_time = actual_time;
-	}
+    /** @param actual_time the actual_time to set */
+    public void setActual_time(double actual_time) {
+        this.actual_time = actual_time;
+    }
 
-	/**
-	 * @return the list_inds
-	 */
-	public List<Individual> getIndividualsList() {
-		return list_inds;
-	}
+    /** @return the list_inds */
+    public List<Individual> getIndividualsList() {
+        return list_inds;
+    }
 
-	/**
-	 * @return the alive_inds
-	 */
-	public int getAliveIndividuals() {
-		return alive_inds;
-	}
+    /** @return the alive_inds */
+    public int getAliveIndividuals() {
+        return alive_inds;
+    }
 
-	/**
-	 * @param alive_inds the alive_inds to set
-	 */
-	public void setAliveIndividuals(int alive_inds) {
-		this.alive_inds = alive_inds;
-	}
+    /** @param alive_inds the alive_inds to set */
+    public void setAliveIndividuals(int alive_inds) {
+        this.alive_inds = alive_inds;
+    }
 
-	/**
-	 * @return the best
-	 */
-	public Individual getBestIndividual() {
-		return best;
-	}
+    /** @return the best */
+    public Individual getBestIndividual() {
+        return best;
+    }
 
-	/**
-	 * @param best the best to set
-	 */
-	public void setBestIndividual(Individual best) {
-		this.best = best;
-	}
+    /** @param best the best to set */
+    public void setBestIndividual(Individual best) {
+        this.best = best;
+    }
 
-	/**
-	 * @return the k
-	 */
-	public int getK() {
-		return k;
-	}
+    /** @return the k */
+    public int getK() {
+        return k;
+    }
 
-	/**
-	 * @param k the k to set
-	 */
-	public void setK(int k) {
-		this.k = k;
-	}
+    /** @param k the k to set */
+    public void setK(int k) {
+        this.k = k;
+    }
 
-	/**
-	 * @return the total_inds
-	 */
-	public int getTotalIndividuals() {
-		return total_inds;
-	}
+    /** @return the total_inds */
+    public int getTotalIndividuals() {
+        return total_inds;
+    }
 
-	/**
-	 * @param total_inds the total_inds to set
-	 */
-	public void setTotalIndividuals(int total_inds) {
-		this.total_inds = total_inds;
-	}
+    /** @param total_inds the total_inds to set */
+    public void setTotalIndividuals(int total_inds) {
+        this.total_inds = total_inds;
+    }
 
-	/**
-	 * @return the num_ControlPrint
-	 */
-	public int getNumControlPrint() {
-		return num_ControlPrint;
-	}
+    /** @return the num_ControlPrint */
+    public int getNumControlPrint() {
+        return num_ControlPrint;
+    }
 
-	/**
-	 * @param num_ControlPrint the num_ControlPrint to set
-	 */
-	public void setNumControlPrint(int num_ControlPrint) {
-		this.num_ControlPrint = num_ControlPrint;
-	}
+    /** @param num_ControlPrint the num_ControlPrint to set */
+    public void setNumControlPrint(int num_ControlPrint) {
+        this.num_ControlPrint = num_ControlPrint;
+    }
 
-	/**
-	 * @return the num_deaths
-	 */
-	public int getNum_deaths() {
-		return num_deaths;
-	}
+    /** @return the num_deaths */
+    public int getNum_deaths() {
+        return num_deaths;
+    }
 
-	/**
-	 * @param num_deaths the num_deaths to set
-	 */
-	public void setNum_deaths(int num_deaths) {
-		this.num_deaths = num_deaths;
-	}
+    /** @param num_deaths the num_deaths to set */
+    public void setNum_deaths(int num_deaths) {
+        this.num_deaths = num_deaths;
+    }
 
-	/**
-	 * @return the num_epidemics
-	 */
-	public int getNum_epidemics() {
-		return num_epidemics;
-	}
+    /** @return the num_epidemics */
+    public int getNum_epidemics() {
+        return num_epidemics;
+    }
 
-	/**
-	 * @param num_epidemics the num_epidemics to set
-	 */
-	public void setNum_epidemics(int num_epidemics) {
-		this.num_epidemics = num_epidemics;
-	}
+    /** @param num_epidemics the num_epidemics to set */
+    public void setNum_epidemics(int num_epidemics) {
+        this.num_epidemics = num_epidemics;
+    }
 
-	/**
-	 * @return the num_moves
-	 */
-	public int getNum_moves() {
-		return num_moves;
-	}
+    /** @return the num_moves */
+    public int getNum_moves() {
+        return num_moves;
+    }
 
-	/**
-	 * @param num_moves the num_moves to set
-	 */
-	public void setNum_moves(int num_moves) {
-		this.num_moves = num_moves;
-	}
+    /** @param num_moves the num_moves to set */
+    public void setNum_moves(int num_moves) {
+        this.num_moves = num_moves;
+    }
 
-	/**
-	 * @return the move_mean
-	 */
-	public int getMove_mean() {
-		return move_mean;
-	}
+    /** @return the move_mean */
+    public int getMove_mean() {
+        return move_mean;
+    }
 
-	/**
-	 * @param move_mean the move_mean to set
-	 */
-	public void setMove_mean(int move_mean) {
-		this.move_mean = move_mean;
-	}
+    /** @param move_mean the move_mean to set */
+    public void setMove_mean(int move_mean) {
+        this.move_mean = move_mean;
+    }
 
-	/**
-	 * @return the num_reprs
-	 */
-	public int getNum_reprs() {
-		return num_reprs;
-	}
+    /** @return the num_reprs */
+    public int getNum_reprs() {
+        return num_reprs;
+    }
 
-	/**
-	 * @param num_reprs the num_reprs to set
-	 */
-	public void setNum_reprs(int num_reprs) {
-		this.num_reprs = num_reprs;
-	}
+    /** @param num_reprs the num_reprs to set */
+    public void setNum_reprs(int num_reprs) {
+        this.num_reprs = num_reprs;
+    }
 
-	/**
-	 * @return the repr_mean
-	 */
-	public int getRepr_mean() {
-		return repr_mean;
-	}
+    /** @return the repr_mean */
+    public int getRepr_mean() {
+        return repr_mean;
+    }
 
-	/**
-	 * @param repr_mean the repr_mean to set
-	 */
-	public void setRepr_mean(int repr_mean) {
-		this.repr_mean = repr_mean;
-	}
+    /** @param repr_mean the repr_mean to set */
+    public void setRepr_mean(int repr_mean) {
+        this.repr_mean = repr_mean;
+    }
 
-	/**
-	 * @return the death_mean
-	 */
-	public int getDeath_mean() {
-		return death_mean;
-	}
+    /** @return the death_mean */
+    public int getDeath_mean() {
+        return death_mean;
+    }
 
-	/**
-	 * @param death_mean the death_mean to set
-	 */
-	public void setDeath_mean(int death_mean) {
-		this.death_mean = death_mean;
-	}
+    /** @param death_mean the death_mean to set */
+    public void setDeath_mean(int death_mean) {
+        this.death_mean = death_mean;
+    }
 
-	/**
-	 * @return the num_events
-	 */
-	public int getNum_events() {
-		return num_events;
-	}
+    /** @return the num_events */
+    public int getNum_events() {
+        return num_events;
+    }
 
-	/**
-	 * @param num_events the num_events to set
-	 */
-	public void setNum_events(int num_events) {
-		this.num_events = num_events;
-	}
+    /** @param num_events the num_events to set */
+    public void setNum_events(int num_events) {
+        this.num_events = num_events;
+    }
 
-	/**
-	 * @return the pec
-	 */
-	public IPec<Event> getPec() {
-		return pec;
-	}
+    /** @return the pec */
+    public IPec<Event> getPec() {
+        return pec;
+    }
 
-	/**
-	 * @param pec the pec to set
-	 */
-	public void setPec(IPec<Event> pec) {
-		this.pec = pec;
-	}
+    /** @param pec the pec to set */
+    public void setPec(IPec<Event> pec) {
+        this.pec = pec;
+    }
 
-	public Map getMap() {
-		return map;
-	}
+    public Map getMap() {
+        return map;
+    }
 
-	public void setMap(Map map) {
-		this.map = map;
-	}
+    public void setMap(Map map) {
+        this.map = map;
+    }
 
-	/**
-	 * @return the goal
-	 */
-	public Point getGoal() {
-		return goal;
-	}
+    /** @return the goal */
+    public Point getGoal() {
+        return goal;
+    }
 
-	/**
-	 * @param goal the goal to set
-	 */
-	public void setGoal(Point goal) {
-		this.goal = goal;
-	}
+    /** @param goal the goal to set */
+    public void setGoal(Point goal) {
+        this.goal = goal;
+    }
 
-	/**
-	 * @return the hit
-	 */
-	public boolean isHit() {
-		return hit;
-	}
+    /** @return the hit */
+    public boolean isHit() {
+        return hit;
+    }
 
-	/**
-	 * @param hit the hit to set
-	 */
-	public void setHit(boolean hit) {
-		this.hit = hit;
-	}
+    /** @param hit the hit to set */
+    public void setHit(boolean hit) {
+        this.hit = hit;
+    }
 
-	/**
-	 * @return the start
-	 */
-	public Point getStart() {
-		return start;
-	}
+    /** @return the start */
+    public Point getStart() {
+        return start;
+    }
 
-	/**
-	 * @param start the start to set
-	 */
-	public void setStart(Point start) {
-		this.start = start;
-	}
+    /** @param start the start to set */
+    public void setStart(Point start) {
+        this.start = start;
+    }
 }
 	
 	

@@ -120,10 +120,10 @@ public class Map implements IMap {
      */
     public int getCost(Point actPoint, Point newPoint, SpecialZone[] specialZones) {
         for (SpecialZone ed : specialZones) {
-        	int cost = ed.getCost(newPoint, actPoint);
-        	if (cost != -1) {
-        		return cost;
-        	}
+            int cost = ed.getCost(newPoint, actPoint);
+            if (cost != -1) {
+                return cost;
+            }
         }
         return 1;
     }
@@ -145,45 +145,33 @@ public class Map implements IMap {
                 + "]";
     }
 
-	/**
-	 * @return the mapDimensions
-	 */
-	public Point getMapDimensions() {
-		return mapDimensions;
-	}
+    /** @return the mapDimensions */
+    public Point getMapDimensions() {
+        return mapDimensions;
+    }
 
-	/**
-	 * @param mapDimensions the mapDimensions to set
-	 */
-	public void setMapDimensions(Point mapDimensions) {
-		this.mapDimensions = mapDimensions;
-	}
+    /** @param mapDimensions the mapDimensions to set */
+    public void setMapDimensions(Point mapDimensions) {
+        this.mapDimensions = mapDimensions;
+    }
 
-	/**
-	 * @return the cmax
-	 */
-	public int getCmax() {
-		return cmax;
-	}
+    /** @return the cmax */
+    public int getCmax() {
+        return cmax;
+    }
 
-	/**
-	 * @param cmax the cmax to set
-	 */
-	public void setCmax(int cmax) {
-		this.cmax = cmax;
-	}
+    /** @param cmax the cmax to set */
+    public void setCmax(int cmax) {
+        this.cmax = cmax;
+    }
 
-	/**
-	 * @return the obstacles
-	 */
-	public Point[] getObstacles() {
-		return obstacles;
-	}
+    /** @return the obstacles */
+    public Point[] getObstacles() {
+        return obstacles;
+    }
 
-	/**
-	 * @param obstacles the obstacles to set
-	 */
-	public void setObstacles(Point[] obstacles) {
-		this.obstacles = obstacles;
-	}
+    /** @param obstacles the obstacles to set */
+    public void setObstacles(Point[] obstacles) {
+        this.obstacles = obstacles;
+    }
 }

@@ -54,7 +54,8 @@ public class EvRepr extends Event {
 
         // create new reproduction for the father - only add if happens before its death
         double randTime =
-                op.getActual_time() + Event.expRandom(father.getValueForExpMean() * op.getRepr_mean());
+                op.getActual_time()
+                        + Event.expRandom(father.getValueForExpMean() * op.getRepr_mean());
         if (randTime < father.getDeathTime()) {
             op.getPec().addElement(new EvRepr(randTime, father), ec);
         }
@@ -63,7 +64,8 @@ public class EvRepr extends Event {
                 > 2) { // CHANGE THE VALUES IN THE PREFIX SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             int father_hist_size = father.getHistory().size();
-            int prefix_size = (int) Math.floor(father_hist_size * (0.6 + 0.4 * father.getComfort()));
+            int prefix_size =
+                    (int) Math.floor(father_hist_size * (0.6 + 0.4 * father.getComfort()));
             List<Point> newhist = Point.clonePointList(father.getHistory());
             List<Integer> newcosts = new ArrayList<Integer>();
             newcosts.addAll(father.getCosts());
@@ -97,17 +99,21 @@ public class EvRepr extends Event {
         }
 
         ind.updateComfort(op.getGoal(), op.getMap(), op.getK());
-        ind.setDeathTime(op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getDeath_mean()));
+        ind.setDeathTime(
+                op.getActual_time()
+                        + Event.expRandom(ind.getValueForExpMean() * op.getDeath_mean()));
         op.getPec().addElement(new EvDeath(ind.getDeathTime(), ind), ec);
 
         // create move and only add if happens before death
-        randTime = op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getMove_mean());
+        randTime =
+                op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getMove_mean());
         if (randTime < ind.getDeathTime()) {
             op.getPec().addElement(new EvMove(randTime, ind), ec);
         }
 
         // create reproduction and only add if happens before death
-        randTime = op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getRepr_mean());
+        randTime =
+                op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getRepr_mean());
         if (randTime < ind.getDeathTime()) {
             op.getPec().addElement(new EvRepr(randTime, ind), ec);
         }
@@ -119,6 +125,10 @@ public class EvRepr extends Event {
      * redefinition is mandatory.
      */
     public String toString() {
-        return ("(Type:Repr,Ind ID:" + this.getIndividual().getIdentifier() + ",Time:" + this.getTime() + ")");
+        return ("(Type:Repr,Ind ID:"
+                + this.getIndividual().getIdentifier()
+                + ",Time:"
+                + this.getTime()
+                + ")");
     }
 }

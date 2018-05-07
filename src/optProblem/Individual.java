@@ -17,7 +17,7 @@ import java.util.List;
 public class Individual {
 
     // ATTRIBUTES
-    final private int identifier;
+    private final int identifier;
     private double death_time;
     private double comfort;
     private int cost;
@@ -27,7 +27,7 @@ public class Individual {
 
     public static IndividualComparator ic =
             new IndividualComparator(); // this can be used by any class that wants to compare 2
-                                        // individuals, even outside our package
+    // individuals, even outside our package
 
     // CONTRUCTORS
     /**
@@ -157,9 +157,16 @@ public class Individual {
         Point current = getHistory().get(getHistory().size() - 1);
 
         double comf1 =
-                (1.0 - (getCost() - getHistory().size() + 2.0) / ((map.getCmax() - 1.0) * getHistory().size() + 3.0));
+                (1.0
+                        - (getCost() - getHistory().size() + 2.0)
+                                / ((map.getCmax() - 1.0) * getHistory().size() + 3.0));
         int dist = Math.abs(current.getX() - goal.getX()) + Math.abs(current.getY() - goal.getY());
-        double comf2 = 1.0 - ((dist) / (map.getMapDimensions().getX() + map.getMapDimensions().getY() + 1.0));
+        double comf2 =
+                1.0
+                        - ((dist)
+                                / (map.getMapDimensions().getX()
+                                        + map.getMapDimensions().getY()
+                                        + 1.0));
 
         setComfort(Math.pow(comf1, k) * Math.pow(comf2, k));
     }
@@ -249,8 +256,8 @@ public class Individual {
         if (getCosts() == null) {
             if (other.getCosts() != null) return false;
         } else if (!getCosts().equals(other.getCosts())) return false;
-        if (Double.doubleToLongBits(getDeathTime()) != Double.doubleToLongBits(other.getDeathTime()))
-            return false;
+        if (Double.doubleToLongBits(getDeathTime())
+                != Double.doubleToLongBits(other.getDeathTime())) return false;
         if (getHistory() == null) {
             if (other.getHistory() != null) return false;
         } else if (!getHistory().equals(other.getHistory())) return false;
@@ -259,81 +266,58 @@ public class Individual {
         return true;
     }
 
-	/**
-	 * @return the identifier
-	 */
-	public int getIdentifier() {
-		return identifier;
-	}
+    /** @return the identifier */
+    public int getIdentifier() {
+        return identifier;
+    }
 
-	/**
-	 * @return the death_time
-	 */
-	public double getDeathTime() {
-		return death_time;
-	}
+    /** @return the death_time */
+    public double getDeathTime() {
+        return death_time;
+    }
 
-	/**
-	 * @param death_time the death_time to set
-	 */
-	public void setDeathTime(double death_time) {
-		this.death_time = death_time;
-	}
+    /** @param death_time the death_time to set */
+    public void setDeathTime(double death_time) {
+        this.death_time = death_time;
+    }
 
-	/**
-	 * @return the comfort
-	 */
-	public double getComfort() {
-		return comfort;
-	}
+    /** @return the comfort */
+    public double getComfort() {
+        return comfort;
+    }
 
-	/**
-	 * @param comfort the comfort to set
-	 */
-	public void setComfort(double comfort) {
-		this.comfort = comfort;
-	}
+    /** @param comfort the comfort to set */
+    public void setComfort(double comfort) {
+        this.comfort = comfort;
+    }
 
-	/**
-	 * @return the cost
-	 */
-	public int getCost() {
-		return cost;
-	}
+    /** @return the cost */
+    public int getCost() {
+        return cost;
+    }
 
-	/**
-	 * @param cost the cost to set
-	 */
-	public void setCost(int cost) {
-		this.cost = cost;
-	}
+    /** @param cost the cost to set */
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
 
-	/**
-	 * @return the hit
-	 */
-	public boolean isHit() {
-		return hit;
-	}
+    /** @return the hit */
+    public boolean isHit() {
+        return hit;
+    }
 
-	/**
-	 * @param hit the hit to set
-	 */
-	public void setHit(boolean hit) {
-		this.hit = hit;
-	}
+    /** @param hit the hit to set */
+    public void setHit(boolean hit) {
+        this.hit = hit;
+    }
 
-	/**
-	 * @return the history
-	 */
-	public List<Point> getHistory() {
-		return history;
-	}
+    /** @return the history */
+    public List<Point> getHistory() {
+        return history;
+    }
 
-	/**
-	 * @return the costs
-	 */
-	public List<Integer> getCosts() {
-		return costs;
-	}
-
+    /** @return the costs */
+    public List<Integer> getCosts() {
+        return costs;
+    }
 }

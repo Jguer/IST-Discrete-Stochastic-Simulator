@@ -32,33 +32,32 @@ public class SpecialZone {
     public String toString() {
         return "SpecialZone [p1=" + p1 + ", p2=" + p2 + ", cost=" + cost + "]";
     }
-    
+
     /**
      * @param actP is the point in which the Individual is right now.
      * @param newP is the point to which the Individual wants to go.
      * @return cost if it's inside zone, otherwise return -1 for not found
      */
     public int getCost(Point newP, Point actP) {
-			int nx = newP.getX();
-			int ny = newP.getY();
-			int ax = actP.getX();
-			int ay = actP.getY();
-            int x1 = p1.getX();
-            int y1 = p1.getY();
-            int x2 = p2.getX();
-            int y2 = p2.getY();
-            // if we are coming from inside the zone to another point inside the zone we want to
-            // count the
-            // limits
-            if ((ax >= x1 && ax <= x2)
-                            && (ay >= y1 && ay <= y2)
-                            && (nx >= x1 && nx <= x2)
-                            && (ny >= y1 && ny <= y2)
-                    || ((nx > x1 && nx < x2) && (ny > y1 && ny < y2))) {
-                return cost;
-            }
-    	
-    	return -1;
-    }
+        int nx = newP.getX();
+        int ny = newP.getY();
+        int ax = actP.getX();
+        int ay = actP.getY();
+        int x1 = p1.getX();
+        int y1 = p1.getY();
+        int x2 = p2.getX();
+        int y2 = p2.getY();
+        // if we are coming from inside the zone to another point inside the zone we want to
+        // count the
+        // limits
+        if ((ax >= x1 && ax <= x2)
+                        && (ay >= y1 && ay <= y2)
+                        && (nx >= x1 && nx <= x2)
+                        && (ny >= y1 && ny <= y2)
+                || ((nx > x1 && nx < x2) && (ny > y1 && ny < y2))) {
+            return cost;
+        }
 
+        return -1;
+    }
 }

@@ -61,24 +61,18 @@ public abstract class Event implements IEvent {
         return -m * Math.log(1.0 - next);
     }
 
-	/**
-	 * @return the individual
-	 */
-	public Individual getIndividual() {
-		return individual;
-	}
+    /** @return the individual */
+    public Individual getIndividual() {
+        return individual;
+    }
 
-	/**
-	 * @return the time
-	 */
-	public double getTime() {
-		return time;
-	}
+    /** @return the time */
+    public double getTime() {
+        return time;
+    }
 
-	/**
-	 * @param time the time to set
-	 */
-	public void setTime(double time) {
-		this.time = time;
-	}
+    /** @param time the time to set */
+    public void setTime(double time) {
+        this.time = time;
+    }
 }

@@ -58,10 +58,17 @@ public class EvControlPrint extends Event {
         }
 
         System.out.print("\t\t");
-        System.out.printf(format3, "Path of the best fit individual: ", op.getBestIndividual().getHistory().toString());
+        System.out.printf(
+                format3,
+                "Path of the best fit individual: ",
+                op.getBestIndividual().getHistory().toString());
 
         System.out.print("\t\t");
-        System.out.printf(format5, "Cost/Comfort ", op.getBestIndividual().getCost(), op.getBestIndividual().getComfort());
+        System.out.printf(
+                format5,
+                "Cost/Comfort ",
+                op.getBestIndividual().getCost(),
+                op.getBestIndividual().getComfort());
 
         System.out.println();
         System.out.println();

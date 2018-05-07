@@ -57,7 +57,10 @@ public class EvEpidemic extends Event {
 
         for (Individual ind : subinds) {
             r = Event.r.nextDouble();
-            if (r > ind.getComfort()) { // sorry but you will die, says the programmer to the individual
+            if (r
+                    > ind
+                            .getComfort()) { // sorry but you will die, says the programmer to the
+                                             // individual
 
                 Collection<Event> pecevents = (Queue<Event>) op.getPec().getElementList();
                 List<Event> found = new ArrayList<Event>();
