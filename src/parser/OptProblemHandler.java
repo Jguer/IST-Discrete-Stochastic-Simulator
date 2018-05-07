@@ -1,20 +1,16 @@
 package parser;
 
 import java.util.Arrays;
-
+import optProblem.Map;
+import optProblem.Point;
+import optProblem.SpecialZone;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
-import optProblem.Map;
-import optProblem.Point;
-import optProblem.SpecialZone;
-
 /**
  * @author group2
- * 
- *  OptProblemHandler extends the default hander for
- * use in the current problem using SAX.
+ *     <p>OptProblemHandler extends the default hander for use in the current problem using SAX.
  */
 public class OptProblemHandler extends DefaultHandler {
 
@@ -125,42 +121,42 @@ public class OptProblemHandler extends DefaultHandler {
                                     Integer.parseInt(attributes.getValue(1))));
 
         } else if (tag.equalsIgnoreCase("initialpoint")) {
-            
-        	int a = Integer.parseInt(attributes.getValue(0));
-        	int b = Integer.parseInt(attributes.getValue(1));
-        	
-        	Point mapDim = map.getDimensions();
-        	
-        	if(a>mapDim.getX() || a<1) {
-        		a=1; //default value for the initial point in case it is not valid
-        		//System.out.println("Changing A INIT to "+a);
-        	}
-        	if(b>mapDim.getY() || b<1) {
-        		b=1; //default value for the initial point in case it is not valid
-        		//System.out.println("Changing B INIT to "+b);
-        	}
-        	initialPoint = new Point(a,b);
+
+            int a = Integer.parseInt(attributes.getValue(0));
+            int b = Integer.parseInt(attributes.getValue(1));
+
+            Point mapDim = map.getDimensions();
+
+            if (a > mapDim.getX() || a < 1) {
+                a = 1; // default value for the initial point in case it is not valid
+                // System.out.println("Changing A INIT to "+a);
+            }
+            if (b > mapDim.getY() || b < 1) {
+                b = 1; // default value for the initial point in case it is not valid
+                // System.out.println("Changing B INIT to "+b);
+            }
+            initialPoint = new Point(a, b);
 
         } else if (tag.equalsIgnoreCase("finalpoint")) {
-            
-        	int a = Integer.parseInt(attributes.getValue(0));
-        	int b = Integer.parseInt(attributes.getValue(1));
-        	
-        	Point mapDim = map.getDimensions();
-        	
-        	if(a>mapDim.getX() || a<1) {
-           		a=mapDim.getX(); //default value for the final point in case it is not valid
-        		//System.out.println("Changing A FINAL to "+a);
-        	}
-        	if(b>mapDim.getY() || b<1) {
-        		b=mapDim.getY(); //default value for the final point in case it is not valid
-        		//System.out.println("Changing B FINAL to "+b);
-        	}
-        	
-        	finalPoint = new Point(a,b);
+
+            int a = Integer.parseInt(attributes.getValue(0));
+            int b = Integer.parseInt(attributes.getValue(1));
+
+            Point mapDim = map.getDimensions();
+
+            if (a > mapDim.getX() || a < 1) {
+                a = mapDim.getX(); // default value for the final point in case it is not valid
+                // System.out.println("Changing A FINAL to "+a);
+            }
+            if (b > mapDim.getY() || b < 1) {
+                b = mapDim.getY(); // default value for the final point in case it is not valid
+                // System.out.println("Changing B FINAL to "+b);
+            }
+
+            finalPoint = new Point(a, b);
 
         } else if (tag.equalsIgnoreCase("specialcostzones")) {
-        	nz = Integer.parseInt(attributes.getValue(0));
+            nz = Integer.parseInt(attributes.getValue(0));
             specialZones = new SpecialZone[nz];
             zone = 0;
 
@@ -181,15 +177,14 @@ public class OptProblemHandler extends DefaultHandler {
             obst = 0;
 
         } else if (tag.equalsIgnoreCase("obstacle")) {
-            if(obst<no) {
-	        	obstacles[obst] =
-	                    new Point(
-	                            Integer.parseInt(attributes.getValue(0)),
-	                            Integer.parseInt(attributes.getValue(1)));
-	            obst++;
-            }
-            else {
-            	System.out.println("Ignoring extra entry of an Obstacle!");
+            if (obst < no) {
+                obstacles[obst] =
+                        new Point(
+                                Integer.parseInt(attributes.getValue(0)),
+                                Integer.parseInt(attributes.getValue(1)));
+                obst++;
+            } else {
+                System.out.println("Ignoring extra entry of an Obstacle!");
             }
 
         } else if (tag.equalsIgnoreCase("events")) {
@@ -226,12 +221,12 @@ public class OptProblemHandler extends DefaultHandler {
                 map.addMaxCost(cost);
                 max_cost = cost;
             }
-            if(zone<nz) { //extra entries of zones are IGNORED
-	            specialZones[zone] = (new SpecialZone(sz_p1, sz_p2, cost));
-	            flagzone = false;
-	            zone++;
-            }else {
-            	//System.out.println("Ignoring extra entry of a Special Cost Zone!");
+            if (zone < nz) { // extra entries of zones are IGNORED
+                specialZones[zone] = (new SpecialZone(sz_p1, sz_p2, cost));
+                flagzone = false;
+                zone++;
+            } else {
+                // System.out.println("Ignoring extra entry of a Special Cost Zone!");
             }
         }
     }

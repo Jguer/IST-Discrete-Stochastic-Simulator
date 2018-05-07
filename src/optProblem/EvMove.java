@@ -5,10 +5,9 @@ import java.util.Random;
 
 /**
  * @author group2
- * 
- *  This subclass is an extension of the abstract Event class and will handle the
- *  Move events. It has no fields on its own but inherits time and individual from the
- *  superclass. It needs to specify the Execute Event and toString methods.
+ *     <p>This subclass is an extension of the abstract Event class and will handle the Move events.
+ *     It has no fields on its own but inherits time and individual from the superclass. It needs to
+ *     specify the Execute Event and toString methods.
  */
 public class EvMove extends Event {
 
@@ -62,19 +61,19 @@ public class EvMove extends Event {
         }
 
         Point toCompare = null;
-        switch ( index ) {
-        case 0:
-			toCompare = new Point(actPoint.getX(), actPoint.getY() + 1);
-        	break;
-        case 1:
-			toCompare = new Point(actPoint.getX() + 1, actPoint.getY());
-        	break;
-        case 2:
-			toCompare = new Point(actPoint.getX(), actPoint.getY() - 1);
-        	break;
-        case 3:
-			toCompare = new Point(actPoint.getX() -1, actPoint.getY());
-        	break;
+        switch (index) {
+            case 0:
+                toCompare = new Point(actPoint.getX(), actPoint.getY() + 1);
+                break;
+            case 1:
+                toCompare = new Point(actPoint.getX() + 1, actPoint.getY());
+                break;
+            case 2:
+                toCompare = new Point(actPoint.getX(), actPoint.getY() - 1);
+                break;
+            case 3:
+                toCompare = new Point(actPoint.getX() - 1, actPoint.getY());
+                break;
         }
 
         index = Point.findSamePoint(ind.history, toCompare);

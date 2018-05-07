@@ -5,29 +5,24 @@ import java.util.List;
 
 /**
  * @author group2
- * 
- *  This class will store a Point, i.e., a pair of (x,y) values. No attributes are
- *     static so each object will have their own. Equals, Hashcode and toString were overridden.
+ *     <p>This class will store a Point, i.e., a pair of (x,y) values. No attributes are static so
+ *     each object will have their own. Equals, Hashcode and toString were overridden.
  */
 public class Point {
 
     // ATTRIBUTES
     private int x;
-    /**
-	 * @param x the x to set
-	 */
-	public void setX(int x) {
-		this.x = x;
-	}
+    /** @param x the x to set */
+    public void setX(int x) {
+        this.x = x;
+    }
 
-	/**
-	 * @param y the y to set
-	 */
-	public void setY(int y) {
-		this.y = y;
-	}
+    /** @param y the y to set */
+    public void setY(int y) {
+        this.y = y;
+    }
 
-	private int y;
+    private int y;
 
     // CONTRUCTORS
     /**
@@ -101,13 +96,13 @@ public class Point {
         }
         return -1;
     }
-    
+
     public int getX() {
-    	return this.x;
+        return this.x;
     }
-    
+
     public int getY() {
-    	return this.y;
+        return this.y;
     }
 
     /**

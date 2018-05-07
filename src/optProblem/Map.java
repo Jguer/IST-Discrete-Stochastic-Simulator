@@ -2,12 +2,12 @@ package optProblem;
 
 import java.util.Arrays;
 
-/** @author group2 
- * 
- * This class is for the Map. 
- * All the attributes are map related. Apart from the methods that implement the ones in the interface
- * there was a net to include some setters/getters because of the use of this class outside this package.
- * */
+/**
+ * @author group2
+ *     <p>This class is for the Map. All the attributes are map related. Apart from the methods that
+ *     implement the ones in the interface there was a net to include some setters/getters because
+ *     of the use of this class outside this package.
+ */
 public class Map implements IMap {
 
     // ATTRIBUTES - TALVES DEPOIS PASSAR PARA AQUI AS CENAS ACERCA DO MAPA??
@@ -19,9 +19,10 @@ public class Map implements IMap {
     int number_zones;
 
     // CONTRUCTORS
-    
+
     /**
-     * Constructor of the Map object. This is a simpler one that only receives a Point and adds it to the map dimensions field.
+     * Constructor of the Map object. This is a simpler one that only receives a Point and adds it
+     * to the map dimensions field.
      *
      * @param p is the Point containing information about the map dimensions
      */
@@ -29,14 +30,14 @@ public class Map implements IMap {
         mapDimensions = p;
     }
 
-    
     /**
-     * Constructor of the Map object. This is a more advanced one that can be used to initialize several fields.
+     * Constructor of the Map object. This is a more advanced one that can be used to initialize
+     * several fields.
      *
      * @param xx is the number of columns in the map
      * @param yy is the number of rows in the map
      * @param no is the number of obstacles in the map
-     * @param cmaxx is the maximum cost of an edge 
+     * @param cmaxx is the maximum cost of an edge
      */
     public Map(int xx, int yy, int no, int cmaxx) {
         cmax = cmaxx;
@@ -67,28 +68,27 @@ public class Map implements IMap {
         // check if its in obstacles list
         if (obstacles == null) return false;
         Point toCompare = null;
-        switch ( index ) {
-        case 0:
-			toCompare = new Point(actPoint.getX(), actPoint.getY() + 1);
-        	break;
-        case 1:
-			toCompare = new Point(actPoint.getX() + 1, actPoint.getY());
-        	break;
-        case 2:
-			toCompare = new Point(actPoint.getX(), actPoint.getY() - 1);
-        	break;
-        case 3:
-			toCompare = new Point(actPoint.getX() -1, actPoint.getY());
-        	break;
+        switch (index) {
+            case 0:
+                toCompare = new Point(actPoint.getX(), actPoint.getY() + 1);
+                break;
+            case 1:
+                toCompare = new Point(actPoint.getX() + 1, actPoint.getY());
+                break;
+            case 2:
+                toCompare = new Point(actPoint.getX(), actPoint.getY() - 1);
+                break;
+            case 3:
+                toCompare = new Point(actPoint.getX() - 1, actPoint.getY());
+                break;
         }
-        if (Arrays.asList(obstacles).contains(toCompare))
-            return true;
+        if (Arrays.asList(obstacles).contains(toCompare)) return true;
 
         return false;
     }
-    
+
     public Point getDimensions() {
-    	return this.mapDimensions;
+        return this.mapDimensions;
     }
 
     public void addObstacle(Point p) {
@@ -136,20 +136,17 @@ public class Map implements IMap {
             // count the
             // limits
             if ((ax >= x1 && ax <= x2)
-                    && (ay >= y1 && ay <= y2)
-                    && (nx >= x1 && nx <= x2)
-                    && (ny >= y1 && ny <= y2)
-                    || ( (nx > x1 && nx < x2)
-                    && (ny > y1 && ny < y2) )) {
+                            && (ay >= y1 && ay <= y2)
+                            && (nx >= x1 && nx <= x2)
+                            && (ny >= y1 && ny <= y2)
+                    || ((nx > x1 && nx < x2) && (ny > y1 && ny < y2))) {
                 return ed.cost;
             }
         }
         return 1;
     }
 
-    /**
-     * To String method that overrides the one with the same name in the Object superclass.
-     */
+    /** To String method that overrides the one with the same name in the Object superclass. */
     public String toString() {
         return "Map [cmax="
                 + cmax

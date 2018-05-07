@@ -2,9 +2,8 @@ package optProblem;
 
 /**
  * @author group2
- * 
- *  This class is for Special Zones of the map, i.e.,the two points that delimit a
- *     rectangular area and the cost associated to moving in the said zone.
+ *     <p>This class is for Special Zones of the map, i.e.,the two points that delimit a rectangular
+ *     area and the cost associated to moving in the said zone.
  */
 public class SpecialZone {
 

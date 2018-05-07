@@ -5,10 +5,9 @@ import java.util.List;
 
 /**
  * @author group2
- * 
- * This subclass is an extension of the abstract Event class and will handle the
- * Reproduction events. It has no fields on its own but inherits time and individual from the
- * superclass. It needs to specify the Execute Event and toString methods.
+ *     <p>This subclass is an extension of the abstract Event class and will handle the Reproduction
+ *     events. It has no fields on its own but inherits time and individual from the superclass. It
+ *     needs to specify the Execute Event and toString methods.
  */
 public class EvRepr extends Event {
 
@@ -96,8 +95,7 @@ public class EvRepr extends Event {
             ind.hit = false;
         }
 
-        ind.updateComfort(
-                op.goal, op.map, op.k);
+        ind.updateComfort(op.goal, op.map, op.k);
         ind.death_time = op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.death_mean);
         op.pec.addElement(new EvDeath(ind.death_time, ind), ec);
 

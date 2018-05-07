@@ -4,11 +4,10 @@ import java.util.Random;
 
 /**
  * @author group2
- * 
- * Abstract class for Events. Has a field for the associated individual and one for
- * the time in which we should execute the event. There are 2 static fields. The first is a
- * Random object to generate random numbers and the other is an Event Comparator that is used
- * when we want to add events to the PEC. Execute Event and toString methods must be overridden.
+ *     <p>Abstract class for Events. Has a field for the associated individual and one for the time
+ *     in which we should execute the event. There are 2 static fields. The first is a Random object
+ *     to generate random numbers and the other is an Event Comparator that is used when we want to
+ *     add events to the PEC. Execute Event and toString methods must be overridden.
  */
 public abstract class Event implements IEvent {
 
@@ -25,8 +24,8 @@ public abstract class Event implements IEvent {
      * called from the subclasses using this()
      *
      * @param timee is the time of the event
-     * @param ind is the Individual we want to associate with this event. If it's an event with
-     * no individual associated then null must be passed as argument.
+     * @param ind is the Individual we want to associate with this event. If it's an event with no
+     *     individual associated then null must be passed as argument.
      */
     public Event(double timee, Individual ind) {
         time = timee;

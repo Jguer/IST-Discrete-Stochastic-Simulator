@@ -5,16 +5,14 @@ import java.util.List;
 
 /**
  * This is the class for Individuals. Each individual should have its own identifier, a death_time,
- * it's current comfort, the total cost of it's path so far and a boolean hit indicating if the individual
- * has reached the goal.
- * An agent keeps two lists:
- *  - A history list to keep track of the path it has covered so far;
- *  - A costs list, to be able to go back in the cost in case a loop is detected;
- * Equals, Hashcode and toString methods were overridden. There is an aditional "equals" that can
- * compare only the identifier of the indivifual. There are also methods for Individual cloning and 
- * Individual List cloning.
- * 
- * @author group2    
+ * it's current comfort, the total cost of it's path so far and a boolean hit indicating if the
+ * individual has reached the goal. An agent keeps two lists: - A history list to keep track of the
+ * path it has covered so far; - A costs list, to be able to go back in the cost in case a loop is
+ * detected; Equals, Hashcode and toString methods were overridden. There is an aditional "equals"
+ * that can compare only the identifier of the indivifual. There are also methods for Individual
+ * cloning and Individual List cloning.
+ *
+ * @author group2
  */
 public class Individual {
 
@@ -26,17 +24,18 @@ public class Individual {
     boolean hit;
     List<Point> history;
     List<Integer> costs;
-    
-    public static IndividualComparator ic = new IndividualComparator(); //this can be used by any class that wants to compare 2 individuals, even outside our package
 
+    public static IndividualComparator ic =
+            new IndividualComparator(); // this can be used by any class that wants to compare 2
+                                        // individuals, even outside our package
 
     // CONTRUCTORS
     /**
      * Constructor of the Individual object. It forces the user to provide an identifier. The lists
      * are initialized and the hit boolean is set to false.
      *
-     * @param ident: identifier of the new individual. This value should be unique inside
-     *     the same simulation.
+     * @param ident: identifier of the new individual. This value should be unique inside the same
+     *     simulation.
      */
     public Individual(int ident) {
 
@@ -47,11 +46,10 @@ public class Individual {
     }
 
     /**
-     * Constructor used to clone an Individual object. 
-     * We are left with 2 equal individuals but different in memory. This way we can keep changing
-     * the one in the simulation while keeping the best saved. This method relies on the individual
-     * calling it being correctly initialized.
-     * 
+     * Constructor used to clone an Individual object. We are left with 2 equal individuals but
+     * different in memory. This way we can keep changing the one in the simulation while keeping
+     * the best saved. This method relies on the individual calling it being correctly initialized.
+     *
      * @param clone: individual we want to clone.
      */
     public Individual(Individual clone) {
@@ -63,18 +61,20 @@ public class Individual {
         history = new ArrayList<Point>(clone.history);
         costs = new ArrayList<Integer>(clone.costs);
     }
-    
-    //METHODS
+
+    // METHODS
 
     /**
      * Method that will take care of updating the best individual. In case the goal has been hit
      * then the best is chosen by iterating over the list of individuals, only looking for the ones
      * that have hit the goal and choosing the one with the lowest cost. If the goal has not been
      * reached then we simply pick the individual with the highest comfort.
-     * 
-     * @param list_inds: a list of individuals containing all the individuals currently alive in the simulation.
+     *
+     * @param list_inds: a list of individuals containing all the individuals currently alive in the
+     *     simulation.
      * @param best: the best individual found so far during the simulation.
-     * @param hit: a boolean indicating if any individual has found the goal during the current or not.
+     * @param hit: a boolean indicating if any individual has found the goal during the current or
+     *     not.
      * @return Returns the individual with the best path cost in list_inds.
      */
     public static Individual updateBest(List<Individual> list_inds, Individual best, boolean hit) {
@@ -93,7 +93,6 @@ public class Individual {
         return best;
     }
 
-    
     /**
      * Method to find the individual with best path. This function should only be invoked after the
      * goal has been hit in the Optimization Problem. We will iterate over all the individuals we
@@ -119,8 +118,8 @@ public class Individual {
      * being available.
      *
      * @param list: a list of Individuals that we want cloned.
-     * @return Returns a list of Individuals that have same values of the original ones
-     *     but are different objects in memory.
+     * @return Returns a list of Individuals that have same values of the original ones but are
+     *     different objects in memory.
      */
     public static List<Individual> cloneIndividualList(List<Individual> list) {
         List<Individual> clone = new ArrayList<Individual>(list.size());
@@ -128,10 +127,9 @@ public class Individual {
         return clone;
     }
 
-    
     /**
-     * Method that looks for the Individual passed as argument in a list of Individuals.
-     * This method is static meaning that it will have to be invoked from the class itself.
+     * Method that looks for the Individual passed as argument in a list of Individuals. This method
+     * is static meaning that it will have to be invoked from the class itself.
      *
      * @param inds is the list of individuals where we want to perform the search.
      * @param ind is the individual we wish to find in the list.
@@ -146,7 +144,6 @@ public class Individual {
         return -1;
     }
 
- 
     /**
      * Method that updates an individual's comfort. It should only be invoked by individuals that
      * have been initialized.

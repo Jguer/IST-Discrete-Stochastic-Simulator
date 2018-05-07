@@ -7,17 +7,16 @@ import java.util.Queue;
 
 /**
  * @author group2
- * 
- * This subclass is an extension of the abstract Event class and will handle the
- * Epidemic events. It inherits time and individual from the
- * superclass. Individual is set to null and time is the actual time so it happens in the next
- * iteration of the simulation. The static field is an Individual Comparator. It needs to
- * specify an implementation for the the Execute Event and toString methods.
+ *     <p>This subclass is an extension of the abstract Event class and will handle the Epidemic
+ *     events. It inherits time and individual from the superclass. Individual is set to null and
+ *     time is the actual time so it happens in the next iteration of the simulation. The static
+ *     field is an Individual Comparator. It needs to specify an implementation for the the Execute
+ *     Event and toString methods.
  */
 public class EvEpidemic extends Event {
 
     // ATTRIBUTES
-    
+
     // CONTRUCTORS
     /**
      * This is the constructor. All it does is call the superclass' constructor with the arguments

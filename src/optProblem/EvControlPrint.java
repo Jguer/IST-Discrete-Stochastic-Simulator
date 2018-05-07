@@ -2,11 +2,10 @@ package optProblem;
 
 /**
  * @author group2
- * 
- * This subclass is an extension of the abstract Event class and will handle the
- * Control Print events. It has no fields on its own but inherits time and individual from the
- * superclass. Individual is set to null and time is set to a multiple of the total time divided
- * by 20. It needs to override the Execute Event and toString methods.
+ *     <p>This subclass is an extension of the abstract Event class and will handle the Control
+ *     Print events. It has no fields on its own but inherits time and individual from the
+ *     superclass. Individual is set to null and time is set to a multiple of the total time divided
+ *     by 20. It needs to override the Execute Event and toString methods.
  */
 public class EvControlPrint extends Event {
 
@@ -62,7 +61,7 @@ public class EvControlPrint extends Event {
         System.out.printf(format3, "Path of the best fit individual: ", op.best.history.toString());
 
         System.out.print("\t\t");
-        System.out.printf(format5, "Cost/Comfort ", op.best.cost,op.best.comfort);
+        System.out.printf(format5, "Cost/Comfort ", op.best.cost, op.best.comfort);
 
         System.out.println();
         System.out.println();

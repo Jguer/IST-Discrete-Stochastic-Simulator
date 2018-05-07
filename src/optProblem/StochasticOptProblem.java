@@ -3,21 +3,19 @@ package optProblem;
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
-
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-
 import parser.OptProblemHandler;
 import pec.IPec;
 import pec.PriorityQueuePec;
 
 /**
- *  Class of the Optimization Problem. We have 4 kinds of attributes that are non
- *     static: time related, individual related, event related and map related. There is a static
- *     field containing the <code>EventCompartor</code>. This can be the same for all instances of Optimization
- *     problems.
- *     @version 1.0
- *     @since   2018-04-30 
+ * Class of the Optimization Problem. We have 4 kinds of attributes that are non static: time
+ * related, individual related, event related and map related. There is a static field containing
+ * the <code>EventCompartor</code>. This can be the same for all instances of Optimization problems.
+ *
+ * @version 1.0
+ * @since 2018-04-30
  */
 public class StochasticOptProblem implements OptProblem {
 
@@ -206,10 +204,7 @@ public class StochasticOptProblem implements OptProblem {
             ev.ExecEvent(this);
 
             if (ev.individual != null) { // if it was an event with an individual associated
-                ev.individual.updateComfort(
-                        this.goal,
-                        this.map,
-                        this.k);
+                ev.individual.updateComfort(this.goal, this.map, this.k);
                 this.best =
                         Individual.updateBest(list_inds, best, hit); // updates the best one so far
 
@@ -225,8 +220,6 @@ public class StochasticOptProblem implements OptProblem {
         // ======================= WE'RE OUT OF THE SIMULATION!!! ===============================
         System.out.println("Path of the best fit individual: " + this.best.history.toString());
     }
-    
-    
 
     /* (non-Javadoc)
      * @see optProblem.OptProblem#runOptimizationProblem(java.lang.String)

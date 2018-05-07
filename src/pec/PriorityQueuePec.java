@@ -5,16 +5,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Queue;
-
 import optProblem.Event;
 import optProblem.IEvent;
 
 /**
  * @author group2
- * 
- *  Generic Type PEC. Being generic of upper bound IEvent we can store any kind of
- *     classes that implement the Event interface in the PEC. The PEC will always be ordered so we
- *     need to provide the comparator when adding elements. The To String method was overridden.
+ *     <p>Generic Type PEC. Being generic of upper bound IEvent we can store any kind of classes
+ *     that implement the Event interface in the PEC. The PEC will always be ordered so we need to
+ *     provide the comparator when adding elements. The To String method was overridden.
  * @param <T> is the type that we want to use in the parameterized type
  */
 public class PriorityQueuePec<T extends IEvent> implements IPec<T> {
@@ -79,10 +77,9 @@ public class PriorityQueuePec<T extends IEvent> implements IPec<T> {
         return "Pec: [" + element_queue + ", numEl=" + num_elements + "]";
     }
 
-    
     public String toStringOrdered() {
         @SuppressWarnings("unchecked")
-		List<Event> els = (List<Event>) new LinkedList<T>(element_queue);
+        List<Event> els = (List<Event>) new LinkedList<T>(element_queue);
         els.sort(Event.ec);
 
         return ("Pec: [" + els + ", numEl=" + num_elements + "]");
