@@ -26,7 +26,7 @@ class TestFiles {
         		};
         
 		// Create a stream to hold the output
-		for (Integer i = 0; i < 4; i++) {
+		for (Integer i = 0; i < 1; i++) {
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 	    PrintStream ps = new PrintStream(baos);
 	    PrintStream old = System.out;
