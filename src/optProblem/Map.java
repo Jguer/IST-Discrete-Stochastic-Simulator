@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class Map implements IMap {
 
-    // ATTRIBUTES - TALVES DEPOIS PASSAR PARA AQUI AS CENAS ACERCA DO MAPA??
+    // ATTRIBUTES
     int cmax;
     Point mapDimensions;
     Point[] obstacles;
@@ -121,27 +121,11 @@ public class Map implements IMap {
      */
     public int getCost(Point actPoint, Point newPoint, SpecialZone[] specialZones) {
 
-        int x1, x2, y1, y2;
-        int nx = newPoint.getX();
-        int ny = newPoint.getY();
-        int ax = actPoint.getX();
-        int ay = actPoint.getY();
-
         for (SpecialZone ed : specialZones) {
-            x1 = ed.p1.getX();
-            y1 = ed.p1.getY();
-            x2 = ed.p2.getX();
-            y2 = ed.p2.getY();
-            // if we are coming from inside the zone to another point inside the zone we want to
-            // count the
-            // limits
-            if ((ax >= x1 && ax <= x2)
-                            && (ay >= y1 && ay <= y2)
-                            && (nx >= x1 && nx <= x2)
-                            && (ny >= y1 && ny <= y2)
-                    || ((nx > x1 && nx < x2) && (ny > y1 && ny < y2))) {
-                return ed.cost;
-            }
+        	int cost = ed.getCost(newPoint, actPoint);
+        	if (cost != -1) {
+        		return cost;
+        	}
         }
         return 1;
     }
