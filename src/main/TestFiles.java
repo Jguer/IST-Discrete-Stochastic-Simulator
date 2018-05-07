@@ -10,6 +10,9 @@ import java.io.StringReader;
 
 import org.junit.jupiter.api.Test;
 
+/**
+ * @author group2 TestFiles handles all of the automated testing of the project
+ */
 class TestFiles {
 
 	@Test
