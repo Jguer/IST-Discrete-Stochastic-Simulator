@@ -199,12 +199,12 @@ public class StochasticOptProblem implements OptProblem {
 
             ev = this.pec.getFirstElement(); // get next event from PEC
             // System.out.println("ev: " +ev);
-            this.actual_time = ev.time; // fast forward until its time to execute it
+            this.actual_time = ev.getTime(); // fast forward until its time to execute it
             this.num_events++;
             ev.ExecEvent(this);
 
-            if (ev.individual != null) { // if it was an event with an individual associated
-                ev.individual.updateComfort(this.goal, this.map, this.k);
+            if (ev.getIndividual() != null) { // if it was an event with an individual associated
+                ev.getIndividual().updateComfort(this.goal, this.map, this.k);
                 this.best =
                         Individual.updateBest(list_inds, best, hit); // updates the best one so far
 

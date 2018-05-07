@@ -23,8 +23,8 @@ public class EventComparator implements Comparator<Event> {
      */
     public int compare(Event e1, Event e2) {
 
-        double i1 = e1.time;
-        double i2 = e2.time;
+        double i1 = e1.getTime();
+        double i2 = e2.getTime();
 
         return i1 < i2 ? -1 : i1 > i2 ? +1 : 0;
     }

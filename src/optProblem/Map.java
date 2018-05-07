@@ -120,7 +120,6 @@ public class Map implements IMap {
      * @return is an integer with the cost of transversing the from actPoint to newPoint
      */
     public int getCost(Point actPoint, Point newPoint, SpecialZone[] specialZones) {
-
         for (SpecialZone ed : specialZones) {
         	int cost = ed.getCost(newPoint, actPoint);
         	if (cost != -1) {

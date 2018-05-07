@@ -12,8 +12,8 @@ import java.util.Random;
 public abstract class Event implements IEvent {
 
     // ATTRIBUTES
-    Individual individual;
-    double time;
+    private final Individual individual;
+    private double time;
 
     public static Random r = new Random();
     public static EventComparator ec = new EventComparator();
@@ -28,7 +28,7 @@ public abstract class Event implements IEvent {
      *     individual associated then null must be passed as argument.
      */
     public Event(double timee, Individual ind) {
-        time = timee;
+        setTime(timee);
         individual = ind;
     }
 
@@ -60,4 +60,25 @@ public abstract class Event implements IEvent {
         double next = Event.r.nextDouble();
         return -m * Math.log(1.0 - next);
     }
+
+	/**
+	 * @return the individual
+	 */
+	public Individual getIndividual() {
+		return individual;
+	}
+
+	/**
+	 * @return the time
+	 */
+	public double getTime() {
+		return time;
+	}
+
+	/**
+	 * @param time the time to set
+	 */
+	public void setTime(double time) {
+		this.time = time;
+	}
 }

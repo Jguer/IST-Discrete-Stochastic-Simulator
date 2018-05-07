@@ -49,7 +49,7 @@ public class EvRepr extends Event {
 
         // System.out.println("REPRODUCTION!!");
         // System.out.println(op.actual_time);
-        Individual father = this.individual;
+        Individual father = this.getIndividual();
 
         // create new reproduction for the father - only add if happens before its death
         double randTime =
@@ -118,6 +118,6 @@ public class EvRepr extends Event {
      * redefinition is mandatory.
      */
     public String toString() {
-        return ("(Type:Repr,Ind ID:" + this.individual.identifier + ",Time:" + this.time + ")");
+        return ("(Type:Repr,Ind ID:" + this.getIndividual().identifier + ",Time:" + this.getTime() + ")");
     }
 }

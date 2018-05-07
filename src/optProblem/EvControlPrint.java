@@ -73,6 +73,6 @@ public class EvControlPrint extends Event {
      * redefinition is mandatory.
      */
     public String toString() {
-        return ("(Type:ControlPrint" + ",Time:" + this.time + " & No ind)");
+        return ("(Type:ControlPrint" + ",Time:" + this.getTime() + " & No ind)");
     }
 }

@@ -41,7 +41,7 @@ public class EvMove extends Event {
 
         op.num_moves++;
 
-        Individual ind = this.individual;
+        Individual ind = this.getIndividual();
 
         // create new move and only add if happens before death
         double randTime = op.actual_time + Event.expRandom(ind.getValueForExpMean() * op.move_mean);
@@ -116,6 +116,6 @@ public class EvMove extends Event {
      * redefinition is mandatory.
      */
     public String toString() {
-        return ("(Type:Move,Ind ID:" + this.individual.identifier + ",Time:" + this.time + ")");
+        return ("(Type:Move,Ind ID:" + this.getIndividual().identifier + ",Time:" + this.getTime() + ")");
     }
 }

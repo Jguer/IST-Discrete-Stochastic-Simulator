@@ -37,7 +37,7 @@ public class EvDeath extends Event {
         op.num_deaths++;
 
         op.alive_inds--;
-        op.list_inds.remove(this.individual);
+        op.list_inds.remove(this.getIndividual());
     }
 
     /**
@@ -46,6 +46,6 @@ public class EvDeath extends Event {
      * redefinition is mandatory.
      */
     public String toString() {
-        return ("(Type:Death,Ind ID:" + this.individual.identifier + ",Time:" + this.time + ")");
+        return ("(Type:Death,Ind ID:" + this.getIndividual().identifier + ",Time:" + this.getTime() + ")");
     }
 }

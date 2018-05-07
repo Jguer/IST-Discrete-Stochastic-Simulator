@@ -64,7 +64,7 @@ public class EvEpidemic extends Event {
 
                 // remove all events in the pec that are related to the individual we are killing
                 for (Event ev : pecevents) {
-                    Individual indd = ev.individual;
+                    Individual indd = ev.getIndividual();
                     if (indd != null && indd.sameIdentifier(ind)) {
                         found.add(ev);
                     }

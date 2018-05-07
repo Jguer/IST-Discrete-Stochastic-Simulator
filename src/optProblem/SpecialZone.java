@@ -34,8 +34,8 @@ public class SpecialZone {
     }
     
     /**
-     * @param newP is the new point
-     * @param actP is the actual point
+     * @param actP is the point in which the Individual is right now.
+     * @param newP is the point to which the Individual wants to go.
      * @return cost if it's inside zone, otherwise return -1 for not found
      */
     public int getCost(Point newP, Point actP) {
