@@ -11,7 +11,9 @@ import optProblem.Point;
 import optProblem.SpecialZone;
 
 /**
- * @author jguer OptProblemHandler extends the default hander for
+ * @author group2
+ * 
+ *  OptProblemHandler extends the default hander for
  * use in the current problem using SAX.
  */
 public class OptProblemHandler extends DefaultHandler {

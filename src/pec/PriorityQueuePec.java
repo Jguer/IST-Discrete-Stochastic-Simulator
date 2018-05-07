@@ -10,7 +10,9 @@ import optProblem.Event;
 import optProblem.IEvent;
 
 /**
- * @author grupo2 Generic Type PEC. Being generic of upper bound IEvent we can store any kind of
+ * @author group2
+ * 
+ *  Generic Type PEC. Being generic of upper bound IEvent we can store any kind of
  *     classes that implement the Event interface in the PEC. The PEC will always be ordered so we
  *     need to provide the comparator when adding elements. The To String method was overridden.
  * @param <T> is the type that we want to use in the parameterized type
@@ -18,8 +20,8 @@ import optProblem.IEvent;
 public class PriorityQueuePec<T extends IEvent> implements IPec<T> {
 
     // ATTRIBUTES
-    Queue<T> element_queue;
-    int num_elements;
+    private Queue<T> element_queue;
+    private int num_elements;
 
     // CONTRUCTORS
     /** Constructor for the PEC. It gets no arguments and will only initialize the array list. */
