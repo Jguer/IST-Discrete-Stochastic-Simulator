@@ -184,7 +184,7 @@ public class OptProblemHandler extends DefaultHandler {
                                 Integer.parseInt(attributes.getValue(1)));
                 obst++;
             } else {
-                System.out.println("Ignoring extra entry of an Obstacle!");
+                //System.out.println("Ignoring extra entry of an Obstacle!");
             }
 
         } else if (tag.equalsIgnoreCase("events")) {
@@ -198,7 +198,7 @@ public class OptProblemHandler extends DefaultHandler {
         } else if (tag.equalsIgnoreCase("move")) {
             mmean = Integer.parseInt(attributes.getValue(0));
         } else {
-            System.out.println("Start Element :" + tag);
+            //System.out.println("Start Element :" + tag);
         }
     }
 
