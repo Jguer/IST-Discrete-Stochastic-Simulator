@@ -65,7 +65,7 @@ public class EvRepr extends Event {
 
             int father_hist_size = father.getHistory().size();
             int prefix_size =
-                    (int) Math.floor(father_hist_size * (0.6 + 0.4 * father.getComfort()));
+                    (int) Math.floor(father_hist_size * (0.9 + 0.1 * father.getComfort()));
             List<Point> newhist = Point.clonePointList(father.getHistory());
             List<Integer> newcosts = new ArrayList<Integer>();
             newcosts.addAll(father.getCosts());
