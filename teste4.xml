@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE simulation SYSTEM "simulation.dtd"> 
+<simulation finalinst="1500" initpop="40" maxpop="500" comfortsens="2"> 
+   <grid colsnb="40" rowsnb="30"/> 
+   <initialpoint xinitial="1" yinitial="1"/> 
+   <finalpoint xfinal="37" yfinal="24"/>
+   <specialcostzones num="2">
+      <zone xinitial="2" yinitial="2" xfinal="20" yfinal="13">2</zone>
+      <zone xinitial="28" yinitial="8" xfinal="38" yfinal="8">4</zone>
+   </specialcostzones>
+   <obstacles num="0">
+      <obstacle xpos="2" ypos="1"/>
+   </obstacles>
+   <events>
+      <death param="30"/>
+      <reproduction param="1"/>
+      <move param="1"/>
+   </events>
+</simulation>

@@ -197,7 +197,7 @@ public class StochasticOptProblem implements OptProblem {
 
         Event ev;
 
-        System.out.println("Pec: " + this.getPec().toStringOrdered());
+        //System.out.println("Pec: " + this.getPec().toStringOrdered());
 
         // ================= SIMULATING =============================
         while (this.getAliveIndividuals() > 0 && this.getActual_time() < this.max_time) {
