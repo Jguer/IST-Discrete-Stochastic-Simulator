@@ -110,8 +110,7 @@ public class Map implements IMap {
     }
 
     /**
-     * This method is a static method since it is not invoked from any Map object. It gets a pair of
-     * adjacent points and returns the cost associated with the edge between them.
+     * This method returns the cost associated with the edge between them.
      *
      * @param actPoint is the point in which the Individual is right now.
      * @param newPoint is the point to which the Individual wants to go.
