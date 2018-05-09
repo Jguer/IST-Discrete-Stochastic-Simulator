@@ -16,7 +16,7 @@ public class Main {
      * when running the code.
      *
      * @author group2
-     * @param name of the test file used
+     * @param args name of the test file used
      */
     public static void main(String[] args) {
         if (args.length != 1) {

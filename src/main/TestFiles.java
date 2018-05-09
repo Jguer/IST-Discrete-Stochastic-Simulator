@@ -27,7 +27,7 @@ class TestFiles {
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             PrintStream ps = new PrintStream(baos);
             PrintStream old = System.out;
-            String filepath = dir + "/teste" + i.toString() + ".xml";
+            String filepath = dir + "/TEST/test_" + i.toString() + ".xml";
             System.out.println(filepath);
             System.setOut(ps);
             Main.main(new String[] {filepath});

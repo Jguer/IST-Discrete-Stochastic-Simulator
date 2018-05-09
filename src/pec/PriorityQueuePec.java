@@ -22,7 +22,9 @@ public class PriorityQueuePec<T extends IEvent> implements IPec<T> {
     private int num_elements;
 
     // CONTRUCTORS
-    /** Constructor for the PEC. It gets no arguments and will only initialize the array list. */
+    /** Constructor for the PEC. It gets no arguments and will only initialize the array list.
+     * @param c Implemented PEC comparator
+     */
     public PriorityQueuePec(Comparator<T> c) {
         element_queue = new PriorityQueue<T>(c);
     }

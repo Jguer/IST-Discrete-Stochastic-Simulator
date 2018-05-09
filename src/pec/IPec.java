@@ -49,6 +49,8 @@ public interface IPec<T> {
     /** To String method that overrides the one with the same name in the Object superclass. */
     public String toString();
 
-    /** Method to print the Pec according to the order of the element. */
+    /** Method to print the Pec according to the order of the element.
+     * @return string with the pec ordered
+     */
     public String toStringOrdered();
 }

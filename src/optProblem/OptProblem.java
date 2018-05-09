@@ -3,7 +3,7 @@ package optProblem;
 /**
  * @author group2
  *     <p>OptProblem is used in the <code>Main</code> and allows us to give alternative
- *     implementations of optimization problems. {@see main.Main}
+ *     implementations of optimization problems. {@link main.Main}
  */
 public interface OptProblem {
 

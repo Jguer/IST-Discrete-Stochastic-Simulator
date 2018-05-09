@@ -35,7 +35,8 @@ public class Map implements IMap {
      * several fields.
      *
      * @param xx is the number of columns in the map
-     * @param yy is the number of rows in the map * @param no is the number of obstacles in the map
+     * @param yy is the number of rows in the map
+     * @param no is the number of obstacles in the map
      * @param cmaxx is the maximum cost of an edge
      */
     public Map(int xx, int yy, int no, int cmaxx) {
