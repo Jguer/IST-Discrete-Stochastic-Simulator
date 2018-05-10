@@ -123,18 +123,18 @@ public class StochasticOptProblem implements OptProblem {
 
         ind.updateComfort(getGoal(), getMap(), getK());
         ind.setDeathTime(
-                getActual_time() + Event.expRandom(ind.getValueForExpMean() * getDeath_mean()));
+                getActual_time() + Event.expRandom(ind.getValueForExpMean(1) * getDeath_mean()));
         getPec().addElement(new EvDeath(ind.getDeathTime(), ind), Event.ec);
 
         // create move and only add if happens before death
         double randTime =
-                getActual_time() + Event.expRandom(ind.getValueForExpMean() * getMove_mean());
+                getActual_time() + Event.expRandom(ind.getValueForExpMean(2) * getMove_mean());
         if (randTime < ind.getDeathTime()) {
             getPec().addElement(new EvMove(randTime, ind), Event.ec);
         }
 
         // create reproduction and only add if happens before death
-        randTime = getActual_time() + Event.expRandom(ind.getValueForExpMean() * getRepr_mean());
+        randTime = getActual_time() + Event.expRandom(ind.getValueForExpMean(2) * getRepr_mean());
         if (randTime < ind.getDeathTime()) {
             getPec().addElement(new EvRepr(randTime, ind), Event.ec);
         }

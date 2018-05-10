@@ -176,11 +176,19 @@ public class Individual {
      * This value depends on the comfort of the individual and will need to be multiplied by the
      * event mean.
      *
+     * @param i is 1 if we want to calculate for the death and 2 if we want the reproduction or move.
      * @return Returns the value to be used in the exponential pdf.
      */
-    public double getValueForExpMean() {
-        return (1 - Math.log(1.0 - getComfort()));
+    public double getValueForExpMean(int i) {
+    	if (i==1)
+    		return (1 - Math.log(1.0 - getComfort()));
+    	if(i==2)
+    		return (1 - Math.log(getComfort()));
+    	return -1.0;
+    		
     }
+    
+
 
     /**
      * This method is similar to the redefinition of the equals but only takes into account the

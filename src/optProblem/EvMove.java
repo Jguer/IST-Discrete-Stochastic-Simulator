@@ -44,7 +44,7 @@ public class EvMove extends Event {
 
         // create new move and only add if happens before death
         double randTime =
-                op.getActual_time() + Event.expRandom(ind.getValueForExpMean() * op.getMove_mean());
+                op.getActual_time() + Event.expRandom(ind.getValueForExpMean(2) * op.getMove_mean());
         if (randTime < ind.getDeathTime()) {
             op.getPec().addElement(new EvMove(randTime, ind), ec);
         }
