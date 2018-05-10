@@ -59,46 +59,51 @@ public class EvRepr extends Event {
         if (randTime < father.getDeathTime()) {
             op.getPec().addElement(new EvRepr(randTime, father), ec);
         }
+        
 
-        if (father.getHistory().size()
-                > 2) { // CHANGE THE VALUES IN THE PREFIX SIZE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
-            int father_hist_size = father.getHistory().size();
-            int prefix_size =
-                    (int) Math.floor(father_hist_size * (0.9 + 0.1 * father.getComfort()));
-            List<Point> newhist = Point.clonePointList(father.getHistory());
-            List<Integer> newcosts = new ArrayList<Integer>();
-            newcosts.addAll(father.getCosts());
-
+        int father_hist_size = father.getHistory().size();
+        int prefix_size =
+                (int) Math.ceil(father_hist_size * (0.9 + 0.1 * father.getComfort()));
+        List<Point> newhist = Point.clonePointList(father.getHistory());
+        List<Integer> newcosts = new ArrayList<Integer>();
+        newcosts.addAll(father.getCosts());
+        
+        //if there are not enough points in the path then the son will automatically have the father's path (because ceil of 90% path = path)
+        if(prefix_size >= father.getHistory().size()) {
+        	//do nothing since the son's path will be equal to the parents path
+        }
+        //otherwise we can let the son have only 90% + comfort%
+        else {            
             newhist.subList(prefix_size + 1, newhist.size()).clear();
             newcosts.subList(prefix_size + 1, newcosts.size()).clear();
-            ind.getHistory().addAll(newhist);
-            ind.getCosts().addAll(newcosts);
-
-            // System.out.println("pre " + prefix_size + " histFather " + father_hist_size + "
-            // newhist " +
-            // newhist.size());
-
-            int cycle_cost = 0;
-
-            for (int i = 1; i < newcosts.size(); i++) {
-                cycle_cost += newcosts.get(i);
-            }
-            ind.setCost(cycle_cost);
-
-            if (Point.findSamePoint(newhist, op.getGoal()) != -1) ind.setHit(true);
-            else ind.setHit(false);
-
-        } else { // if size is 1 or 2 then we can do nothing but accept the starting point only i
-            // guess
-            // <---- CHECK!!!!!!!!!!!
-            ind.getHistory().add(op.getStart());
-            ind.setCost(0);
-            ind.getCosts().add(1);
-            ind.setHit(false);
         }
+        
+        //update the son's history and costs with the ones from the already cutout new lists
+        ind.getHistory().addAll(newhist); 
+        ind.getCosts().addAll(newcosts);
 
+        // System.out.println("pre " + prefix_size + " histFather " + father_hist_size + "
+        // newhist " +
+        // newhist.size());
+
+        //calculating the sons total cost based on its costs
+        int cycle_cost = 0;
+        for (int i = 1; i < newcosts.size(); i++) {
+            cycle_cost += newcosts.get(i);
+        }
+        ind.setCost(cycle_cost);
+
+        //checking if the son has passed the goal (sometimes the parent can have hit but we cut those steps from the son's path
+        if (Point.findSamePoint(newhist, op.getGoal()) != -1)
+        	ind.setHit(true);
+        else
+        	ind.setHit(false);
+
+
+        //update comfort
         ind.updateComfort(op.getGoal(), op.getMap(), op.getK());
+        
+        //create death event!
         ind.setDeathTime(
                 op.getActual_time()
                         + Event.expRandom(ind.getValueForExpMean(1) * op.getDeath_mean()));
