@@ -3,6 +3,8 @@ package optProblem;
 import java.util.Arrays;
 
 /**
+ * Map used in the Optimization Problem
+ * 
  * @author group2
  *     <p>This class is for the Map. All the attributes are map related. Apart from the methods that
  *     implement the ones in the interface there was a net to include some setters/getters because

@@ -1,6 +1,8 @@
 package optProblem;
 
 /**
+ * Interface for the optimization Problem.
+ * 
  * @author group2
  *     <p>OptProblem is used in the <code>Main</code> and allows us to give alternative
  *     implementations of optimization problems. {@link main.Main}

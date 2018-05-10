@@ -10,7 +10,9 @@ import pec.IPec;
 import pec.PriorityQueuePec;
 
 /**
- * Class of the Optimization Problem. We have 4 kinds of attributes that are non static: time
+ * Class of the Optimization Problem.
+ * 
+ * We have 4 kinds of attributes that are non static: time
  * related, individual related, event related and map related.
  *
  * @version 1.0

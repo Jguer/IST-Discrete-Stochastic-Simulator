@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * Class for a point of the grid.
+ * 
  * @author group2
  *     <p>This class will store a Point, i.e., a pair of (x,y) values. No attributes are static so
  *     each object will have their own. Equals, Hashcode and toString were overridden.

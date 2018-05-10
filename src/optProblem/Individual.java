@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This is the class for Individuals. Each individual should have its own identifier, a death_time,
+ * This is the class for Individuals.
+ * 
+ * Each individual should have its own identifier, a death_time,
  * it's current comfort, the total cost of it's path so far and a boolean hit indicating if the
  * individual has reached the goal. An agent keeps two lists: - A history list to keep track of the
  * path it has covered so far; - A costs list, to be able to go back in the cost in case a loop is

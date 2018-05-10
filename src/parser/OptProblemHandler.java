@@ -9,6 +9,8 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
+ * Handler class for the parsing of the XML file
+ * 
  * @author group2
  *     <p>OptProblemHandler extends the default hander for use in the current problem using SAX.
  */

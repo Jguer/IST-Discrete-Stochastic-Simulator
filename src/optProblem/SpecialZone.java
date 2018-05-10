@@ -1,6 +1,9 @@
 package optProblem;
 
 /**
+ * 
+ * Class for the Special Cost Zones
+ * 
  * @author group2
  *     <p>This class is for Special Zones of the map, i.e.,the two points that delimit a rectangular
  *     area and the cost associated to moving in the said zone.

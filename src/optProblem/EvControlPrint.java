@@ -1,6 +1,8 @@
 package optProblem;
 
 /**
+ * Control Prints Event
+ * 
  * @author group2
  *     <p>This subclass is an extension of the abstract Event class and will handle the Control
  *     Print events. It has no fields on its own but inherits time and individual from the

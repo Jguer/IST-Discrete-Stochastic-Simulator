@@ -3,6 +3,8 @@ package optProblem;
 import java.util.Comparator;
 
 /**
+ * Comparator for individuals
+ * 
  * @author group2
  *     <p>Class that is just used to compare between individuals When used with the
  *     list.sort(Comparator) method it will sort a List of individuals by highest comfort first. It

@@ -1,6 +1,8 @@
 package optProblem;
 
 /**
+ * Interface for the Map classes.
+ * 
  * @author group2
  *     <p>IMAP is used in the <code>StochasticOptProblem</code>. The only required methods are the
  *     nonValidMove that should return true is a move is NOT valid and false otherwise and the

@@ -9,7 +9,13 @@ import java.io.PrintStream;
 import java.io.StringReader;
 import org.junit.jupiter.api.Test;
 
-/** @author group2 TestFiles handles all of the automated testing of the project */
+/** TestFiles handles all of the automated testing of the project
+ * 
+ *   @author group2
+ *   
+ *   This class isn't public so it won't show in javadoc. Only we as developers are supposed to use it so that's fine.
+ *   
+ *   */
 class TestFiles {
 
     @Test

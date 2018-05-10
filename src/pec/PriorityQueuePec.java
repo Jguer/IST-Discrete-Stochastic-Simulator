@@ -9,6 +9,8 @@ import optProblem.Event;
 import optProblem.IEvent;
 
 /**
+ * Pec implemented with a Priority Queue.
+ * 
  * @author group2
  *     <p>Generic Type PEC. Being generic of upper bound IEvent we can store any kind of classes
  *     that implement the Event interface in the PEC. The PEC will always be ordered so we need to
